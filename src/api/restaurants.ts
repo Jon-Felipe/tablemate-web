@@ -17,3 +17,27 @@ export async function getRestaurants(): Promise<Restaurant[]> {
 
   return result.data;
 }
+
+export async function getRestaurantById(id: string): Promise<Restaurant> {
+  const response = await fetch(
+    `${API_BASE_URL}/restaurants/${encodeURIComponent(id)}`,
+  );
+
+  if (!response.ok) {
+    if (response.status === 404) {
+      throw new RestaurantNotFoundError();
+    }
+    throw new Error('Failed to fetch restaurant');
+  }
+
+  const result: ApiResponse<Restaurant> = await response.json();
+
+  return result.data;
+}
+
+export class RestaurantNotFoundError extends Error {
+  constructor() {
+    super('Restaurant not found');
+    this.name = 'RestaurantNotFoundError';
+  }
+}
