@@ -1,10 +1,12 @@
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter, Routes, Route } from 'react-router';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
+import { configureStore } from '@reduxjs/toolkit';
+import { Provider } from 'react-redux';
 
-import { getRestaurantById, RestaurantNotFoundError } from '../api/restaurants';
 import type { Restaurant } from '../types/restaurant';
 import RestaurantDetailPage from './RestaurantDetailPage';
+import { restaurantApi } from '../services/restaurantApi';
 
 vi.mock('../api/restaurants', () => ({
   getRestaurantById: vi.fn(),
@@ -26,23 +28,62 @@ const restaurant: Restaurant = {
   rating: 4.7,
 };
 
+function createTestStore() {
+  return configureStore({
+    reducer: {
+      [restaurantApi.reducerPath]: restaurantApi.reducer,
+    },
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware().concat(restaurantApi.middleware),
+  });
+}
+
 function renderRestaurantDetailPage(id = 'restaurant-1') {
+  const store = createTestStore();
+
   return render(
-    <MemoryRouter initialEntries={[`/restaurants/${id}`]}>
-      <Routes>
-        <Route path='/restaurants/:id' element={<RestaurantDetailPage />} />
-      </Routes>
-    </MemoryRouter>,
+    <Provider store={store}>
+      <MemoryRouter initialEntries={[`/restaurants/${id}`]}>
+        <Routes>
+          <Route path='/restaurants/:id' element={<RestaurantDetailPage />} />
+        </Routes>
+      </MemoryRouter>
+    </Provider>,
+  );
+}
+
+function mockFetchResponse(data: Restaurant, status = 200) {
+  vi.stubGlobal(
+    'fetch',
+    vi.fn().mockResolvedValue(
+      new Response(
+        JSON.stringify({
+          statusCode: status,
+          message: status === 404 ? 'Not Found' : 'Success',
+          data,
+        }),
+        {
+          status,
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
+      ),
+    ),
   );
 }
 
 describe('RestaurantDetailPage', () => {
-  beforeEach(() => {
-    vi.mocked(getRestaurantById).mockReset();
+  afterEach(() => {
+    vi.unstubAllGlobals();
+    vi.unstubAllEnvs();
   });
 
   it('should show loading state while the restaurant is being fetched', () => {
-    vi.mocked(getRestaurantById).mockReturnValue(new Promise(() => {}));
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(() => new Promise(() => {})),
+    );
 
     renderRestaurantDetailPage();
 
@@ -52,7 +93,7 @@ describe('RestaurantDetailPage', () => {
   });
 
   it('should render restaurant details when loading succeeds', async () => {
-    vi.mocked(getRestaurantById).mockResolvedValue(restaurant);
+    mockFetchResponse(restaurant);
 
     renderRestaurantDetailPage();
 
@@ -64,12 +105,15 @@ describe('RestaurantDetailPage', () => {
       screen.getByText('12 Main Street, Johannesburg'),
     ).toBeInTheDocument();
     expect(screen.getByText('4.7')).toBeInTheDocument();
-    expect(getRestaurantById).toHaveBeenCalledWith('restaurant-1');
   });
 
   it('should show a not-found state when the restaurant does not exist', async () => {
-    vi.mocked(getRestaurantById).mockRejectedValue(
-      new RestaurantNotFoundError(),
+    mockFetchResponse(
+      {
+        ...restaurant,
+        id: 'missing',
+      },
+      404,
     );
 
     renderRestaurantDetailPage('missing');
@@ -83,8 +127,9 @@ describe('RestaurantDetailPage', () => {
   });
 
   it('should show an error message when the request fails unexpectedly', async () => {
-    vi.mocked(getRestaurantById).mockRejectedValue(
-      new Error('Network failure'),
+    vi.stubGlobal(
+      'fetch',
+      vi.fn().mockRejectedValue(new TypeError('Network faliuer')),
     );
 
     renderRestaurantDetailPage();
@@ -95,7 +140,10 @@ describe('RestaurantDetailPage', () => {
   });
 
   it('should provide a link back to the restaurant listing', async () => {
-    vi.mocked(getRestaurantById).mockReturnValue(new Promise(() => {}));
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(() => new Promise<Response>(() => {})),
+    );
 
     renderRestaurantDetailPage();
 

@@ -1,56 +1,30 @@
-import { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router';
 
 // extras
-import type { Restaurant } from '../types/restaurant';
-import { getRestaurantById, RestaurantNotFoundError } from '../api/restaurants';
+import { useGetRestaurantByIdQuery } from '../services/restaurantApi';
+
+function isFetchBaseQueryError(
+  error: unknown,
+): error is { status: number | string } {
+  return (
+    typeof error === 'object' &&
+    error !== null &&
+    'status' in error &&
+    (typeof error.status === 'number' || typeof error.status === 'string')
+  );
+}
 
 function RestaurantDetailPage() {
   const { id } = useParams<{ id: string }>();
 
-  const [restaurant, setRestaurant] = useState<Restaurant | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [isNotFound, setIsNotFound] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
+  const {
+    data: restaurant,
+    isLoading,
+    error,
+  } = useGetRestaurantByIdQuery(id ?? '', { skip: !id });
 
-  useEffect(() => {
-    let isCurrent = true;
-
-    async function loadRestaurant() {
-      if (!id) {
-        setIsNotFound(true);
-        setIsLoading(false);
-        return;
-      }
-
-      setIsLoading(true);
-      setRestaurant(null);
-      setIsNotFound(false);
-      setError(null);
-
-      try {
-        const data = await getRestaurantById(id);
-
-        if (isCurrent) setRestaurant(data);
-      } catch (error) {
-        if (!isCurrent) return;
-
-        if (error instanceof RestaurantNotFoundError) {
-          setIsNotFound(true);
-        } else {
-          setError('Unable to load this restaurant. Please try again.');
-        }
-      } finally {
-        if (isCurrent) setIsLoading(false);
-      }
-    }
-
-    void loadRestaurant();
-
-    return () => {
-      isCurrent = false;
-    };
-  }, [id]);
+  const isNotFound =
+    !id || (isFetchBaseQueryError(error) && error.status === 404);
 
   return (
     <main className='detail-section'>
@@ -70,7 +44,9 @@ function RestaurantDetailPage() {
         </div>
       )}
 
-      {!isLoading && error && <p role='alert'>{error}</p>}
+      {!isLoading && error && !isNotFound && (
+        <p role='alert'>Unable to load this restaurant. Please try again.</p>
+      )}
 
       {!isLoading && !error && !isNotFound && restaurant && (
         <article className='restaurant-detail'>
