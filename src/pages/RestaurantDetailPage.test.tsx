@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter, Routes, Route } from 'react-router';
-import { beforeEach, afterEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
 
@@ -74,10 +74,6 @@ function mockFetchResponse(data: Restaurant, status = 200) {
 }
 
 describe('RestaurantDetailPage', () => {
-  beforeEach(() => {
-    vi.stubEnv('VITE_API_BASE_URL', 'http://localhost:3000/api/v1');
-  });
-
   afterEach(() => {
     vi.unstubAllGlobals();
     vi.unstubAllEnvs();

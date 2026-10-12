@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
 
@@ -55,10 +55,6 @@ function mockFetchResponse(data: Restaurant | Restaurant[]) {
 }
 
 describe('App navigation', () => {
-  beforeEach(() => {
-    vi.stubEnv('VITE_API_BASE_URL', 'http://localhost:3000/api/v1');
-  });
-
   afterEach(() => {
     vi.unstubAllGlobals();
     vi.unstubAllEnvs();
