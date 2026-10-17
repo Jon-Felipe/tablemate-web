@@ -50,6 +50,11 @@ function RestaurantDetailPage() {
 
       {!isLoading && !error && !isNotFound && restaurant && (
         <article className='restaurant-detail'>
+          <img
+            src={restaurant.imageUrl}
+            alt={`Food and dining at ${restaurant.imageUrl}`}
+            className='restaurant-detail-image'
+          />
           <p className='eyebrow'>{restaurant.cuisine}</p>
           <h1>{restaurant.name}</h1>
           <p className='detail-description'>{restaurant.description}</p>

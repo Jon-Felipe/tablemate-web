@@ -21,6 +21,8 @@ vi.mock('../api/restaurants', () => ({
 const restaurant: Restaurant = {
   id: 'restaurant-1',
   name: 'The Golden Fork',
+  imageUrl:
+    'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80',
   description: 'Modern European cuisine in a relaxed atmosphere.',
   cuisine: 'European',
   address: '12 Main Street',
