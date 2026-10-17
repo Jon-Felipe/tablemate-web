@@ -65,6 +65,12 @@ function HomePage() {
                   className='restaurant-card restaurant-card-link'
                 >
                   <article className='restaurant-card'>
+                    <img
+                      src={restaurant.imageUrl}
+                      alt={`Food and dining at ${restaurant.name}`}
+                      loading='lazy'
+                      className='restaurant-card-image'
+                    />
                     <div className='restaurant-card-content'>
                       <p className='restaurant-cuisine'>{restaurant.cuisine}</p>
                       <h3>{restaurant.name}</h3>
