@@ -1,7 +1,10 @@
 import { Link, useParams } from 'react-router';
 
 // extras
-import { useGetRestaurantByIdQuery } from '../services/restaurantApi';
+import {
+  useGetRestaurantByIdQuery,
+  useGetRestaurantMenuQuery,
+} from '../services/restaurantApi';
 
 function isFetchBaseQueryError(
   error: unknown,
@@ -19,12 +22,27 @@ function RestaurantDetailPage() {
 
   const {
     data: restaurant,
-    isLoading,
-    error,
+    isLoading: isRestaurantLoading,
+    error: restaurantError,
   } = useGetRestaurantByIdQuery(id ?? '', { skip: !id });
 
+  const {
+    data: menu,
+    isLoading: isMenuLoading,
+    error: menuError,
+  } = useGetRestaurantMenuQuery(id ?? '', {
+    skip:
+      !id ||
+      Boolean(
+        restaurantError &&
+        isFetchBaseQueryError(restaurantError) &&
+        restaurantError.status === 404,
+      ),
+  });
+
   const isNotFound =
-    !id || (isFetchBaseQueryError(error) && error.status === 404);
+    !id ||
+    (isFetchBaseQueryError(restaurantError) && restaurantError.status === 404);
 
   return (
     <main className='detail-section'>
@@ -32,9 +50,9 @@ function RestaurantDetailPage() {
         ← Back to restaurants
       </Link>
 
-      {isLoading && <p role='status'>Loading restaurant...</p>}
+      {isRestaurantLoading && <p role='status'>Loading restaurant...</p>}
 
-      {!isLoading && isNotFound && (
+      {!isRestaurantLoading && isNotFound && (
         <div className='empty-state'>
           <h1>Restaurant not found</h1>
           <p>This restaurant may no longer be available.</p>
@@ -44,38 +62,95 @@ function RestaurantDetailPage() {
         </div>
       )}
 
-      {!isLoading && error && !isNotFound && (
+      {!isRestaurantLoading && restaurantError && !isNotFound && (
         <p role='alert'>Unable to load this restaurant. Please try again.</p>
       )}
 
-      {!isLoading && !error && !isNotFound && restaurant && (
-        <article className='restaurant-detail'>
-          <img
-            src={restaurant.imageUrl}
-            alt={`Food and dining at ${restaurant.imageUrl}`}
-            className='restaurant-detail-image'
-          />
-          <p className='eyebrow'>{restaurant.cuisine}</p>
-          <h1>{restaurant.name}</h1>
-          <p className='detail-description'>{restaurant.description}</p>
+      {!isRestaurantLoading &&
+        !restaurantError &&
+        !isNotFound &&
+        restaurant && (
+          <>
+            <article className='restaurant-detail'>
+              <img
+                src={restaurant.imageUrl}
+                alt={`Food and dining at ${restaurant.name}`}
+                className='restaurant-detail-image'
+              />
+              <p className='eyebrow'>{restaurant.cuisine}</p>
+              <h1>{restaurant.name}</h1>
+              <p className='detail-description'>{restaurant.description}</p>
 
-          <div className='detail-information'>
-            <div>
-              <h2>Location</h2>
-              <p>
-                {restaurant.address}, {restaurant.city}
-              </p>
-            </div>
+              <div className='detail-information'>
+                <div>
+                  <h2>Location</h2>
+                  <p>
+                    {restaurant.address}, {restaurant.city}
+                  </p>
+                </div>
 
-            <div>
-              <h2>Rating</h2>
-              <p className='restaurant-rating'>
-                <span aria-hidden='true'>★</span> {restaurant.rating.toFixed(1)}
-              </p>
-            </div>
-          </div>
-        </article>
-      )}
+                <div>
+                  <h2>Rating</h2>
+                  <p className='restaurant-rating'>
+                    <span aria-hidden='true'>★</span>{' '}
+                    {restaurant.rating.toFixed(1)}
+                  </p>
+                </div>
+              </div>
+            </article>
+
+            <section className='restaurant-menu' aria-labelledby='menu-heading'>
+              <h2 id='menu-heading'>Menu</h2>
+
+              {isMenuLoading && <p role='status'>Loading menu...</p>}
+
+              {menuError && (
+                <p role='alert'>Unable to load this menu. Please try again.</p>
+              )}
+
+              {!isMenuLoading &&
+                !menuError &&
+                (!menu?.categories || menu.categories.length === 0) && (
+                  <p>This restaurant's menu is coming soon.</p>
+                )}
+
+              {!isMenuLoading &&
+                !menuError &&
+                menu?.categories?.map((category) => (
+                  <section
+                    key={category.id}
+                    className='menu-category'
+                    aria-labelledby={`category-${category.id}`}
+                  >
+                    <h3 id={`category-${category.id}`}>{category.name}</h3>
+
+                    <div className='menu-items'>
+                      {category.items.map((item) => (
+                        <article key={item.id} className='menu-item'>
+                          <img
+                            src={item.imageUrl}
+                            alt={item.name}
+                            className='menu-item-image'
+                            loading='lazy'
+                          />
+                          <div className='menu-item-details'>
+                            <h4>{item.name}</h4>
+                            <p>{item.description}</p>
+                            <p className='menu-item-price'>
+                              {new Intl.NumberFormat('en-ZA', {
+                                style: 'currency',
+                                currency: 'ZAR',
+                              }).format(item.price)}
+                            </p>
+                          </div>
+                        </article>
+                      ))}
+                    </div>
+                  </section>
+                ))}
+            </section>
+          </>
+        )}
     </main>
   );
 }

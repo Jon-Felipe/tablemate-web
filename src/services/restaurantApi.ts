@@ -1,5 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+
 import type { Restaurant } from '../types/restaurant';
+import type { RestaurantMenu } from '../types/restaurantMenu';
 
 interface ApiResponse<T> {
   statusCode: number;
@@ -21,8 +23,16 @@ export const restaurantApi = createApi({
       query: (id) => `/restaurants/${id}`,
       transformResponse: (response: ApiResponse<Restaurant>) => response.data,
     }),
+    getRestaurantMenu: builder.query<RestaurantMenu, string>({
+      query: (id) => `/restaurants/${id}/menu`,
+      transformResponse: (response: ApiResponse<RestaurantMenu>) =>
+        response.data,
+    }),
   }),
 });
 
-export const { useGetRestaurantsQuery, useGetRestaurantByIdQuery } =
-  restaurantApi;
+export const {
+  useGetRestaurantsQuery,
+  useGetRestaurantByIdQuery,
+  useGetRestaurantMenuQuery,
+} = restaurantApi;

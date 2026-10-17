@@ -8,6 +8,7 @@ import { Provider } from 'react-redux';
 import App from './App';
 import { restaurantApi } from './services/restaurantApi';
 import type { Restaurant } from './types/restaurant';
+import type { RestaurantMenu } from './types/restaurantMenu';
 
 const restaurant: Restaurant = {
   id: 'restaurant-1',
@@ -37,12 +38,25 @@ function mockFetchResponse(data: Restaurant | Restaurant[]) {
     vi.fn().mockImplementation((input: RequestInfo | URL) => {
       const url = input instanceof Request ? input.url : String(input);
 
+      let responseData: Restaurant | Restaurant[] | RestaurantMenu;
+
+      if (url.endsWith('/restaurants/restaurant-1/menu')) {
+        responseData = {
+          restaurantId: 'restaurant-1',
+          categories: [],
+        } satisfies RestaurantMenu;
+      } else if (url.endsWith('restaurants/restaurant-1')) {
+        responseData = restaurant;
+      } else {
+        responseData = data;
+      }
+
       return Promise.resolve(
         new Response(
           JSON.stringify({
             statusCode: 200,
             message: 'Success',
-            data: url.endsWith('/restaurants/restaurant-1') ? restaurant : data,
+            data: responseData,
           }),
           {
             status: 200,
