@@ -161,7 +161,7 @@ describe('RestaurantDetailPage', () => {
     ).toBeInTheDocument();
 
     expect(screen.getByText('Tomatoes and fresh herbs.')).toBeInTheDocument();
-    expect(screen.getByText(/R\s?65\,00/)).toBeInTheDocument();
+    expect(screen.getByText(/R\s?65,00/)).toBeInTheDocument();
   });
 
   it('should show the menu loading state', () => {
