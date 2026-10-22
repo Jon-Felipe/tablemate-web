@@ -524,3 +524,326 @@
     font-size: 0.85rem;
   }
 }
+
+/* Authentication pages */
+
+.auth-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 48px 24px;
+  background:
+    radial-gradient(circle at top left, rgb(55 107 75 / 8%), transparent 35%),
+    var(--color-background);
+}
+
+.auth-form-container {
+  width: 100%;
+  max-width: 440px;
+  padding: 40px;
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  background: var(--color-surface);
+  box-shadow: 0 16px 48px rgb(38 53 44 / 7%);
+}
+
+.auth-form-container h1 {
+  margin: 0 0 12px;
+  color: var(--color-text);
+  font-size: clamp(1.8rem, 5vw, 2.3rem);
+  font-weight: 750;
+  letter-spacing: -0.05em;
+  line-height: 1.2;
+}
+
+.auth-form-container > p {
+  margin: 0 0 28px;
+  color: var(--color-muted);
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+/* Login form */
+
+.auth-form-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-field label {
+  color: var(--color-text);
+  font-size: 0.9rem;
+  font-weight: 650;
+}
+
+.form-field input {
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 14px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  outline: none;
+  background: #fff;
+  color: var(--color-text);
+  font: inherit;
+  font-size: 0.95rem;
+  transition:
+    border-color 150ms ease,
+    box-shadow 150ms ease;
+}
+
+.form-field input::placeholder {
+  color: #9aa39c;
+}
+
+.form-field input:hover {
+  border-color: #bdc9bf;
+}
+
+.form-field input:focus-visible {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgb(55 107 75 / 12%);
+}
+
+/* Login button */
+
+.auth-form-container form button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 48px;
+  margin-top: 2px;
+  padding: 13px 20px;
+  border: 1px solid var(--color-accent);
+  border-radius: 8px;
+  background: var(--color-accent);
+  color: #fff;
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background 150ms ease,
+    border-color 150ms ease,
+    transform 150ms ease;
+}
+
+.auth-form-container form button:hover:not(:disabled) {
+  border-color: #28543a;
+  background: #28543a;
+}
+
+.auth-form-container form button:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.auth-form-container form button:focus-visible {
+  outline: 3px solid rgb(55 107 75 / 25%);
+  outline-offset: 3px;
+}
+
+.auth-form-container form button:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* Login error message */
+
+.auth-form-container .auth-error {
+  margin: -8px 0 0;
+  padding: 12px 14px;
+  border: 1px solid #f0caca;
+  border-radius: 8px;
+  background: #fff5f5;
+  color: #a52a2a;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+/* Registration link */
+
+.auth-form-container > p:last-child {
+  margin: 28px 0 0;
+  padding-top: 24px;
+  border-top: 1px solid var(--color-border);
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.auth-form-container > p:last-child a {
+  color: var(--color-accent);
+  font-weight: 700;
+  text-decoration: none;
+  text-underline-offset: 4px;
+}
+
+.auth-form-container > p:last-child a:hover {
+  text-decoration: underline;
+}
+
+/* Mobile layout */
+
+@media (max-width: 480px) {
+  .auth-page {
+    align-items: flex-start;
+    padding: 32px 16px;
+  }
+
+  .auth-form-container {
+    padding: 28px 22px;
+    border-radius: 12px;
+  }
+
+  .auth-form-container > p {
+    margin-bottom: 24px;
+  }
+
+  .auth-form-container form {
+    gap: 18px;
+  }
+}
+
+/* Reduced motion accessibility */
+
+@media (prefers-reduced-motion: reduce) {
+  .form-field input,
+  .auth-form-container form button {
+    transition: none;
+  }
+}
+
+/* Authentication links in the header */
+
+.auth-nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-shrink: 0;
+}
+
+.login-link {
+  color: var(--color-text);
+  font-size: 0.95rem;
+  font-weight: 650;
+  text-decoration: none;
+  transition: color 150ms ease;
+}
+
+.login-link:hover {
+  color: var(--color-accent);
+}
+
+.register-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 11px 18px;
+  border: 1px solid var(--color-accent);
+  border-radius: 8px;
+  background: var(--color-accent);
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 650;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    background 150ms ease,
+    border-color 150ms ease;
+}
+
+.register-button:hover {
+  border-color: #28543a;
+  background: #28543a;
+}
+
+/* Keyboard accessibility */
+
+.login-link:focus-visible,
+.register-button:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+/* Responsive header */
+
+@media (max-width: 700px) {
+  .site-header {
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .site-header nav {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    padding-top: 12px;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .auth-nav {
+    margin-left: auto;
+    gap: 12px;
+  }
+
+  .register-button {
+    padding: 10px 12px;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .site-header {
+    gap: 12px;
+  }
+
+  .brand {
+    font-size: 1.35rem;
+  }
+
+  .auth-nav {
+    gap: 10px;
+  }
+
+  .register-button {
+    padding: 9px 10px;
+    font-size: 0.8rem;
+  }
+}
+
+/* Registration success action */
+
+.auth-action-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 48px;
+  padding: 13px 20px;
+  border: 1px solid var(--color-accent);
+  border-radius: 8px;
+  background: var(--color-accent);
+  color: #fff;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+  transition: background 150ms ease;
+}
+
+.auth-action-link:hover {
+  background: #28543a;
+}
+
+.auth-action-link:focus-visible {
+  outline: 3px solid rgb(55 107 75 / 25%);
+  outline-offset: 3px;
+}
