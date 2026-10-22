@@ -2,6 +2,12 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 import type { Restaurant } from '../types/restaurant';
 import type { RestaurantMenu } from '../types/restaurantMenu';
+import type {
+  AuthUser,
+  LoginRequest,
+  LoginResponse,
+  RegisterRequest,
+} from '../types/auth';
 
 interface ApiResponse<T> {
   statusCode: number;
@@ -28,6 +34,32 @@ export const restaurantApi = createApi({
       transformResponse: (response: ApiResponse<RestaurantMenu>) =>
         response.data,
     }),
+    register: builder.mutation<AuthUser, RegisterRequest>({
+      query: (body) => ({
+        url: '/users',
+        method: 'POST',
+        body,
+      }),
+      transformResponse: (response: ApiResponse<AuthUser>) => response.data,
+    }),
+    login: builder.mutation<LoginResponse, LoginRequest>({
+      query: (body) => ({
+        url: '/users/login',
+        method: 'POST',
+        body,
+      }),
+      transformResponse: (response: ApiResponse<LoginResponse>) =>
+        response.data,
+    }),
+    getCurrentUser: builder.query<AuthUser, string>({
+      query: (accessToken) => ({
+        url: '/users/me',
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }),
+      transformResponse: (response: ApiResponse<AuthUser>) => response.data,
+    }),
   }),
 });
 
@@ -35,4 +67,7 @@ export const {
   useGetRestaurantsQuery,
   useGetRestaurantByIdQuery,
   useGetRestaurantMenuQuery,
+  useRegisterMutation,
+  useLoginMutation,
+  useGetCurrentUserQuery,
 } = restaurantApi;
