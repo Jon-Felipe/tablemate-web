@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router';
 
 // extras
@@ -13,7 +13,7 @@ function RegisterPage() {
   const [error, setError] = useState<string | null>(null);
   const [isRegistered, setIsRegistered] = useState<boolean>(false);
 
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: React.SubmitEvent) {
     event.preventDefault();
     setError(null);
     setIsRegistered(false);

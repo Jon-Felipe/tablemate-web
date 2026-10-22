@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router';
 
 // extras
@@ -12,7 +12,7 @@ function LoginPage() {
   const [password, setPassword] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
 
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: React.SubmitEvent) {
     event.preventDefault();
     setError(null);
 
