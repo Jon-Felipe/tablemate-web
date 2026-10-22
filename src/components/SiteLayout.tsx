@@ -12,6 +12,16 @@ function SiteLayout() {
           <Link to='/#restaurants'>Restaurants</Link>
           <Link to='/#about'>About</Link>
         </nav>
+
+        <div className='auth-nav'>
+          <Link to='/login' className='login-link'>
+            Log in
+          </Link>
+
+          <Link to='/register' className='register-button'>
+            Create account
+          </Link>
+        </div>
       </header>
 
       <Outlet />
