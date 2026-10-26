@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 
 // extras
 import App from './App';
+import authReducer from './features/auth/authSlice';
 import { restaurantApi } from './services/restaurantApi';
 import type { Restaurant } from './types/restaurant';
 import type { RestaurantMenu } from './types/restaurantMenu';
@@ -25,6 +26,7 @@ const restaurant: Restaurant = {
 function createTestStore() {
   return configureStore({
     reducer: {
+      auth: authReducer,
       [restaurantApi.reducerPath]: restaurantApi.reducer,
     },
     middleware: (getDefaultMiddleware) =>

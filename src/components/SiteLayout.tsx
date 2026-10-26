@@ -1,6 +1,10 @@
 import { Link, Outlet } from 'react-router';
 
+import { useAuth } from '../features/auth/useAuth';
+
 function SiteLayout() {
+  const { isAuthenticated } = useAuth();
+
   return (
     <div className='app'>
       <header className='site-header'>
@@ -14,13 +18,21 @@ function SiteLayout() {
         </nav>
 
         <div className='auth-nav'>
-          <Link to='/login' className='login-link'>
-            Log in
-          </Link>
+          {isAuthenticated ? (
+            <Link to='/profile' className='login-link'>
+              Profile
+            </Link>
+          ) : (
+            <>
+              <Link to='/login' className='login-link'>
+                Log in
+              </Link>
 
-          <Link to='/register' className='register-button'>
-            Create account
-          </Link>
+              <Link to='/register' className='register-button'>
+                Create account
+              </Link>
+            </>
+          )}
         </div>
       </header>
 

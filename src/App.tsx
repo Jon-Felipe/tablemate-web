@@ -3,13 +3,15 @@ import './App.css';
 
 // pages
 import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
 import HomePage from './pages/HomePage';
 import NotFoundPage from './pages/NotFoundPage';
 import RestaurantDetailPage from './pages/RestaurantDetailPage';
+import ProfilePage from './pages/ProfilePage';
 
 // components
 import SiteLayout from './components/SiteLayout';
-import RegisterPage from './pages/RegisterPage';
+import RequireAuth from './components/RequireAuth';
 
 function App() {
   return (
@@ -20,6 +22,11 @@ function App() {
           <Route path='/register' element={<RegisterPage />} />
           <Route index element={<HomePage />} />
           <Route path='restaurants/:id' element={<RestaurantDetailPage />} />
+
+          <Route element={<RequireAuth />}>
+            <Route path='/profile' element={<ProfilePage />} />
+          </Route>
+
           <Route path='*' element={<NotFoundPage />} />
         </Route>
       </Routes>
