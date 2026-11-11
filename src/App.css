@@ -31,7 +31,6 @@
   justify-content: space-between;
   gap: 24px;
   padding: 24px 8%;
-  border-bottom: 1px solid var(--color-border);
 }
 
 .brand {
@@ -780,14 +779,6 @@
   .site-header {
     flex-wrap: wrap;
     gap: 16px;
-  }
-
-  .site-header nav {
-    order: 3;
-    width: 100%;
-    justify-content: center;
-    padding-top: 12px;
-    border-top: 1px solid var(--color-border);
   }
 
   .auth-nav {
