@@ -1,32 +1,81 @@
-# React + TypeScript + Vite
+# TableMate
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+TableMate is a restaurant discovery web app. Browse restaurants, view details and menus, create an account, and access your profile.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Browse restaurants with cuisine, location, description, and rating details.
+- View restaurant information and menu items.
+- Register, log in, and view a protected account profile.
+- Responsive interface built with React and TypeScript.
 
-## React Compiler
+## Getting started
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Requirements
 
-## Expanding the Oxlint configuration
+- Node.js and npm
+- A TableMate API server
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+### Install and run
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```sh
+npm ci
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+Create a `.env.local` file in the project root and set the API base URL:
+
+```env
+VITE_API_BASE_URL=http://localhost:3000/api/v1
+```
+
+Replace the example URL with the base URL for your API server. The app expects the API to provide restaurant and menu data as well as registration, login, and current-user endpoints.
+
+Start the development server:
+
+```sh
+npm run dev
+```
+
+Vite prints the local URL when the server is ready.
+
+## Application routes
+
+| Route | Description | Access |
+| --- | --- | --- |
+| `/` | Browse restaurants | Public |
+| `/restaurants/:id` | View a restaurant and its menu | Public |
+| `/login` | Log in to an account | Public |
+| `/register` | Create an account | Public |
+| `/profile` | View account details and log out | Requires authentication |
+
+## API
+
+Requests are made relative to `VITE_API_BASE_URL`. Responses use an envelope with `statusCode`, `message`, and `data` fields. The app uses these endpoints:
+
+| Method | Endpoint | Purpose |
+| --- | --- | --- |
+| `GET` | `/restaurants` | List restaurants |
+| `GET` | `/restaurants/:id` | Get a restaurant |
+| `GET` | `/restaurants/:id/menu` | Get a restaurant menu |
+| `POST` | `/users` | Register a user |
+| `POST` | `/users/login` | Log in and receive an access token |
+| `GET` | `/users/me` | Get the authenticated user's profile (Bearer token required) |
+
+## Scripts
+
+| Command | Description |
+| --- | --- |
+| `npm run dev` | Start the Vite development server |
+| `npm run build` | Type-check and create a production build |
+| `npm run preview` | Preview the production build locally |
+| `npm test` | Run the test suite once |
+| `npm run test:watch` | Run tests in watch mode |
+| `npm run lint` | Run Oxlint |
+
+## Built with
+
+- React and TypeScript
+- Vite
+- React Router
+- Redux Toolkit and RTK Query
+- Vitest and Testing Library
