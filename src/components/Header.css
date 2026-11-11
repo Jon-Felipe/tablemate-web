@@ -1,0 +1,171 @@
+/* ==============================
+   Header Layout
+============================== */
+
+.site-header {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  column-gap: 40px;
+
+  width: 100%;
+  min-height: 78px;
+  padding: 0 44px;
+
+  background-color: #fdfbf9;
+
+  box-sizing: border-box;
+}
+
+/* ==============================
+   Brand
+============================== */
+
+.brand {
+  color: #174b3b;
+  font-family: Georgia, serif;
+  font-size: 20px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+/* ==============================
+   Main Navigation
+============================== */
+
+.main-nav {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 34px;
+}
+
+.main-nav a {
+  color: #414141;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+
+  transition: color 0.2s ease;
+}
+
+.main-nav a:hover {
+  color: #174b3b;
+}
+
+/* ==============================
+   Header Actions
+============================== */
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+
+  white-space: nowrap;
+}
+
+.header-actions a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 38px;
+  padding: 0 17px;
+
+  border-radius: 30px;
+
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+/* Log In */
+
+.login-button {
+  background-color: #b9f0d8;
+  color: #174b3b;
+}
+
+.login-button:hover {
+  background-color: #a3e7c9;
+}
+
+/* Sign Up */
+
+.signup-button {
+  background-color: #80330f;
+  color: #fff;
+}
+
+.signup-button:hover {
+  background-color: #65280d;
+}
+
+/* ==============================
+   Responsive: Tablets
+============================== */
+
+@media (max-width: 768px) {
+  .site-header {
+    padding: 16px 20px;
+    column-gap: 20px;
+    row-gap: 16px;
+    grid-template-columns: auto 1fr;
+  }
+
+  .brand {
+    font-size: 19px;
+  }
+
+  .header-actions {
+    justify-content: flex-end;
+  }
+
+  .main-nav {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    gap: 24px;
+    overflow-x: auto;
+  }
+}
+
+/* ==============================
+   Responsive: Mobile
+============================== */
+
+@media (max-width: 480px) {
+  .site-header {
+    padding: 14px 16px;
+    column-gap: 10px;
+  }
+
+  .brand {
+    font-size: 18px;
+  }
+
+  .header-actions {
+    gap: 6px;
+  }
+
+  .header-actions a {
+    min-height: 34px;
+    padding: 0 11px;
+    font-size: 12px;
+  }
+
+  .main-nav {
+    gap: 20px;
+  }
+
+  .main-nav a {
+    font-size: 13px;
+  }
+}

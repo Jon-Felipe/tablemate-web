@@ -1,42 +1,16 @@
-import { Link, Outlet } from 'react-router';
+import { Outlet } from 'react-router';
 
-import { useAuth } from '../features/auth/useAuth';
+// components
+import Header from './Header';
 
 function SiteLayout() {
-  const { isAuthenticated } = useAuth();
-
   return (
     <div className='app'>
-      <header className='site-header'>
-        <Link to='/' className='brand'>
-          TableMate <span>.</span>
-        </Link>
+      <Header />
 
-        <nav aria-label='Main navigation'>
-          <Link to='/#restaurants'>Restaurants</Link>
-          <Link to='/#about'>About</Link>
-        </nav>
-
-        <div className='auth-nav'>
-          {isAuthenticated ? (
-            <Link to='/profile' className='login-link'>
-              Profile
-            </Link>
-          ) : (
-            <>
-              <Link to='/login' className='login-link'>
-                Log in
-              </Link>
-
-              <Link to='/register' className='register-button'>
-                Create account
-              </Link>
-            </>
-          )}
-        </div>
-      </header>
-
-      <Outlet />
+      <main>
+        <Outlet />
+      </main>
 
       <footer className='site-footer'>
         <p>TableMate © 2026</p>
