@@ -3,7 +3,7 @@ import './App.css';
 
 // pages
 import LoginPage from './pages/LoginPage';
-import RegisterPage from './pages/RegisterPage';
+import RegisterPage from './pages/RegisterPage/RegisterPage';
 import HomePage from './pages/HomePage/HomePage';
 import NotFoundPage from './pages/NotFoundPage';
 import RestaurantDetailPage from './pages/RestaurantDetailPage';
