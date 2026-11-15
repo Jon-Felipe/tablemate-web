@@ -4,7 +4,7 @@ import './App.css';
 // pages
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
-import HomePage from './pages/HomePage';
+import HomePage from './pages/HomePage/HomePage';
 import NotFoundPage from './pages/NotFoundPage';
 import RestaurantDetailPage from './pages/RestaurantDetailPage';
 import ProfilePage from './pages/ProfilePage';
