@@ -1,0 +1,83 @@
+import { Link } from 'react-router';
+
+// extras
+import './Footer.css';
+
+function Footer() {
+  return (
+    <footer className='site-footer'>
+      <div className='footer-main'>
+        <div className='footer-brand'>
+          <Link to='/' className='footer-logo'>
+            <span>TableMate</span>
+          </Link>
+
+          <p>
+            An elevated culinary exploration and reservation network tailored
+            for boutique dining, tasting rooms, and neighborhood favorites.
+          </p>
+        </div>
+
+        <div className='footer-column'>
+          <h3>TableMate</h3>
+          <Link to='/restaurants'>Contemporary Tasting</Link>
+          <Link to='/restaurants?cuisine=Italian'>Woodfired Trattoria</Link>
+          <Link to='/restaurants?cuisine=Japanese'>Omakase & Kaiseki</Link>
+          <Link to='/restaurants'>Natural Wine Bistros</Link>
+        </div>
+
+        <div className='footer-column'>
+          <h3>For Restaurants</h3>
+          <Link to='/partner'>Partner with TableMate</Link>
+          <Link to='/host-login'>Host Management System</Link>
+          <Link to='/sommelier'>Sommelier Curation</Link>
+          <Link to='/staff-login'>Staff Portal Login</Link>
+        </div>
+
+        <div className='footer-column'>
+          <h3>Legal & Support</h3>
+          <Link to='/privacy'>Privacy Policy</Link>
+          <Link to='/terms'>Terms of Hospitality</Link>
+          <Link to='/concierge'>Concierge Desk</Link>
+          <Link to='/press'>Press Inquiries</Link>
+        </div>
+      </div>
+
+      <div className='footer-bottom'>
+        <p>© 2024 TableMate Hospitality Inc. Crafted for discerning diners.</p>
+
+        <div className='footer-socials'>
+          <a
+            href='https://www.instagram.com/'
+            target='_blank'
+            rel='noreferrer'
+            aria-label='Instagram'
+          >
+            ◎
+          </a>
+          <a
+            href='https://www.facebook.com/'
+            target='_blank'
+            rel='noreferrer'
+            aria-label='Facebook'
+          >
+            f
+          </a>
+          <a
+            href='https://www.linkedin.com/'
+            target='_blank'
+            rel='noreferrer'
+            aria-label='LinkedIn'
+          >
+            in
+          </a>
+          <a href='mailto:hello@tablemate.com' aria-label='Email us'>
+            ✉
+          </a>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+export default Footer;

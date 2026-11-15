@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { configureStore } from '@reduxjs/toolkit';
@@ -90,8 +90,17 @@ describe('App navigation', () => {
       </Provider>,
     );
 
-    const restaurantLink = await screen.findByRole('link', {
-      name: /The Golden Fork/,
+    const restaurantHeading = await screen.findByRole('heading', {
+      name: 'The Golden Fork',
+    });
+    const restaurantCard = restaurantHeading.closest('article');
+    expect(restaurantCard).not.toBeNull();
+    if (!restaurantCard) {
+      throw new Error('Restaurant card not found');
+    }
+
+    const restaurantLink = within(restaurantCard).getByRole('link', {
+      name: 'View Details',
     });
 
     expect(restaurantLink).toHaveAttribute('href', '/restaurants/restaurant-1');
@@ -99,7 +108,7 @@ describe('App navigation', () => {
     await user.click(restaurantLink);
 
     expect(
-      await screen.findByRole('heading', { name: 'The Golden Fork' }),
+      await screen.findByRole('heading', { level: 1, name: 'The Golden Fork' }),
     ).toBeInTheDocument();
 
     await user.click(
@@ -107,7 +116,10 @@ describe('App navigation', () => {
     );
 
     expect(
-      await screen.findByRole('heading', { name: 'Explore restaurants' }),
+      await screen.findByRole('heading', { name: 'Featured Dining Rooms' }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', { level: 3, name: 'The Golden Fork' }),
     ).toBeInTheDocument();
   });
 });

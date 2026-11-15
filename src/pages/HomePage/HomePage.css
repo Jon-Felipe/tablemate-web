@@ -1,0 +1,879 @@
+.hero {
+  padding: 65px 5.5%;
+  background: linear-gradient(110deg, #e7f4ed 0%, #f4f1ed 55%, #f8efeb 100%);
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 15px;
+  border-radius: 30px;
+  background: #dcece5;
+  color: #286b5d;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+}
+
+.hero-badge span {
+  color: #329879;
+  font-size: 9px;
+}
+
+.hero h1 {
+  margin: 22px 0 16px;
+  color: #075b4d;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(38px, 4.5vw, 56px);
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -1.5px;
+}
+
+.hero-description {
+  max-width: 620px;
+  margin-bottom: 0;
+  color: #455b62;
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+.hero-search {
+  display: grid;
+  grid-template-columns: 1.5fr 1.3fr 1fr 0.65fr auto;
+  align-items: center;
+  gap: 10px;
+  margin-top: 38px;
+  padding: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 24px;
+  background: #fffaf8;
+  box-shadow: 0 12px 35px rgba(35, 55, 45, 0.09);
+}
+
+.hero-search-field {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  /* min-height: 62px; */
+  padding: 5px 13px;
+  border: 1px solid transparent;
+  border-radius: 14px;
+  background: #f5f2f1;
+  transition:
+    border-color 0.2s,
+    background 0.2s;
+}
+
+.hero-search-field:focus-within {
+  border-color: #8aab9e;
+  background: #ffffff;
+}
+
+.hero-search-field > span {
+  flex-shrink: 0;
+  font-size: 17px;
+}
+
+.hero-search-field > div {
+  min-width: 0;
+  flex: 1;
+}
+
+.hero-search-field label {
+  display: block;
+  margin-bottom: 6px;
+  color: #49606a;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.7px;
+}
+
+.hero-search-field input,
+.hero-search-field select {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #26383e;
+  font-family: inherit;
+  font-size: 12px;
+}
+
+.hero-search-field input::placeholder {
+  color: #87918e;
+}
+
+.hero-search-field input:focus,
+.hero-search-field select:focus {
+  outline: none;
+}
+
+.hero-search-button {
+  min-height: 46px;
+  padding: 0px 24px;
+  border: none;
+  border-radius: 14px;
+  background: #873915;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    transform 0.2s;
+}
+
+.hero-search-button:hover {
+  background: #6f2d10;
+  transform: translateY(-1px);
+}
+
+.hero-trending {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 9px;
+  margin-top: 8px;
+  padding: 5px 2px 0;
+  color: #64716d;
+  font-size: 11px;
+}
+
+.trending-tag {
+  padding: 7px 13px;
+  border: 1px solid #e9e3df;
+  border-radius: 20px;
+  background: #f4efed;
+  color: #594b45;
+  font-size: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    color 0.2s;
+}
+
+.trending-tag:hover {
+  background: #873915;
+  color: #ffffff;
+}
+
+@media (max-width: 1100px) {
+  .hero-search {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .hero-search-button {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 650px) {
+  .hero {
+    padding: 42px 20px;
+  }
+
+  .hero h1 {
+    font-size: clamp(34px, 8vw, 44px);
+    letter-spacing: -1px;
+  }
+
+  .hero h1 br {
+    display: none;
+  }
+
+  .hero-search {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 13px;
+    border-radius: 18px;
+  }
+
+  .hero-search-field {
+    min-height: 60px;
+  }
+
+  .hero-search-button {
+    grid-column: 1;
+    width: 100%;
+  }
+
+  .hero-trending {
+    grid-column: 1;
+    gap: 7px;
+  }
+}
+
+/* ========================================
+   POPULAR CUISINES SECTION
+======================================== */
+
+.cuisines-section {
+  padding: 65px 5.5%;
+  margin: 0 auto;
+}
+
+/* Heading */
+
+.cuisines-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  gap: 20px;
+}
+
+.cuisines-heading .eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.7px;
+  color: #64766c;
+  margin-bottom: 6px;
+}
+
+.cuisines-heading h2 {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: #063f32;
+  margin: 0;
+  letter-spacing: -0.8px;
+}
+
+.cuisines-description {
+  font-size: 13px;
+  color: #77716d;
+  margin: 0 0 3px;
+}
+
+/* Grid */
+
+.cuisines-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 13px;
+}
+
+/* Cuisine Card */
+
+.cuisine-card {
+  position: relative;
+  display: block;
+  height: 300px;
+  overflow: hidden;
+  border-radius: 28px;
+  text-decoration: none;
+  background: #123d32;
+  isolation: isolate;
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.cuisine-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 28px rgba(0, 45, 34, 0.18);
+}
+
+.cuisine-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+  z-index: -2;
+}
+
+.cuisine-card:hover .cuisine-image {
+  transform: scale(1.07);
+}
+
+/* Gradient Overlay */
+
+.cuisine-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.02) 15%,
+    rgba(0, 35, 27, 0.12) 45%,
+    rgba(0, 48, 36, 0.94) 100%
+  );
+  z-index: -1;
+}
+
+/* Card Text */
+
+.cuisine-content {
+  position: absolute;
+  bottom: 16px;
+  left: 15px;
+  right: 12px;
+  color: #fff;
+}
+
+.cuisine-content p {
+  color: #71d9c2;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.7px;
+  margin: 0 0 3px;
+}
+
+.cuisine-content h3 {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+======================================== */
+
+@media (max-width: 1024px) {
+  .cuisines-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .cuisine-card {
+    height: 230px;
+  }
+}
+
+@media (max-width: 768px) {
+  .cuisines-section {
+    padding: 45px 5%;
+  }
+
+  .cuisines-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .cuisine-card {
+    height: 215px;
+    border-radius: 22px;
+  }
+
+  .cuisines-heading h2 {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cuisines-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .cuisines-description {
+    font-size: 12px;
+  }
+
+  .cuisines-grid {
+    gap: 10px;
+  }
+
+  .cuisine-card {
+    height: 180px;
+    border-radius: 18px;
+  }
+
+  .cuisine-content {
+    left: 11px;
+    bottom: 12px;
+  }
+
+  .cuisine-content p {
+    font-size: 8px;
+  }
+
+  .cuisine-content h3 {
+    font-size: 15px;
+  }
+}
+
+/* ========================================
+   FEATURED DINING ROOMS
+======================================== */
+
+.featured-section {
+  padding: 42px 4.5% 48px;
+  background: #f8f6f4;
+  margin: 0 auto;
+}
+
+/* SECTION HEADING */
+
+.featured-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 17px;
+  gap: 20px;
+}
+
+.featured-heading .eyebrow {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  color: #66766d;
+  margin-bottom: 6px;
+}
+
+.featured-heading h2 {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 22px;
+  color: #063e32;
+  margin: 0;
+  font-weight: 700;
+}
+
+.featured-view-all {
+  color: #073f32;
+  font-size: 11px;
+  font-weight: 600;
+  text-decoration: none;
+  padding-bottom: 4px;
+}
+
+.featured-view-all:hover {
+  color: #a14b25;
+}
+
+/* GRID */
+
+.featured-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+/* CARD */
+
+.featured-card {
+  background: #fff;
+  border-radius: 23px;
+  overflow: hidden;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.025);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.featured-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.07);
+}
+
+/* IMAGE */
+
+.featured-image-wrapper {
+  height: 250px;
+  position: relative;
+  overflow: hidden;
+  background: #e9e5df;
+}
+
+.featured-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.featured-card:hover .featured-image {
+  transform: scale(1.04);
+}
+
+/* BADGES */
+
+.featured-badges {
+  position: absolute;
+  top: 11px;
+  left: 11px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.featured-badge {
+  background: #f4f4ed;
+  color: #345d4e;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.popular-badge {
+  background: #07513e;
+  color: #fff;
+}
+
+/* FAVORITE BUTTON */
+
+.favorite-button {
+  position: absolute;
+  top: 10px;
+  right: 11px;
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.94);
+  color: #777;
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.favorite-button:hover {
+  transform: scale(1.1);
+}
+
+.favorite-button.is-favorite {
+  color: #a13c25;
+}
+
+/* CARD CONTENT */
+
+.featured-content {
+  padding: 14px 16px 15px;
+}
+
+.featured-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.featured-title-row h3 {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 16px;
+  color: #063e32;
+  font-weight: 700;
+  margin: 0;
+}
+
+.featured-rating {
+  display: flex;
+  align-items: center;
+  color: #183f35;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.featured-rating span {
+  color: #873c1e;
+  margin-right: 3px;
+  font-size: 16px;
+}
+
+/* RESTAURANT DETAILS */
+
+.featured-meta {
+  font-size: 10px;
+  color: #6d6b68;
+  margin: 7px 0 12px;
+}
+
+/* AVAILABILITY */
+
+.featured-availability {
+  margin-bottom: 13px;
+}
+
+.featured-availability p {
+  font-size: 9px;
+  letter-spacing: 0.5px;
+  color: #5f5c58;
+  margin: 0 0 5px;
+}
+
+.time-slots {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.time-slot,
+.more-slots {
+  background: #f1efee;
+  border-radius: 20px;
+  padding: 5px 12px;
+  font-size: 9px;
+  color: #333;
+  white-space: nowrap;
+}
+
+.more-slots {
+  color: #777;
+}
+
+/* ACTION BUTTONS */
+
+.featured-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 7px;
+  border-top: 1px solid #eeeae7;
+  padding-top: 10px;
+}
+
+.featured-actions a {
+  text-align: center;
+  text-decoration: none;
+  padding: 10px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.featured-details-button {
+  background: #f0eeed;
+  color: #174536;
+}
+
+.featured-details-button:hover {
+  background: #e4e0dc;
+}
+
+.featured-reserve-button {
+  background: #803313;
+  color: #fff;
+}
+
+.featured-reserve-button:hover {
+  background: #60260e;
+}
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+
+@media (max-width: 768px) {
+  .featured-section {
+    padding: 35px 5%;
+  }
+
+  .featured-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 13px;
+  }
+
+  .featured-image-wrapper {
+    height: 145px;
+  }
+
+  .featured-content {
+    padding: 12px;
+  }
+
+  .featured-title-row h3 {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 520px) {
+  .featured-heading {
+    align-items: flex-start;
+  }
+
+  .featured-heading h2 {
+    font-size: 20px;
+  }
+
+  .featured-view-all {
+    font-size: 10px;
+    white-space: nowrap;
+  }
+
+  .featured-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .featured-image-wrapper {
+    height: 190px;
+  }
+
+  .featured-content {
+    padding: 14px;
+  }
+
+  .featured-actions a {
+    font-size: 10px;
+    padding: 7px 10px;
+  }
+
+  .featured-title-row h3 {
+    font-size: 16px;
+  }
+}
+
+/* =========================================
+   WHY DINERS TRUST US
+========================================= */
+
+.trust-section {
+  padding: 76px 5% 64px;
+  background: #f2eeee;
+}
+
+.trust-heading {
+  text-align: center;
+  margin-bottom: 36px;
+}
+
+.trust-heading .eyebrow {
+  font-size: 11px;
+  letter-spacing: 1.8px;
+  font-weight: 600;
+  color: #24414b;
+  margin-bottom: 8px;
+}
+
+.trust-heading h2 {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: #004d49;
+  margin: 0 0 7px;
+}
+
+.trust-heading > p:last-child {
+  font-size: 15px;
+  color: #344452;
+  margin: 0;
+}
+
+.trust-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  max-width: 1250px;
+  margin: 0 auto;
+}
+
+.trust-card {
+  background: #fff;
+  border-radius: 28px;
+  padding: 21px 21px 19px;
+  min-height: 258px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.035);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.trust-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+}
+
+.trust-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #e7eeec;
+  color: #004d49;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.trust-card h3 {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: #004d49;
+  margin: 0 0 7px;
+}
+
+.trust-card > p {
+  font-size: 14px;
+  line-height: 1.65;
+  color: #263746;
+  margin: 0 0 15px;
+  flex: 1;
+}
+
+.trust-card-footer {
+  border-top: 1px solid #eeecea;
+  padding-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #344452;
+  font-size: 11.5px;
+  letter-spacing: 0.1px;
+}
+
+.trust-card-footer span {
+  color: #004d49;
+  font-size: 14px;
+}
+
+/* =========================================
+   RESPONSIVE DESIGN
+========================================= */
+
+@media (max-width: 900px) {
+  .trust-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .trust-section {
+    padding: 60px 4%;
+  }
+}
+
+@media (max-width: 600px) {
+  .trust-section {
+    padding: 48px 20px;
+  }
+
+  .trust-heading h2 {
+    font-size: 24px;
+  }
+
+  .trust-heading > p:last-child {
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .trust-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .trust-card {
+    min-height: 240px;
+    padding: 22px;
+  }
+}
