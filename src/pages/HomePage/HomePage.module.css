@@ -3,7 +3,7 @@
   background: linear-gradient(110deg, #e7f4ed 0%, #f4f1ed 55%, #f8efeb 100%);
 }
 
-.hero-badge {
+.heroBadge {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -16,7 +16,7 @@
   letter-spacing: 0.8px;
 }
 
-.hero-badge span {
+.heroBadge span {
   color: #329879;
   font-size: 9px;
 }
@@ -31,7 +31,7 @@
   letter-spacing: -1.5px;
 }
 
-.hero-description {
+.heroDescription {
   max-width: 620px;
   margin-bottom: 0;
   color: #455b62;
@@ -39,7 +39,7 @@
   line-height: 1.8;
 }
 
-.hero-search {
+.heroSearch {
   display: grid;
   grid-template-columns: 1.5fr 1.3fr 1fr 0.65fr auto;
   align-items: center;
@@ -52,7 +52,7 @@
   box-shadow: 0 12px 35px rgba(35, 55, 45, 0.09);
 }
 
-.hero-search-field {
+.heroSearchField {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -67,22 +67,22 @@
     background 0.2s;
 }
 
-.hero-search-field:focus-within {
+.heroSearchField:focus-within {
   border-color: #8aab9e;
   background: #ffffff;
 }
 
-.hero-search-field > span {
+.heroSearchField > span {
   flex-shrink: 0;
   font-size: 17px;
 }
 
-.hero-search-field > div {
+.heroSearchField > div {
   min-width: 0;
   flex: 1;
 }
 
-.hero-search-field label {
+.heroSearchField label {
   display: block;
   margin-bottom: 6px;
   color: #49606a;
@@ -91,8 +91,8 @@
   letter-spacing: 0.7px;
 }
 
-.hero-search-field input,
-.hero-search-field select {
+.heroSearchField input,
+.heroSearchField select {
   display: block;
   width: 100%;
   min-width: 0;
@@ -105,16 +105,16 @@
   font-size: 12px;
 }
 
-.hero-search-field input::placeholder {
+.heroSearchField input::placeholder {
   color: #87918e;
 }
 
-.hero-search-field input:focus,
-.hero-search-field select:focus {
+.heroSearchField input:focus,
+.heroSearchField select:focus {
   outline: none;
 }
 
-.hero-search-button {
+.heroSearchButton {
   min-height: 46px;
   padding: 0px 24px;
   border: none;
@@ -130,12 +130,12 @@
     transform 0.2s;
 }
 
-.hero-search-button:hover {
+.heroSearchButton:hover {
   background: #6f2d10;
   transform: translateY(-1px);
 }
 
-.hero-trending {
+.heroTrending {
   grid-column: 1 / -1;
   display: flex;
   flex-wrap: wrap;
@@ -147,7 +147,7 @@
   font-size: 11px;
 }
 
-.trending-tag {
+.trendingTag {
   padding: 7px 13px;
   border: 1px solid #e9e3df;
   border-radius: 20px;
@@ -161,17 +161,17 @@
     color 0.2s;
 }
 
-.trending-tag:hover {
+.trendingTag:hover {
   background: #873915;
   color: #ffffff;
 }
 
 @media (max-width: 1100px) {
-  .hero-search {
+  .heroSearch {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .hero-search-button {
+  .heroSearchButton {
     grid-column: 1 / -1;
   }
 }
@@ -190,23 +190,23 @@
     display: none;
   }
 
-  .hero-search {
+  .heroSearch {
     grid-template-columns: 1fr;
     gap: 10px;
     padding: 13px;
     border-radius: 18px;
   }
 
-  .hero-search-field {
+  .heroSearchField {
     min-height: 60px;
   }
 
-  .hero-search-button {
+  .heroSearchButton {
     grid-column: 1;
     width: 100%;
   }
 
-  .hero-trending {
+  .heroTrending {
     grid-column: 1;
     gap: 7px;
   }
@@ -216,14 +216,14 @@
    POPULAR CUISINES SECTION
 ======================================== */
 
-.cuisines-section {
+.cuisinesSection {
   padding: 65px 5.5%;
   margin: 0 auto;
 }
 
 /* Heading */
 
-.cuisines-heading {
+.cuisinesHeading {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
@@ -231,7 +231,7 @@
   gap: 20px;
 }
 
-.cuisines-heading .eyebrow {
+.cuisinesHeading .eyebrow {
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 1.7px;
@@ -239,7 +239,7 @@
   margin-bottom: 6px;
 }
 
-.cuisines-heading h2 {
+.cuisinesHeading h2 {
   font-family: Georgia, 'Times New Roman', serif;
   font-size: 28px;
   font-weight: 700;
@@ -248,7 +248,7 @@
   letter-spacing: -0.8px;
 }
 
-.cuisines-description {
+.cuisinesDescription {
   font-size: 13px;
   color: #77716d;
   margin: 0 0 3px;
@@ -256,7 +256,7 @@
 
 /* Grid */
 
-.cuisines-grid {
+.cuisinesGrid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 13px;
@@ -264,7 +264,7 @@
 
 /* Cuisine Card */
 
-.cuisine-card {
+.cuisineCard {
   position: relative;
   display: block;
   height: 300px;
@@ -278,12 +278,12 @@
     box-shadow 0.35s ease;
 }
 
-.cuisine-card:hover {
+.cuisineCard:hover {
   transform: translateY(-5px);
   box-shadow: 0 12px 28px rgba(0, 45, 34, 0.18);
 }
 
-.cuisine-image {
+.cuisineImage {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -293,13 +293,13 @@
   z-index: -2;
 }
 
-.cuisine-card:hover .cuisine-image {
+.cuisineCard:hover .cuisineImage {
   transform: scale(1.07);
 }
 
 /* Gradient Overlay */
 
-.cuisine-overlay {
+.cuisineOverlay {
   position: absolute;
   inset: 0;
   background: linear-gradient(
@@ -313,7 +313,7 @@
 
 /* Card Text */
 
-.cuisine-content {
+.cuisineContent {
   position: absolute;
   bottom: 16px;
   left: 15px;
@@ -321,7 +321,7 @@
   color: #fff;
 }
 
-.cuisine-content p {
+.cuisineContent p {
   color: #71d9c2;
   font-size: 10px;
   font-weight: 700;
@@ -329,7 +329,7 @@
   margin: 0 0 3px;
 }
 
-.cuisine-content h3 {
+.cuisineContent h3 {
   font-family: Georgia, 'Times New Roman', serif;
   font-size: 17px;
   font-weight: 700;
@@ -342,65 +342,65 @@
 ======================================== */
 
 @media (max-width: 1024px) {
-  .cuisines-grid {
+  .cuisinesGrid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
-  .cuisine-card {
+  .cuisineCard {
     height: 230px;
   }
 }
 
 @media (max-width: 768px) {
-  .cuisines-section {
+  .cuisinesSection {
     padding: 45px 5%;
   }
 
-  .cuisines-grid {
+  .cuisinesGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 12px;
   }
 
-  .cuisine-card {
+  .cuisineCard {
     height: 215px;
     border-radius: 22px;
   }
 
-  .cuisines-heading h2 {
+  .cuisinesHeading h2 {
     font-size: 24px;
   }
 }
 
 @media (max-width: 480px) {
-  .cuisines-heading {
+  .cuisinesHeading {
     align-items: flex-start;
     flex-direction: column;
     gap: 8px;
   }
 
-  .cuisines-description {
+  .cuisinesDescription {
     font-size: 12px;
   }
 
-  .cuisines-grid {
+  .cuisinesGrid {
     gap: 10px;
   }
 
-  .cuisine-card {
+  .cuisineCard {
     height: 180px;
     border-radius: 18px;
   }
 
-  .cuisine-content {
+  .cuisineContent {
     left: 11px;
     bottom: 12px;
   }
 
-  .cuisine-content p {
+  .cuisineContent p {
     font-size: 8px;
   }
 
-  .cuisine-content h3 {
+  .cuisineContent h3 {
     font-size: 15px;
   }
 }
@@ -409,7 +409,7 @@
    FEATURED DINING ROOMS
 ======================================== */
 
-.featured-section {
+.featuredSection {
   padding: 42px 4.5% 48px;
   background: #f8f6f4;
   margin: 0 auto;
@@ -417,7 +417,7 @@
 
 /* SECTION HEADING */
 
-.featured-heading {
+.featuredHeading {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
@@ -425,7 +425,7 @@
   gap: 20px;
 }
 
-.featured-heading .eyebrow {
+.featuredHeading .eyebrow {
   font-size: 10px;
   font-weight: 600;
   letter-spacing: 1.5px;
@@ -433,7 +433,7 @@
   margin-bottom: 6px;
 }
 
-.featured-heading h2 {
+.featuredHeading h2 {
   font-family: Georgia, 'Times New Roman', serif;
   font-size: 22px;
   color: #063e32;
@@ -441,7 +441,7 @@
   font-weight: 700;
 }
 
-.featured-view-all {
+.featuredViewAll {
   color: #073f32;
   font-size: 11px;
   font-weight: 600;
@@ -449,13 +449,13 @@
   padding-bottom: 4px;
 }
 
-.featured-view-all:hover {
+.featuredViewAll:hover {
   color: #a14b25;
 }
 
 /* GRID */
 
-.featured-grid {
+.featuredGrid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 16px;
@@ -463,7 +463,7 @@
 
 /* CARD */
 
-.featured-card {
+.featuredCard {
   background: #fff;
   border-radius: 23px;
   overflow: hidden;
@@ -473,21 +473,21 @@
     box-shadow 0.3s ease;
 }
 
-.featured-card:hover {
+.featuredCard:hover {
   transform: translateY(-4px);
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.07);
 }
 
 /* IMAGE */
 
-.featured-image-wrapper {
+.featuredImageWrapper {
   height: 250px;
   position: relative;
   overflow: hidden;
   background: #e9e5df;
 }
 
-.featured-image {
+.featuredImage {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -495,13 +495,13 @@
   transition: transform 0.5s ease;
 }
 
-.featured-card:hover .featured-image {
+.featuredCard:hover .featuredImage {
   transform: scale(1.04);
 }
 
 /* BADGES */
 
-.featured-badges {
+.featuredBadges {
   position: absolute;
   top: 11px;
   left: 11px;
@@ -510,7 +510,7 @@
   gap: 5px;
 }
 
-.featured-badge {
+.featuredBadge {
   background: #f4f4ed;
   color: #345d4e;
   padding: 4px 10px;
@@ -519,14 +519,14 @@
   font-weight: 700;
 }
 
-.popular-badge {
+.popularBadge {
   background: #07513e;
   color: #fff;
 }
 
 /* FAVORITE BUTTON */
 
-.favorite-button {
+.favoriteButton {
   position: absolute;
   top: 10px;
   right: 11px;
@@ -544,28 +544,28 @@
   transition: all 0.2s ease;
 }
 
-.favorite-button:hover {
+.favoriteButton:hover {
   transform: scale(1.1);
 }
 
-.favorite-button.is-favorite {
+.favoriteButton.isFavorite {
   color: #a13c25;
 }
 
 /* CARD CONTENT */
 
-.featured-content {
+.featuredContent {
   padding: 14px 16px 15px;
 }
 
-.featured-title-row {
+.featuredTitleRow {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 10px;
 }
 
-.featured-title-row h3 {
+.featuredTitleRow h3 {
   font-family: Georgia, 'Times New Roman', serif;
   font-size: 16px;
   color: #063e32;
@@ -573,7 +573,7 @@
   margin: 0;
 }
 
-.featured-rating {
+.featuredRating {
   display: flex;
   align-items: center;
   color: #183f35;
@@ -581,7 +581,7 @@
   white-space: nowrap;
 }
 
-.featured-rating span {
+.featuredRating span {
   color: #873c1e;
   margin-right: 3px;
   font-size: 16px;
@@ -589,7 +589,7 @@
 
 /* RESTAURANT DETAILS */
 
-.featured-meta {
+.featuredMeta {
   font-size: 10px;
   color: #6d6b68;
   margin: 7px 0 12px;
@@ -597,26 +597,26 @@
 
 /* AVAILABILITY */
 
-.featured-availability {
+.featuredAvailability {
   margin-bottom: 13px;
 }
 
-.featured-availability p {
+.featuredAvailability p {
   font-size: 9px;
   letter-spacing: 0.5px;
   color: #5f5c58;
   margin: 0 0 5px;
 }
 
-.time-slots {
+.timeSlots {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
   gap: 5px;
 }
 
-.time-slot,
-.more-slots {
+.timeSlot,
+.moreSlots {
   background: #f1efee;
   border-radius: 20px;
   padding: 5px 12px;
@@ -625,13 +625,13 @@
   white-space: nowrap;
 }
 
-.more-slots {
+.moreSlots {
   color: #777;
 }
 
 /* ACTION BUTTONS */
 
-.featured-actions {
+.featuredActions {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 7px;
@@ -639,7 +639,7 @@
   padding-top: 10px;
 }
 
-.featured-actions a {
+.featuredActions a {
   text-align: center;
   text-decoration: none;
   padding: 10px 12px;
@@ -649,21 +649,21 @@
   transition: all 0.2s ease;
 }
 
-.featured-details-button {
+.featuredDetailsButton {
   background: #f0eeed;
   color: #174536;
 }
 
-.featured-details-button:hover {
+.featuredDetailsButton:hover {
   background: #e4e0dc;
 }
 
-.featured-reserve-button {
+.featuredReserveButton {
   background: #803313;
   color: #fff;
 }
 
-.featured-reserve-button:hover {
+.featuredReserveButton:hover {
   background: #60260e;
 }
 
@@ -672,61 +672,61 @@
 ======================================== */
 
 @media (max-width: 768px) {
-  .featured-section {
+  .featuredSection {
     padding: 35px 5%;
   }
 
-  .featured-grid {
+  .featuredGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 13px;
   }
 
-  .featured-image-wrapper {
+  .featuredImageWrapper {
     height: 145px;
   }
 
-  .featured-content {
+  .featuredContent {
     padding: 12px;
   }
 
-  .featured-title-row h3 {
+  .featuredTitleRow h3 {
     font-size: 14px;
   }
 }
 
 @media (max-width: 520px) {
-  .featured-heading {
+  .featuredHeading {
     align-items: flex-start;
   }
 
-  .featured-heading h2 {
+  .featuredHeading h2 {
     font-size: 20px;
   }
 
-  .featured-view-all {
+  .featuredViewAll {
     font-size: 10px;
     white-space: nowrap;
   }
 
-  .featured-grid {
+  .featuredGrid {
     grid-template-columns: 1fr;
     gap: 16px;
   }
 
-  .featured-image-wrapper {
+  .featuredImageWrapper {
     height: 190px;
   }
 
-  .featured-content {
+  .featuredContent {
     padding: 14px;
   }
 
-  .featured-actions a {
+  .featuredActions a {
     font-size: 10px;
     padding: 7px 10px;
   }
 
-  .featured-title-row h3 {
+  .featuredTitleRow h3 {
     font-size: 16px;
   }
 }
@@ -735,17 +735,17 @@
    WHY DINERS TRUST US
 ========================================= */
 
-.trust-section {
+.trustSection {
   padding: 76px 5% 64px;
   background: #f2eeee;
 }
 
-.trust-heading {
+.trustHeading {
   text-align: center;
   margin-bottom: 36px;
 }
 
-.trust-heading .eyebrow {
+.trustHeading .eyebrow {
   font-size: 11px;
   letter-spacing: 1.8px;
   font-weight: 600;
@@ -753,7 +753,7 @@
   margin-bottom: 8px;
 }
 
-.trust-heading h2 {
+.trustHeading h2 {
   font-family: Georgia, 'Times New Roman', serif;
   font-size: 28px;
   font-weight: 700;
@@ -761,13 +761,13 @@
   margin: 0 0 7px;
 }
 
-.trust-heading > p:last-child {
+.trustHeading > p:last-child {
   font-size: 15px;
   color: #344452;
   margin: 0;
 }
 
-.trust-grid {
+.trustGrid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 20px;
@@ -775,7 +775,7 @@
   margin: 0 auto;
 }
 
-.trust-card {
+.trustCard {
   background: #fff;
   border-radius: 28px;
   padding: 21px 21px 19px;
@@ -788,12 +788,12 @@
     box-shadow 0.25s ease;
 }
 
-.trust-card:hover {
+.trustCard:hover {
   transform: translateY(-4px);
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
 }
 
-.trust-icon {
+.trustIcon {
   width: 42px;
   height: 42px;
   border-radius: 50%;
@@ -807,7 +807,7 @@
   margin-bottom: 16px;
 }
 
-.trust-card h3 {
+.trustCard h3 {
   font-family: Georgia, 'Times New Roman', serif;
   font-size: 16px;
   font-weight: 700;
@@ -815,7 +815,7 @@
   margin: 0 0 7px;
 }
 
-.trust-card > p {
+.trustCard > p {
   font-size: 14px;
   line-height: 1.65;
   color: #263746;
@@ -823,7 +823,7 @@
   flex: 1;
 }
 
-.trust-card-footer {
+.trustCardFooter {
   border-top: 1px solid #eeecea;
   padding-top: 10px;
   display: flex;
@@ -834,7 +834,7 @@
   letter-spacing: 0.1px;
 }
 
-.trust-card-footer span {
+.trustCardFooter span {
   color: #004d49;
   font-size: 14px;
 }
@@ -844,35 +844,35 @@
 ========================================= */
 
 @media (max-width: 900px) {
-  .trust-grid {
+  .trustGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .trust-section {
+  .trustSection {
     padding: 60px 4%;
   }
 }
 
 @media (max-width: 600px) {
-  .trust-section {
+  .trustSection {
     padding: 48px 20px;
   }
 
-  .trust-heading h2 {
+  .trustHeading h2 {
     font-size: 24px;
   }
 
-  .trust-heading > p:last-child {
+  .trustHeading > p:last-child {
     font-size: 13px;
     line-height: 1.6;
   }
 
-  .trust-grid {
+  .trustGrid {
     grid-template-columns: 1fr;
     gap: 16px;
   }
 
-  .trust-card {
+  .trustCard {
     min-height: 240px;
     padding: 22px;
   }

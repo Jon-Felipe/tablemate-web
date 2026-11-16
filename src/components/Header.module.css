@@ -2,7 +2,7 @@
    Header Layout
 ============================== */
 
-.site-header {
+.siteHeader {
   display: grid;
   grid-template-columns: auto 1fr auto;
   align-items: center;
@@ -34,14 +34,14 @@
    Main Navigation
 ============================== */
 
-.main-nav {
+.mainNav {
   display: flex;
   align-items: center;
   justify-content: flex-start;
   gap: 34px;
 }
 
-.main-nav a {
+.mainNav a {
   color: #414141;
   font-size: 14px;
   font-weight: 500;
@@ -51,7 +51,7 @@
   transition: color 0.2s ease;
 }
 
-.main-nav a:hover {
+.mainNav a:hover {
   color: #174b3b;
 }
 
@@ -59,7 +59,7 @@
    Header Actions
 ============================== */
 
-.header-actions {
+.headerActions {
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -68,7 +68,7 @@
   white-space: nowrap;
 }
 
-.header-actions a {
+.headerActions a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -89,23 +89,23 @@
 
 /* Log In */
 
-.login-button {
+.loginButton {
   background-color: #b9f0d8;
   color: #174b3b;
 }
 
-.login-button:hover {
+.loginButton:hover {
   background-color: #a3e7c9;
 }
 
 /* Sign Up */
 
-.signup-button {
+.signupButton {
   background-color: #80330f;
   color: #fff;
 }
 
-.signup-button:hover {
+.signupButton:hover {
   background-color: #65280d;
 }
 
@@ -114,7 +114,7 @@
 ============================== */
 
 @media (max-width: 768px) {
-  .site-header {
+  .siteHeader {
     padding: 16px 20px;
     column-gap: 20px;
     row-gap: 16px;
@@ -125,11 +125,11 @@
     font-size: 19px;
   }
 
-  .header-actions {
+  .headerActions {
     justify-content: flex-end;
   }
 
-  .main-nav {
+  .mainNav {
     grid-column: 1 / -1;
     grid-row: 2;
     gap: 24px;
@@ -142,7 +142,7 @@
 ============================== */
 
 @media (max-width: 480px) {
-  .site-header {
+  .siteHeader {
     padding: 14px 16px;
     column-gap: 10px;
   }
@@ -151,21 +151,21 @@
     font-size: 18px;
   }
 
-  .header-actions {
+  .headerActions {
     gap: 6px;
   }
 
-  .header-actions a {
+  .headerActions a {
     min-height: 34px;
     padding: 0 11px;
     font-size: 12px;
   }
 
-  .main-nav {
+  .mainNav {
     gap: 20px;
   }
 
-  .main-nav a {
+  .mainNav a {
     font-size: 13px;
   }
 }

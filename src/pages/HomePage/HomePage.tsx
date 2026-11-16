@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 
 // extras
 import { useGetRestaurantsQuery } from '../../services/restaurantApi';
-import './HomePage.css';
+import styles from './HomePage.module.css';
 import { popularCuisines } from '../../constants/dummyData';
 
 function HomePage() {
@@ -25,8 +25,8 @@ function HomePage() {
 
   return (
     <div>
-      <section className='hero'>
-        <p className='hero-badge'>
+      <section className={styles.hero}>
+        <p className={styles.heroBadge}>
           <span aria-hidden='true'>●</span> DIRECT LIVE TABLE RESERVATIONS
         </p>
 
@@ -36,13 +36,13 @@ function HomePage() {
           Make every meal memorable.
         </h1>
 
-        <p className='hero-description'>
+        <p className={styles.heroDescription}>
           Find your table. Discover and reserve tables at the best restaurants
           in your city.
         </p>
 
-        <div className='hero-search'>
-          <div className='hero-search-field'>
+        <div className={styles.heroSearch}>
+          <div className={styles.heroSearchField}>
             <span aria-hidden='true'>🍴</span>
             <div>
               <label htmlFor='cuisine'>CUISINE OR VIBE</label>
@@ -54,7 +54,7 @@ function HomePage() {
             </div>
           </div>
 
-          <div className='hero-search-field'>
+          <div className={styles.heroSearchField}>
             <span aria-hidden='true'>📍</span>
             <div>
               <label htmlFor='location'>LOCATION</label>
@@ -67,7 +67,7 @@ function HomePage() {
             </div>
           </div>
 
-          <div className='hero-search-field'>
+          <div className={styles.heroSearchField}>
             <span aria-hidden='true'>📅</span>
             <div>
               <label htmlFor='date'>DATE</label>
@@ -75,7 +75,7 @@ function HomePage() {
             </div>
           </div>
 
-          <div className='hero-search-field party-field'>
+          <div className={styles.heroSearchField}>
             <span aria-hidden='true'>👥</span>
             <div>
               <label htmlFor='party'>PARTY</label>
@@ -91,16 +91,20 @@ function HomePage() {
 
           <button
             type='button'
-            className='hero-search-button'
+            className={styles.heroSearchButton}
             onClick={() => {}}
           >
             <span aria-hidden='true'>⌕</span> Find a Table
           </button>
 
-          <div className='hero-trending'>
+          <div className={styles.heroTrending}>
             <span>Trending Now:</span>
             {['Omakase', 'Natural Wine', 'Ramen', 'Vegan'].map((trend) => (
-              <button key={trend} type='button' className='trending-tag'>
+              <button
+                key={trend}
+                type='button'
+                className={styles.trendingTag}
+              >
                 {trend}
               </button>
             ))}
@@ -108,36 +112,36 @@ function HomePage() {
         </div>
       </section>
 
-      <section className='cuisines-section'>
-        <div className='cuisines-heading'>
+      <section className={styles.cuisinesSection}>
+        <div className={styles.cuisinesHeading}>
           <div>
-            <p className='eyebrow'>GASTRONOMIC HORIZONS</p>
+            <p className={styles.eyebrow}>GASTRONOMIC HORIZONS</p>
             <h2>Explore Popular Cuisines</h2>
           </div>
 
-          <p className='cuisines-description'>
+          <p className={styles.cuisinesDescription}>
             Handpicked selections of the most popular cuisines for you to
             explore.
           </p>
         </div>
 
-        <div className='cuisines-grid'>
+        <div className={styles.cuisinesGrid}>
           {popularCuisines.map((cuisine) => (
             <Link
               key={cuisine.id}
               to={`/restaurants?cuisine=${encodeURIComponent(cuisine.name)}`}
-              className='cuisine-card'
+              className={styles.cuisineCard}
             >
               <img
                 src={cuisine.image}
                 alt={`${cuisine.name} cuisine`}
-                className='cuisine-image'
+                className={styles.cuisineImage}
                 loading='lazy'
               />
 
-              <div className='cuisine-overlay' />
+              <div className={styles.cuisineOverlay} />
 
-              <div className='cuisine-content'>
+              <div className={styles.cuisineContent}>
                 <p>{cuisine.subtitle}</p>
                 <h3>{cuisine.name}</h3>
               </div>
@@ -148,31 +152,34 @@ function HomePage() {
 
       {/* Featured Dining Rooms */}
       {!isLoading && !isError && restaurants.length > 0 && (
-        <section className='featured-section'>
-          <div className='featured-heading'>
+        <section className={styles.featuredSection}>
+          <div className={styles.featuredHeading}>
             <div>
-              <p className='eyebrow'>RESERVED BY FOOD LOVERS</p>
+              <p className={styles.eyebrow}>RESERVED BY FOOD LOVERS</p>
               <h2>Featured Dining Rooms</h2>
             </div>
 
-            <Link to='/restaurants' className='featured-view-all'>
+            <Link to='/restaurants' className={styles.featuredViewAll}>
               View All venues <span>&rarr;</span>
             </Link>
           </div>
 
-          <div className='featured-grid'>
+          <div className={styles.featuredGrid}>
             {restaurants.slice(0, 6).map((restaurant, index) => (
-              <article key={restaurant.id} className='featured-card'>
-                <div className='featured-image-wrapper'>
+              <article
+                key={restaurant.id}
+                className={styles.featuredCard}
+              >
+                <div className={styles.featuredImageWrapper}>
                   <img
                     src={restaurant.imageUrl}
                     alt={`Food and dining at ${restaurant.name}`}
                     loading='lazy'
-                    className='featured-image'
+                    className={styles.featuredImage}
                   />
 
-                  <div className='featured-badges'>
-                    <span className='featured-badge'>
+                  <div className={styles.featuredBadges}>
+                    <span className={styles.featuredBadge}>
                       {
                         [
                           'Michelin Guide',
@@ -184,7 +191,9 @@ function HomePage() {
                     </span>
 
                     {index === 0 && (
-                      <span className='featured-badge popular-badge'>
+                      <span
+                        className={`${styles.featuredBadge} ${styles.popularBadge}`}
+                      >
                         Popular Today
                       </span>
                     )}
@@ -192,7 +201,7 @@ function HomePage() {
 
                   <button
                     type='button'
-                    className={`favorite-button ${favourites.includes(restaurant.id) ? 'is-favorite' : ''}`}
+                    className={`${styles.favoriteButton} ${favourites.includes(restaurant.id) ? styles.isFavorite : ''}`}
                     onClick={() => toggleFavourite(restaurant.id)}
                     aria-label={
                       favourites.includes(restaurant.id)
@@ -204,38 +213,38 @@ function HomePage() {
                   </button>
                 </div>
 
-                <div className='featured-content'>
-                  <div className='featured-title-row'>
+                <div className={styles.featuredContent}>
+                  <div className={styles.featuredTitleRow}>
                     <h3>{restaurant.name}</h3>
 
-                    <div className='featured-rating'>
+                    <div className={styles.featuredRating}>
                       <span>★</span>
                       {Number(restaurant.rating || 0).toFixed(1)}
                     </div>
                   </div>
 
-                  <p className='featured-meta'>
+                  <p className={styles.featuredMeta}>
                     {restaurant.cuisine}
                     {restaurant.city && ` • ${restaurant.city}`}
                   </p>
 
-                  <div className='featured-availability'>
+                  <div className={styles.featuredAvailability}>
                     <p>AVAILABLE TODAY:</p>
 
-                    <div className='time-slots'></div>
+                    <div className={styles.timeSlots}></div>
                   </div>
 
-                  <div className='featured-actions'>
+                  <div className={styles.featuredActions}>
                     <Link
                       to={`/restaurants/${encodeURIComponent(restaurant.id)}`}
-                      className='featured-details-button'
+                      className={styles.featuredDetailsButton}
                     >
                       View Details
                     </Link>
 
                     <Link
                       to={`/restaurants/${encodeURIComponent(restaurant.id)}`}
-                      className='featured-reserve-button'
+                      className={styles.featuredReserveButton}
                     >
                       Reserve Table
                     </Link>
@@ -248,9 +257,9 @@ function HomePage() {
       )}
 
       {/* Why Diners Trust Us */}
-      <section className='trust-section'>
-        <div className='trust-heading'>
-          <p className='eyebrow'>THE TABLEMATE STANDARD</p>
+      <section className={styles.trustSection}>
+        <div className={styles.trustHeading}>
+          <p className={styles.eyebrow}>THE TABLEMATE STANDARD</p>
           <h2>Why Discerning Diners Trust Us</h2>
           <p>
             Built for seamless discovery, instant certainty, and genuine
@@ -258,9 +267,9 @@ function HomePage() {
           </p>
         </div>
 
-        <div className='trust-grid'>
-          <article className='trust-card'>
-            <div className='trust-icon' aria-hidden='true'>
+        <div className={styles.trustGrid}>
+          <article className={styles.trustCard}>
+            <div className={styles.trustIcon} aria-hidden='true'>
               ✥
             </div>
 
@@ -272,14 +281,14 @@ function HomePage() {
               consistency, and character.
             </p>
 
-            <div className='trust-card-footer'>
+            <div className={styles.trustCardFooter}>
               <span>⊙</span>
               Over 2,400 handpicked venues
             </div>
           </article>
 
-          <article className='trust-card'>
-            <div className='trust-icon' aria-hidden='true'>
+          <article className={styles.trustCard}>
+            <div className={styles.trustIcon} aria-hidden='true'>
               ⏱
             </div>
 
@@ -291,14 +300,14 @@ function HomePage() {
               restaurant's live book.
             </p>
 
-            <div className='trust-card-footer'>
+            <div className={styles.trustCardFooter}>
               <span>⏱</span>
               100% real-time synchronized seating
             </div>
           </article>
 
-          <article className='trust-card'>
-            <div className='trust-icon' aria-hidden='true'>
+          <article className={styles.trustCard}>
+            <div className={styles.trustIcon} aria-hidden='true'>
               🍽
             </div>
 
@@ -310,7 +319,7 @@ function HomePage() {
               dishes before you sit.
             </p>
 
-            <div className='trust-card-footer'>
+            <div className={styles.trustCardFooter}>
               <span>🍽</span>
               Full transparent menus & pairings
             </div>

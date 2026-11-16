@@ -1,14 +1,14 @@
 import { Link } from 'react-router';
 
 // extras
-import './Footer.css';
+import styles from './Footer.module.css';
 
 function Footer() {
   return (
-    <footer className='site-footer'>
-      <div className='footer-main'>
-        <div className='footer-brand'>
-          <Link to='/' className='footer-logo'>
+    <footer className={styles.siteFooter}>
+      <div className={styles.footerMain}>
+        <div className={styles.footerBrand}>
+          <Link to='/' className={styles.footerLogo}>
             <span>TableMate</span>
           </Link>
 
@@ -18,7 +18,7 @@ function Footer() {
           </p>
         </div>
 
-        <div className='footer-column'>
+        <div className={styles.footerColumn}>
           <h3>TableMate</h3>
           <Link to='/restaurants'>Contemporary Tasting</Link>
           <Link to='/restaurants?cuisine=Italian'>Woodfired Trattoria</Link>
@@ -26,7 +26,7 @@ function Footer() {
           <Link to='/restaurants'>Natural Wine Bistros</Link>
         </div>
 
-        <div className='footer-column'>
+        <div className={styles.footerColumn}>
           <h3>For Restaurants</h3>
           <Link to='/partner'>Partner with TableMate</Link>
           <Link to='/host-login'>Host Management System</Link>
@@ -34,7 +34,7 @@ function Footer() {
           <Link to='/staff-login'>Staff Portal Login</Link>
         </div>
 
-        <div className='footer-column'>
+        <div className={styles.footerColumn}>
           <h3>Legal & Support</h3>
           <Link to='/privacy'>Privacy Policy</Link>
           <Link to='/terms'>Terms of Hospitality</Link>
@@ -43,10 +43,10 @@ function Footer() {
         </div>
       </div>
 
-      <div className='footer-bottom'>
+      <div className={styles.footerBottom}>
         <p>© 2024 TableMate Hospitality Inc. Crafted for discerning diners.</p>
 
-        <div className='footer-socials'>
+        <div className={styles.footerSocials}>
           <a
             href='https://www.instagram.com/'
             target='_blank'
