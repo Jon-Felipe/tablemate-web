@@ -56,10 +56,13 @@ body {
   cursor: pointer;
 }
 
-.socialBtn img {
+.socialBtn svg {
   width: 16px;
   height: 16px;
-  object-fit: contain;
+}
+
+.googleIcon {
+  font-size: 16px;
 }
 
 .appleIcon {
@@ -202,6 +205,11 @@ body {
 .submitBtn span {
   font-size: 18px;
   font-weight: 400;
+}
+
+.submitBtn > svg {
+  width: 14px;
+  height: 14px;
 }
 
 .loginFooter {

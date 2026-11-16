@@ -92,6 +92,8 @@
 }
 
 .footerSocials a {
+  display: inline-flex;
+  align-items: center;
   color: #344452;
   font-size: 17px;
   font-weight: 600;

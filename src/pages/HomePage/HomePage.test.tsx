@@ -175,10 +175,10 @@ describe('HomePage', () => {
 
     expect(
       within(firstCard).getByRole('button', { name: 'Remove from favorites' }),
-    ).toHaveTextContent('★');
+    ).toContainHTML('<svg');
     expect(
       within(secondCard).getByRole('button', { name: 'Add to favorites' }),
-    ).toHaveTextContent('☆');
+    ).toContainHTML('<svg');
   });
 
   it('shows no more than six featured restaurants', async () => {

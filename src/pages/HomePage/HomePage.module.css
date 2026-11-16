@@ -16,9 +16,8 @@
   letter-spacing: 0.8px;
 }
 
-.heroBadge span {
+.heroBadge svg {
   color: #329879;
-  font-size: 9px;
 }
 
 .hero h1 {
@@ -115,6 +114,10 @@
 }
 
 .heroSearchButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   min-height: 46px;
   padding: 0px 24px;
   border: none;
@@ -442,6 +445,9 @@
 }
 
 .featuredViewAll {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
   color: #073f32;
   font-size: 11px;
   font-weight: 600;
@@ -581,7 +587,7 @@
   white-space: nowrap;
 }
 
-.featuredRating span {
+.featuredRating svg {
   color: #873c1e;
   margin-right: 3px;
   font-size: 16px;
@@ -837,6 +843,11 @@
 .trustCardFooter span {
   color: #004d49;
   font-size: 14px;
+}
+
+.trustCardFooter svg {
+  flex-shrink: 0;
+  color: #004d49;
 }
 
 /* =========================================

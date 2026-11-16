@@ -1,5 +1,18 @@
 import { useState } from 'react';
 import { Link } from 'react-router';
+import {
+  FaAward,
+  FaArrowRight,
+  FaCalendarAlt,
+  FaClock,
+  FaGlobe,
+  FaMapMarkerAlt,
+  FaSearch,
+  FaStar,
+  FaUtensils,
+  FaUsers,
+  FaRegStar,
+} from 'react-icons/fa';
 
 // extras
 import { useGetRestaurantsQuery } from '../../services/restaurantApi';
@@ -27,7 +40,7 @@ function HomePage() {
     <div>
       <section className={styles.hero}>
         <p className={styles.heroBadge}>
-          <span aria-hidden='true'>●</span> DIRECT LIVE TABLE RESERVATIONS
+          <FaClock aria-hidden='true' /> DIRECT LIVE TABLE RESERVATIONS
         </p>
 
         <h1>
@@ -43,7 +56,7 @@ function HomePage() {
 
         <div className={styles.heroSearch}>
           <div className={styles.heroSearchField}>
-            <span aria-hidden='true'>🍴</span>
+            <FaUtensils aria-hidden='true' />
             <div>
               <label htmlFor='cuisine'>CUISINE OR VIBE</label>
               <input
@@ -55,7 +68,7 @@ function HomePage() {
           </div>
 
           <div className={styles.heroSearchField}>
-            <span aria-hidden='true'>📍</span>
+            <FaMapMarkerAlt aria-hidden='true' />
             <div>
               <label htmlFor='location'>LOCATION</label>
               <select id='location' defaultValue='SoHo & Downtown, NY'>
@@ -68,7 +81,7 @@ function HomePage() {
           </div>
 
           <div className={styles.heroSearchField}>
-            <span aria-hidden='true'>📅</span>
+            <FaCalendarAlt aria-hidden='true' />
             <div>
               <label htmlFor='date'>DATE</label>
               <input id='date' type='date' />
@@ -76,7 +89,7 @@ function HomePage() {
           </div>
 
           <div className={styles.heroSearchField}>
-            <span aria-hidden='true'>👥</span>
+            <FaUsers aria-hidden='true' />
             <div>
               <label htmlFor='party'>PARTY</label>
               <select id='party' defaultValue='2'>
@@ -94,7 +107,7 @@ function HomePage() {
             className={styles.heroSearchButton}
             onClick={() => {}}
           >
-            <span aria-hidden='true'>⌕</span> Find a Table
+            <FaSearch aria-hidden='true' /> Find a Table
           </button>
 
           <div className={styles.heroTrending}>
@@ -160,7 +173,7 @@ function HomePage() {
             </div>
 
             <Link to='/restaurants' className={styles.featuredViewAll}>
-              View All venues <span>&rarr;</span>
+              View All venues <FaArrowRight aria-hidden='true' />
             </Link>
           </div>
 
@@ -209,7 +222,11 @@ function HomePage() {
                         : 'Add to favorites'
                     }
                   >
-                    {favourites.includes(restaurant.id) ? '★' : '☆'}
+                    {favourites.includes(restaurant.id) ? (
+                      <FaStar aria-hidden='true' />
+                    ) : (
+                      <FaRegStar aria-hidden='true' />
+                    )}
                   </button>
                 </div>
 
@@ -218,7 +235,7 @@ function HomePage() {
                     <h3>{restaurant.name}</h3>
 
                     <div className={styles.featuredRating}>
-                      <span>★</span>
+                      <FaStar aria-hidden='true' />
                       {Number(restaurant.rating || 0).toFixed(1)}
                     </div>
                   </div>
@@ -270,7 +287,7 @@ function HomePage() {
         <div className={styles.trustGrid}>
           <article className={styles.trustCard}>
             <div className={styles.trustIcon} aria-hidden='true'>
-              ✥
+              <FaAward />
             </div>
 
             <h3>Curated Excellence</h3>
@@ -282,14 +299,14 @@ function HomePage() {
             </p>
 
             <div className={styles.trustCardFooter}>
-              <span>⊙</span>
+              <FaGlobe aria-hidden='true' />
               Over 2,400 handpicked venues
             </div>
           </article>
 
           <article className={styles.trustCard}>
             <div className={styles.trustIcon} aria-hidden='true'>
-              ⏱
+              <FaClock />
             </div>
 
             <h3>Instant Confirmed Tables</h3>
@@ -301,14 +318,14 @@ function HomePage() {
             </p>
 
             <div className={styles.trustCardFooter}>
-              <span>⏱</span>
+              <FaClock aria-hidden='true' />
               100% real-time synchronized seating
             </div>
           </article>
 
           <article className={styles.trustCard}>
             <div className={styles.trustIcon} aria-hidden='true'>
-              🍽
+              <FaUtensils />
             </div>
 
             <h3>Authentic Gastronomy</h3>
@@ -320,7 +337,7 @@ function HomePage() {
             </p>
 
             <div className={styles.trustCardFooter}>
-              <span>🍽</span>
+              <FaUtensils aria-hidden='true' />
               Full transparent menus & pairings
             </div>
           </article>

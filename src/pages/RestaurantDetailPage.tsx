@@ -1,4 +1,5 @@
 import { Link, useParams } from 'react-router';
+import { FaArrowLeft, FaStar } from 'react-icons/fa';
 
 // extras
 import {
@@ -47,7 +48,7 @@ function RestaurantDetailPage() {
   return (
     <main className='detail-section'>
       <Link to='/' className='back-link'>
-        ← Back to restaurants
+        <FaArrowLeft aria-hidden='true' /> Back to restaurants
       </Link>
 
       {isRestaurantLoading && <p role='status'>Loading restaurant...</p>}
@@ -92,7 +93,7 @@ function RestaurantDetailPage() {
                 <div>
                   <h2>Rating</h2>
                   <p className='restaurant-rating'>
-                    <span aria-hidden='true'>★</span>{' '}
+                    <FaStar aria-hidden='true' />{' '}
                     {restaurant.rating.toFixed(1)}
                   </p>
                 </div>
