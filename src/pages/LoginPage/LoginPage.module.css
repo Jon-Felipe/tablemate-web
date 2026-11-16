@@ -112,17 +112,6 @@
 
 .googleIcon {
   font-size: 19px;
-  font-weight: 800;
-  background: conic-gradient(
-    from -45deg,
-    #4285f4 0deg 90deg,
-    #34a853 90deg 180deg,
-    #fbbc05 180deg 270deg,
-    #ea4335 270deg 360deg
-  );
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
 }
 
 .appleIcon {
@@ -240,7 +229,7 @@
   transition: all 0.2s ease;
 }
 
-.signinBtn span {
+.signinBtn svg {
   font-size: 22px;
   margin-left: 8px;
   vertical-align: -2px;
@@ -271,6 +260,10 @@
   text-decoration: underline;
 }
 
+.signup a svg {
+  margin-left: 3px;
+}
+
 .loginFooter {
   width: 100%;
   border: 1px solid #ece9e7;
@@ -296,6 +289,10 @@
 }
 
 .membershipRow > span:first-child {
+  color: #064735;
+}
+
+.membershipRow > svg {
   color: #064735;
 }
 

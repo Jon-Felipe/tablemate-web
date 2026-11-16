@@ -1,4 +1,10 @@
 import { Link } from 'react-router';
+import {
+  FaEnvelope,
+  FaFacebookF,
+  FaInstagram,
+  FaLinkedinIn,
+} from 'react-icons/fa';
 
 // extras
 import styles from './Footer.module.css';
@@ -53,7 +59,7 @@ function Footer() {
             rel='noreferrer'
             aria-label='Instagram'
           >
-            ◎
+            <FaInstagram aria-hidden='true' />
           </a>
           <a
             href='https://www.facebook.com/'
@@ -61,7 +67,7 @@ function Footer() {
             rel='noreferrer'
             aria-label='Facebook'
           >
-            f
+            <FaFacebookF aria-hidden='true' />
           </a>
           <a
             href='https://www.linkedin.com/'
@@ -69,10 +75,10 @@ function Footer() {
             rel='noreferrer'
             aria-label='LinkedIn'
           >
-            in
+            <FaLinkedinIn aria-hidden='true' />
           </a>
           <a href='mailto:hello@tablemate.com' aria-label='Email us'>
-            ✉
+            <FaEnvelope aria-hidden='true' />
           </a>
         </div>
       </div>

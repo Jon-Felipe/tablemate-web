@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router';
+import { FaApple, FaArrowRight, FaCheck } from 'react-icons/fa';
+import { FcGoogle } from 'react-icons/fc';
 
 // extrs
 import styles from './RegisterPage.module.css';
@@ -51,15 +53,12 @@ function RegisterPage() {
       {/* Social Sign Up */}
       <div className={styles.socialButtons}>
         <button type='button' className={styles.socialBtn}>
-          <img
-            src='https://www.svgrepo.com/show/475656/google-color.svg'
-            alt='Google'
-          />
+          <FcGoogle className={styles.googleIcon} aria-hidden='true' />
           <span>Google</span>
         </button>
 
         <button type='button' className={styles.socialBtn}>
-          <span className={styles.appleIcon}>●</span>
+          <FaApple className={styles.appleIcon} aria-hidden='true' />
           <span>Apple</span>
         </button>
       </div>
@@ -150,7 +149,9 @@ function RegisterPage() {
 
         {/* Terms */}
         <div className={styles.terms}>
-          <span className={styles.checkIcon}>✓</span>
+          <span className={styles.checkIcon} aria-hidden='true'>
+            <FaCheck />
+          </span>
 
           <p>
             By registering, you accept the <a href='#'>Terms of Hospitality</a>{' '}
@@ -165,7 +166,7 @@ function RegisterPage() {
           disabled={isRegistering}
         >
           {isRegistering ? 'Creating Account...' : 'Create Account'}
-          <span>→</span>
+          <FaArrowRight aria-hidden='true' />
         </button>
       </form>
 

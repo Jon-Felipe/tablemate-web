@@ -1,5 +1,17 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router';
+import {
+  FaApple,
+  FaArrowRight,
+  FaChessRook,
+  FaEnvelope,
+  FaExternalLinkAlt,
+  FaFlag,
+  FaLeaf,
+  FaLock,
+  FaStar,
+} from 'react-icons/fa';
+import { FcGoogle } from 'react-icons/fc';
 
 // extras
 import styles from './LoginPage.module.css';
@@ -38,7 +50,9 @@ function LoginPage() {
       <div className={styles.loginContainer}>
         <section className={styles.loginCard}>
           <div className={styles.brand}>
-            <div className={styles.brandIcon}>⚑</div>
+            <div className={styles.brandIcon}>
+              <FaFlag aria-hidden='true' />
+            </div>
             <span className={styles.reserveTag}>RESERVE</span>
           </div>
 
@@ -51,12 +65,12 @@ function LoginPage() {
 
           <div className={styles.socialLogin}>
             <button type='button' className={styles.socialBtn}>
-              <span className={styles.googleIcon}>G</span>
+              <FcGoogle className={styles.googleIcon} aria-hidden='true' />
               Google Access
             </button>
 
             <button type='button' className={styles.socialBtn}>
-              <span className={styles.appleIcon}>●</span>
+              <FaApple className={styles.appleIcon} aria-hidden='true' />
               Apple ID
             </button>
           </div>
@@ -69,7 +83,7 @@ function LoginPage() {
 
           <form className={styles.loginForm} onSubmit={handleSubmit}>
             <div className={styles.inputGroup}>
-              <span className={styles.inputIcon}>✉</span>
+              <FaEnvelope className={styles.inputIcon} aria-hidden='true' />
               <input
                 type='email'
                 name='email'
@@ -78,7 +92,7 @@ function LoginPage() {
             </div>
 
             <div className={styles.inputGroup}>
-              <span className={styles.inputIcon}>🔒</span>
+              <FaLock className={styles.inputIcon} aria-hidden='true' />
               <input type='password' name='password' placeholder='Password' />
             </div>
 
@@ -99,27 +113,34 @@ function LoginPage() {
               disabled={isLoggingIn}
             >
               {isLoggingIn ? 'Signing In...' : 'Sign In to TableMate'}
-              <span>→</span>
+              <FaArrowRight aria-hidden='true' />
             </button>
           </form>
 
           <div className={styles.signup}>
             Don't have a TableMate account yet?
-            <Link to='/register'>Create an account ↗</Link>
+            <Link to='/register'>
+              Create an account <FaExternalLinkAlt aria-hidden='true' />
+            </Link>
           </div>
         </section>
 
         <footer className={styles.loginFooter}>
           <div className={styles.membershipRow}>
-            <span>✦</span>
+            <FaStar aria-hidden='true' />
             MEMBER OF THE GLOBAL DINING ALLIANCE
             <span className={styles.bullet}>•</span>
           </div>
 
           <div className={styles.membershipDetails}>
-            <span>♜ &nbsp;2,400+ MICHELIN & CURATED TABLES</span>
+            <span>
+              <FaChessRook aria-hidden='true' /> &nbsp;2,400+ MICHELIN &
+              CURATED TABLES
+            </span>
             <span className={styles.bullet}>•</span>
-            <span>♧ &nbsp;DIRECT MAÎTRE D' SYNC</span>
+            <span>
+              <FaLeaf aria-hidden='true' /> &nbsp;DIRECT MAÎTRE D' SYNC
+            </span>
           </div>
         </footer>
 

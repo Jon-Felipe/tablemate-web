@@ -112,7 +112,7 @@ describe('App navigation', () => {
     ).toBeInTheDocument();
 
     await user.click(
-      screen.getByRole('link', { name: '← Back to restaurants' }),
+      screen.getByRole('link', { name: 'Back to restaurants' }),
     );
 
     expect(
