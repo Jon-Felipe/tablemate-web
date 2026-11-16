@@ -116,7 +116,7 @@
 
 .appleIcon {
   color: #111;
-  font-size: 13px;
+  font-size: 19px;
 }
 
 .divider {
@@ -216,6 +216,9 @@
 }
 
 .signinBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   height: 53px;
   border: none;
