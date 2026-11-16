@@ -41,140 +41,143 @@ function RegisterPage() {
   }
 
   return (
-    <div className={styles.signupContainer}>
-      <header className={styles.signupHeader}>
-        <h1>Create Your Account</h1>
-        <p>
-          Join our private guest network for seamless booking and bespoke
-          dining.
-        </p>
-      </header>
+    <div className={styles.signupPage}>
+      <div className={styles.signupContainer}>
+        <header className={styles.signupHeader}>
+          <h1>Create Your Account</h1>
+          <p>
+            Join our private guest network for seamless booking and bespoke
+            dining.
+          </p>
+        </header>
 
-      {/* Social Sign Up */}
-      <div className={styles.socialButtons}>
-        <button type='button' className={styles.socialBtn}>
-          <FcGoogle className={styles.googleIcon} aria-hidden='true' />
-          <span>Google</span>
-        </button>
+        {/* Social Sign Up */}
+        <div className={styles.socialButtons}>
+          <button type='button' className={styles.socialBtn}>
+            <FcGoogle className={styles.googleIcon} aria-hidden='true' />
+            <span>Google</span>
+          </button>
 
-        <button type='button' className={styles.socialBtn}>
-          <FaApple className={styles.appleIcon} aria-hidden='true' />
-          <span>Apple</span>
-        </button>
-      </div>
-
-      {/* Divider */}
-      <div className={styles.divider}>
-        <span />
-        <p>OR WITH EMAIL</p>
-        <span />
-      </div>
-
-      {/* Registration Form */}
-      <form onSubmit={handleSubmit} className={styles.signupForm}>
-        <div className={styles.formGroup}>
-          <label htmlFor='fullname'>FULL NAME</label>
-          <input
-            type='text'
-            id='fullname'
-            name='fullname'
-            placeholder='John Doe'
-            required
-          />
+          <button type='button' className={styles.socialBtn}>
+            <FaApple className={styles.appleIcon} aria-hidden='true' />
+            <span>Apple</span>
+          </button>
         </div>
 
-        <div className={styles.formGroup}>
-          <label htmlFor='email'>EMAIL ADDRESS</label>
-          <input
-            type='email'
-            id='email'
-            name='email'
-            placeholder='example@example.com'
-            required
-          />
+        {/* Divider */}
+        <div className={styles.divider}>
+          <span />
+          <p>OR WITH EMAIL</p>
+          <span />
         </div>
 
-        <div className={styles.formGroup}>
-          <label htmlFor='password'>PASSWORD</label>
-
-          <div className={styles.passwordField}>
+        {/* Registration Form */}
+        <form onSubmit={handleSubmit} className={styles.signupForm}>
+          <div className={styles.formGroup}>
+            <label htmlFor='fullname'>FULL NAME</label>
             <input
-              type='password'
-              id='password'
-              name='password'
-              placeholder='Create a password'
+              type='text'
+              id='fullname'
+              name='fullname'
+              placeholder='John Doe'
               required
             />
           </div>
-        </div>
 
-        {/* Primary Metropolis */}
-        <div className={`${styles.formGroup} ${styles.cityGroup}`}>
-          <label>PRIMARY METROPOLIS</label>
-
-          <div className={styles.cityOptions}>
-            <button
-              type='button'
-              className={`${styles.cityOption} ${location === 'Johannesburg' ? styles.active : ''}`}
-              onClick={() => setLocation('Johannesburg')}
-            >
-              Johannesburg
-            </button>
-
-            <button
-              type='button'
-              className={`${styles.cityOption} ${location === 'Cape Town' ? styles.active : ''}`}
-              onClick={() => setLocation('Cape Town')}
-            >
-              Cape Town
-            </button>
-
-            <button
-              type='button'
-              className={`${styles.cityOption} ${location === 'Durban' ? styles.active : ''}`}
-              onClick={() => setLocation('Durban')}
-            >
-              Durban
-            </button>
-
-            <button
-              type='button'
-              className={`${styles.cityOption} ${location === 'Pretoria' ? styles.active : ''}`}
-              onClick={() => setLocation('Pretoria')}
-            >
-              Pretoria
-            </button>
+          <div className={styles.formGroup}>
+            <label htmlFor='email'>EMAIL ADDRESS</label>
+            <input
+              type='email'
+              id='email'
+              name='email'
+              placeholder='example@example.com'
+              required
+            />
           </div>
-        </div>
 
-        {/* Terms */}
-        <div className={styles.terms}>
-          <span className={styles.checkIcon} aria-hidden='true'>
-            <FaCheck />
-          </span>
+          <div className={styles.formGroup}>
+            <label htmlFor='password'>PASSWORD</label>
 
+            <div className={styles.passwordField}>
+              <input
+                type='password'
+                id='password'
+                name='password'
+                placeholder='Create a password'
+                required
+              />
+            </div>
+          </div>
+
+          {/* Primary Metropolis */}
+          <div className={`${styles.formGroup} ${styles.cityGroup}`}>
+            <label>PRIMARY METROPOLIS</label>
+
+            <div className={styles.cityOptions}>
+              <button
+                type='button'
+                className={`${styles.cityOption} ${location === 'Johannesburg' ? styles.active : ''}`}
+                onClick={() => setLocation('Johannesburg')}
+              >
+                Johannesburg
+              </button>
+
+              <button
+                type='button'
+                className={`${styles.cityOption} ${location === 'Cape Town' ? styles.active : ''}`}
+                onClick={() => setLocation('Cape Town')}
+              >
+                Cape Town
+              </button>
+
+              <button
+                type='button'
+                className={`${styles.cityOption} ${location === 'Durban' ? styles.active : ''}`}
+                onClick={() => setLocation('Durban')}
+              >
+                Durban
+              </button>
+
+              <button
+                type='button'
+                className={`${styles.cityOption} ${location === 'Pretoria' ? styles.active : ''}`}
+                onClick={() => setLocation('Pretoria')}
+              >
+                Pretoria
+              </button>
+            </div>
+          </div>
+
+          {/* Terms */}
+          <div className={styles.terms}>
+            <span className={styles.checkIcon} aria-hidden='true'>
+              <FaCheck />
+            </span>
+
+            <p>
+              By registering, you accept the{' '}
+              <a href='#'>Terms of Hospitality</a> and{' '}
+              <a href='#'>Privacy Policy</a>.
+            </p>
+          </div>
+
+          {/* Submit */}
+          <button
+            type='submit'
+            className={styles.submitBtn}
+            disabled={isRegistering}
+          >
+            {isRegistering ? 'Creating Account...' : 'Create Account'}
+            <FaArrowRight aria-hidden='true' />
+          </button>
+        </form>
+
+        {/* Login Footer */}
+        <div className={styles.loginFooter}>
           <p>
-            By registering, you accept the <a href='#'>Terms of Hospitality</a>{' '}
-            and <a href='#'>Privacy Policy</a>.
+            Already a member? <Link to='/login'>Sign in</Link>
           </p>
         </div>
-
-        {/* Submit */}
-        <button
-          type='submit'
-          className={styles.submitBtn}
-          disabled={isRegistering}
-        >
-          {isRegistering ? 'Creating Account...' : 'Create Account'}
-          <FaArrowRight aria-hidden='true' />
-        </button>
-      </form>
-
-      {/* Login Footer */}
-      <div className={styles.loginFooter}>
-        <p>
-          Already a member? <Link to='/login'>Sign in</Link>
-        </p>
       </div>
     </div>
   );
