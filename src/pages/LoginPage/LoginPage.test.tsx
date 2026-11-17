@@ -102,16 +102,15 @@ describe('LoginPage', () => {
     expect(screen.getByTestId('current-path')).toHaveTextContent('/');
   });
 
-  it('asks for both credentials when either is missing', async () => {
+  it('requires both credentials before submitting', async () => {
     const user = userEvent.setup();
-    const toastError = vi.spyOn(toast, 'error').mockImplementation(() => 1);
     renderLoginPage();
+
+    expect(screen.getByPlaceholderText('john@example.com')).toBeRequired();
+    expect(screen.getByPlaceholderText('Password')).toBeRequired();
 
     await user.click(screen.getByRole('button', { name: /Sign In to TableMate/ }));
 
-    expect(toastError).toHaveBeenCalledWith(
-      'Please enter both email and password.',
-    );
     expect(mockLogin).not.toHaveBeenCalled();
   });
 
