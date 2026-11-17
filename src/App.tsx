@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router';
+import { ToastContainer } from 'react-toastify';
 
 // pages
 import LoginPage from './pages/LoginPage/LoginPage';
@@ -29,6 +30,7 @@ function App() {
           <Route path='*' element={<NotFoundPage />} />
         </Route>
       </Routes>
+      <ToastContainer />
     </BrowserRouter>
   );
 }

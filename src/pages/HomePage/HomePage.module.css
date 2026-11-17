@@ -31,12 +31,8 @@
 }
 
 .description {
-  margin: 20px auto 0;
-  color: #42332d;
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 21px;
   font-weight: 400;
-  line-height: 1.7;
 }
 
 /* Search Container */
@@ -90,27 +86,34 @@
   letter-spacing: 0.3px;
 }
 
-.placeholder {
-  color: #8b817c;
+.searchInput {
+  width: 100%;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #201e1d;
   font-size: 16px;
   font-weight: 400;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
-.fieldValue {
-  color: #201e1d;
-  font-size: 19px;
-  font-weight: 600;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.searchInput::placeholder {
+  color: #8b817c;
+}
+
+.fieldSelect {
+  appearance: none;
+  cursor: pointer;
 }
 
 .fieldChevron {
   flex-shrink: 0;
   color: #694633;
+}
+
+.searchField:has(.fieldSelect:open) > .fieldChevron {
+  transform: rotate(180deg);
 }
 
 /* Discover */
@@ -120,12 +123,36 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
+  border: 0;
   border-radius: 11px;
   background: #98492b;
   color: #fff;
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.discoverButton:hover {
+  background: #803c23;
+  transform: scale(1.01);
+}
+
+.discoverButton:focus-visible {
+  outline: 3px solid #694633;
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .discoverButton {
+    transition: none;
+  }
+
+  .discoverButton:hover {
+    transform: none;
+  }
 }
 
 /* Responsive */
@@ -138,10 +165,6 @@
 
   .title {
     font-size: 52px;
-  }
-
-  .description {
-    font-size: 18px;
   }
 
   .searchContainer {
@@ -169,12 +192,6 @@
     line-height: 1.2;
   }
 
-  .description {
-    font-size: 16px;
-    line-height: 1.6;
-    margin-top: 15px;
-  }
-
   .desktopBreak {
     display: none;
   }
@@ -194,19 +211,11 @@
   .discoverButton {
     min-height: 58px;
   }
-
-  .fieldValue {
-    font-size: 17px;
-  }
 }
 
 @media (max-width: 360px) {
   .title {
     font-size: 34px;
-  }
-
-  .description {
-    font-size: 14px;
   }
 }
 
@@ -608,11 +617,6 @@
   color: #65544d;
   font-size: 11.5px;
   letter-spacing: 0.1px;
-}
-
-.trustCardFooter span {
-  color: #a3482b;
-  font-size: 14px;
 }
 
 .trustCardFooter svg {
