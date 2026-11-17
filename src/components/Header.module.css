@@ -1,171 +1,218 @@
-/* ==============================
-   Header Layout
-============================== */
-
-.siteHeader {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  align-items: center;
-  column-gap: 40px;
-
+.header {
   width: 100%;
-  min-height: 78px;
-  padding: 0 44px;
-
-  background-color: #fdfbf9;
-
-  box-sizing: border-box;
-}
-
-/* ==============================
-   Brand
-============================== */
-
-.brand {
-  color: #174b3b;
-  font-family: Georgia, serif;
-  font-size: 20px;
-  font-weight: 700;
-  text-decoration: none;
-  white-space: nowrap;
-}
-
-/* ==============================
-   Main Navigation
-============================== */
-
-.mainNav {
+  height: 64px;
+  background: #fdfaf8;
+  border-bottom: 1px solid #f3efec;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  gap: 34px;
+  padding: 0 40px;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-.mainNav a {
-  color: #414141;
-  font-size: 14px;
-  font-weight: 500;
-  text-decoration: none;
-  white-space: nowrap;
+.navbar {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
 
+/* Logo */
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  text-decoration: none;
+  color: #242321;
+  flex-shrink: 0;
+}
+
+.logoIcon {
+  width: 28px;
+  height: 28px;
+  border: 1px solid #eee5df;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #9e5336;
+  background: #faf7f4;
+}
+
+.logoIcon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.logoText {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 27px;
+  font-weight: 600;
+  letter-spacing: -1.1px;
+}
+
+/* Navigation */
+
+.navLinks {
+  display: flex;
+  align-items: center;
+  gap: 23px;
+  margin-left: 30px;
+  height: 100%;
+}
+
+.navLink {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  text-decoration: none;
+  color: #514640;
+  font-size: 14px;
+  font-weight: 400;
   transition: color 0.2s ease;
 }
 
-.mainNav a:hover {
-  color: #174b3b;
+.navLink:hover {
+  color: #a04d2e;
 }
 
-/* ==============================
-   Header Actions
-============================== */
+.navLink.active {
+  color: #a3482b;
+  font-weight: 600;
+}
 
-.headerActions {
+.navLink.active::after {
+  content: '';
+  position: absolute;
+  height: 2px;
+  width: 100%;
+  bottom: 15px;
+  left: 0;
+  background: #a3482b;
+}
+
+/* Actions */
+
+.actions {
+  margin-left: auto;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  gap: 10px;
+  gap: 28px;
+  height: 100%;
+}
 
+.loginButton {
+  text-decoration: none;
+  color: #514640;
+  font-size: 13px;
   white-space: nowrap;
 }
 
-.headerActions a {
-  display: inline-flex;
+.signupButton {
+  display: flex;
   align-items: center;
   justify-content: center;
-
-  min-height: 38px;
-  padding: 0 17px;
-
+  height: 32px;
+  min-width: 89px;
+  padding: 0 21px;
   border-radius: 30px;
-
+  background: #99472a;
+  color: #fff;
+  text-decoration: none;
   font-size: 13px;
   font-weight: 600;
-  text-decoration: none;
-
-  transition:
-    background-color 0.2s ease,
-    color 0.2s ease;
-}
-
-/* Log In */
-
-.loginButton {
-  background-color: #b9f0d8;
-  color: #174b3b;
-}
-
-.loginButton:hover {
-  background-color: #a3e7c9;
-}
-
-/* Sign Up */
-
-.signupButton {
-  background-color: #80330f;
-  color: #fff;
+  transition: background 0.2s ease;
 }
 
 .signupButton:hover {
-  background-color: #65280d;
+  background: #7e381f;
 }
 
-/* ==============================
-   Responsive: Tablets
-============================== */
+/* Profile */
+
+.profile {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  margin-left: -14px;
+}
+
+.profileButton {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.avatar {
+  width: 29px;
+  height: 29px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.chevron {
+  width: 13px;
+  height: 13px;
+  color: #66574e;
+}
+
+/* Responsive */
 
 @media (max-width: 768px) {
-  .siteHeader {
-    padding: 16px 20px;
-    column-gap: 20px;
-    row-gap: 16px;
-    grid-template-columns: auto 1fr;
+  .header {
+    padding: 0 20px;
   }
 
-  .brand {
-    font-size: 19px;
+  .navLinks {
+    gap: 15px;
+    margin-left: 22px;
   }
 
-  .headerActions {
-    justify-content: flex-end;
+  .actions {
+    gap: 16px;
   }
 
-  .mainNav {
-    grid-column: 1 / -1;
-    grid-row: 2;
-    gap: 24px;
-    overflow-x: auto;
+  .logoText {
+    font-size: 23px;
   }
 }
 
-/* ==============================
-   Responsive: Mobile
-============================== */
-
-@media (max-width: 480px) {
-  .siteHeader {
-    padding: 14px 16px;
-    column-gap: 10px;
+@media (max-width: 580px) {
+  .header {
+    height: 60px;
+    padding: 0 16px;
   }
 
-  .brand {
-    font-size: 18px;
+  .navLinks {
+    display: none;
   }
 
-  .headerActions {
-    gap: 6px;
+  .actions {
+    gap: 17px;
   }
 
-  .headerActions a {
-    min-height: 34px;
-    padding: 0 11px;
-    font-size: 12px;
+  .loginButton {
+    display: none;
   }
 
-  .mainNav {
-    gap: 20px;
+  .profile {
+    margin-left: -8px;
+  }
+}
+
+@media (max-width: 360px) {
+  .signupButton {
+    min-width: 75px;
+    padding: 0 13px;
   }
 
-  .mainNav a {
-    font-size: 13px;
+  .actions {
+    gap: 12px;
   }
 }
