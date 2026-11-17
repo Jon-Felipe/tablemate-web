@@ -1,5 +1,7 @@
-import { useState } from 'react';
+import { type SubmitEvent, useState } from 'react';
+import { Link, useNavigate } from 'react-router';
 import { FaAward, FaClock, FaGlobe, FaUtensils } from 'react-icons/fa';
+import { toast } from 'react-toastify';
 import {
   LuSearch,
   LuMapPin,
@@ -31,10 +33,22 @@ const filters = ['All', 'Top Rated', 'New', 'Nearby'];
 
 function HomePage() {
   const { data: restaurants = [] } = useGetRestaurantsQuery();
+  const navigate = useNavigate();
 
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [location, setLocation] = useState<string>('');
   const [guests, setGuests] = useState<string>('2');
+
+  function handleDiscoverSubmit(event: SubmitEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (!searchQuery || !location || !guests) {
+      toast.error('Please fill in all search fields.');
+      return;
+    }
+    navigate(
+      `/restaurants?search=${searchQuery}&location=${location}&guests=${guests}`,
+    );
+  }
 
   return (
     <div>
@@ -54,7 +68,11 @@ function HomePage() {
         </div>
 
         {/* Search Bar */}
-        <div className={styles.searchContainer}>
+        <form
+          className={styles.searchContainer}
+          onSubmit={handleDiscoverSubmit}
+          role='search'
+        >
           {/* Cuisine or Spot */}
           <div className={`${styles.searchField} ${styles.cuisineField}`}>
             <LuSearch className={styles.fieldIcon} size={21} />
@@ -63,6 +81,7 @@ function HomePage() {
               <label htmlFor='restaurant-search'>Cuisine or Spot</label>
               <input
                 id='restaurant-search'
+                name='restaurant-search'
                 className={styles.searchInput}
                 type='text'
                 placeholder='Search restaurant, district...'
@@ -80,6 +99,7 @@ function HomePage() {
               <label htmlFor='location-search'>Location</label>
               <select
                 id='location-search'
+                name='location-search'
                 className={`${styles.searchInput} ${styles.fieldSelect}`}
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
@@ -107,6 +127,7 @@ function HomePage() {
               <label htmlFor='guest-count'>Guests</label>
               <select
                 id='guest-count'
+                name='guest-count'
                 className={`${styles.searchInput} ${styles.fieldSelect}`}
                 value={guests}
                 onChange={(e) => setGuests(e.target.value)}
@@ -126,11 +147,11 @@ function HomePage() {
           </div>
 
           {/* Discover Button */}
-          <button type='button' className={styles.discoverButton}>
+          <button type='submit' className={styles.discoverButton}>
             <LuCompass size={21} strokeWidth={2} />
             <span>Discover</span>
           </button>
-        </div>
+        </form>
       </section>
 
       <section className={styles.featuredSection}>
@@ -218,10 +239,13 @@ function HomePage() {
 
                 {/* Footer */}
                 <div className={styles.cardFooter}>
-                  <span className={styles.viewLink}>
+                  <Link
+                    to={`/restaurants/${restaurant.id}`}
+                    className={styles.viewLink}
+                  >
                     View restaurant
                     <LuArrowRight size={14} />
-                  </span>
+                  </Link>
                 </div>
               </div>
             </article>

@@ -3,6 +3,7 @@ import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router';
+import { ToastContainer } from 'react-toastify';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
 // extras
@@ -34,6 +35,7 @@ function renderHomePage() {
     <Provider store={store}>
       <MemoryRouter>
         <HomePage />
+        <ToastContainer />
       </MemoryRouter>
     </Provider>,
   );
@@ -152,6 +154,18 @@ describe('HomePage', () => {
     expect(
       within(guestSelect).getByRole('option', { name: '10 guests' }),
     ).toHaveProperty('selected', true);
+  });
+
+  it('shows a toast when Discover is submitted with missing search fields', async () => {
+    mockRestaurantsResponse([]);
+
+    renderHomePage();
+
+    await userEvent.click(screen.getByRole('button', { name: 'Discover' }));
+
+    expect(
+      await screen.findByText('Please fill in all search fields.'),
+    ).toBeInTheDocument();
   });
 
   it('allows keyboard focus on the Discover button', async () => {
