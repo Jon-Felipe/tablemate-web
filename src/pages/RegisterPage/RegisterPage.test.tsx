@@ -4,6 +4,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import userEvent from '@testing-library/user-event';
 import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
+import { toast } from 'react-toastify';
 
 import authReducer from '../../features/auth/authSlice';
 import { restaurantApi } from '../../services/restaurantApi';
@@ -74,10 +75,14 @@ function renderRegisterPage() {
 }
 
 async function fillRegistrationForm(user: ReturnType<typeof userEvent.setup>) {
-  await user.type(screen.getByLabelText('FULL NAME'), 'John Doe');
-  await user.type(screen.getByLabelText('EMAIL ADDRESS'), 'john@example.com');
+  await user.type(screen.getByPlaceholderText('e.g., John Doe'), 'John Doe');
+  await user.type(screen.getByPlaceholderText('john@example.com'), 'john@example.com');
   await user.type(
-    screen.getByLabelText('PASSWORD'),
+    screen.getByPlaceholderText('Minimum 12 characters'),
+    'secure-password-123',
+  );
+  await user.type(
+    screen.getByPlaceholderText('Re-enter your password'),
     'secure-password-123',
   );
 }
@@ -101,15 +106,15 @@ describe('RegisterPage', () => {
     renderRegisterPage();
 
     expect(
-      screen.getByRole('heading', { name: 'Create Your Account' }),
+      screen.getByRole('heading', { name: 'Create your account.' }),
     ).toBeInTheDocument();
-    expect(screen.getByLabelText('FULL NAME')).toBeRequired();
-    expect(screen.getByLabelText('EMAIL ADDRESS')).toBeRequired();
-    expect(screen.getByLabelText('PASSWORD')).toBeRequired();
+    expect(screen.getByPlaceholderText('e.g., John Doe')).toBeInTheDocument();
+    expect(screen.getByPlaceholderText('john@example.com')).toBeInTheDocument();
+    expect(screen.getByPlaceholderText('Minimum 12 characters')).toBeInTheDocument();
     expect(
-      screen.getByRole('button', { name: /Create Account/ }),
+      screen.getByRole('button', { name: /Create account/ }),
     ).toBeEnabled();
-    expect(screen.getByRole('link', { name: 'Sign in' })).toHaveAttribute(
+    expect(screen.getByRole('link', { name: /Sign in instead/ })).toHaveAttribute(
       'href',
       '/login',
     );
@@ -121,13 +126,17 @@ describe('RegisterPage', () => {
 
     renderRegisterPage();
 
-    await user.type(screen.getByLabelText('FULL NAME'), '  John Doe  ');
-    await user.type(screen.getByLabelText('EMAIL ADDRESS'), 'john@example.com');
+    await user.type(screen.getByPlaceholderText('e.g., John Doe'), '  John Doe  ');
+    await user.type(screen.getByPlaceholderText('john@example.com'), 'john@example.com');
     await user.type(
-      screen.getByLabelText('PASSWORD'),
+      screen.getByPlaceholderText('Minimum 12 characters'),
       'secure-password-123',
     );
-    await user.click(screen.getByRole('button', { name: /Create Account/ }));
+    await user.type(
+      screen.getByPlaceholderText('Re-enter your password'),
+      'secure-password-123',
+    );
+    await user.click(screen.getByRole('button', { name: /Create account/ }));
 
     await waitFor(() => {
       expect(fetchMock).toHaveBeenCalled();
@@ -153,7 +162,7 @@ describe('RegisterPage', () => {
     renderRegisterPage();
 
     await fillRegistrationForm(user);
-    await user.click(screen.getByRole('button', { name: /Create Account/ }));
+    await user.click(screen.getByRole('button', { name: /Create account/ }));
 
     expect(await screen.findByRole('heading', { name: 'Login page' }))
       .toBeInTheDocument();
@@ -162,37 +171,38 @@ describe('RegisterPage', () => {
 
   it('shows the server error when registration fails', async () => {
     const user = userEvent.setup();
-    const alert = vi.spyOn(window, 'alert').mockImplementation(() => {});
+    const toastError = vi.spyOn(toast, 'error').mockImplementation(() => 1);
     vi.stubGlobal('fetch', vi.fn(async () => errorResponse()));
 
     renderRegisterPage();
 
     await fillRegistrationForm(user);
-    await user.click(screen.getByRole('button', { name: /Create Account/ }));
+    await user.click(screen.getByRole('button', { name: /Create account/ }));
 
     await waitFor(() => {
-      expect(alert).toHaveBeenCalledWith('Internal Server Error');
+      expect(toastError).toHaveBeenCalledWith('Internal Server Error');
     });
     await waitFor(() => {
       expect(
-        screen.getByRole('button', { name: /Create Account/ }),
+        screen.getByRole('button', { name: /Create account/ }),
       ).toBeEnabled();
     });
   });
 
   it('rejects passwords shorter than 12 characters without making a request', async () => {
     const user = userEvent.setup();
-    const alert = vi.spyOn(window, 'alert').mockImplementation(() => {});
+    const toastError = vi.spyOn(toast, 'error').mockImplementation(() => 1);
     const fetchMock = mockSuccessfulRegistration();
 
     renderRegisterPage();
 
-    await user.type(screen.getByLabelText('FULL NAME'), 'John Doe');
-    await user.type(screen.getByLabelText('EMAIL ADDRESS'), 'john@example.com');
-    await user.type(screen.getByLabelText('PASSWORD'), 'short');
-    await user.click(screen.getByRole('button', { name: /Create Account/ }));
+    await user.type(screen.getByPlaceholderText('e.g., John Doe'), 'John Doe');
+    await user.type(screen.getByPlaceholderText('john@example.com'), 'john@example.com');
+    await user.type(screen.getByPlaceholderText('Minimum 12 characters'), 'short');
+    await user.type(screen.getByPlaceholderText('Re-enter your password'), 'short');
+    await user.click(screen.getByRole('button', { name: /Create account/ }));
 
-    expect(alert).toHaveBeenCalledWith(
+    expect(toastError).toHaveBeenCalledWith(
       'Password must be at least 12 characters long.',
     );
     expect(fetchMock).not.toHaveBeenCalled();
@@ -206,16 +216,16 @@ describe('RegisterPage', () => {
     renderRegisterPage();
 
     await fillRegistrationForm(user);
-    await user.click(screen.getByRole('button', { name: /Create Account/ }));
+    await user.click(screen.getByRole('button', { name: /Create account/ }));
 
     expect(
-      await screen.findByRole('button', { name: /Creating Account/ }),
+      await screen.findByRole('button', { name: /Creating account/ }),
     ).toBeDisabled();
   });
 
   it('allows retrying after a failed registration', async () => {
     const user = userEvent.setup();
-    const alert = vi.spyOn(window, 'alert').mockImplementation(() => {});
+    const toastError = vi.spyOn(toast, 'error').mockImplementation(() => 1);
     let requestCount = 0;
 
     vi.stubGlobal(
@@ -229,17 +239,17 @@ describe('RegisterPage', () => {
     renderRegisterPage();
 
     await fillRegistrationForm(user);
-    await user.click(screen.getByRole('button', { name: /Create Account/ }));
+    await user.click(screen.getByRole('button', { name: /Create account/ }));
 
     await waitFor(() => {
-      expect(alert).toHaveBeenCalledWith('Internal Server Error');
+      expect(toastError).toHaveBeenCalledWith('Internal Server Error');
     });
     await waitFor(() => {
       expect(
-        screen.getByRole('button', { name: /Create Account/ }),
+        screen.getByRole('button', { name: /Create account/ }),
       ).toBeEnabled();
     });
-    await user.click(screen.getByRole('button', { name: /Create Account/ }));
+    await user.click(screen.getByRole('button', { name: /Create account/ }));
 
     expect(await screen.findByRole('heading', { name: 'Login page' }))
       .toBeInTheDocument();

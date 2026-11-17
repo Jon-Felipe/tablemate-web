@@ -3,6 +3,8 @@ import userEvent from '@testing-library/user-event';
 import { MemoryRouter, Route, Routes, useLocation } from 'react-router';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
+import { toast } from 'react-toastify';
+
 import { useAuth } from '../../features/auth/useAuth';
 import LoginPage from './LoginPage';
 
@@ -39,7 +41,7 @@ function renderLoginPage() {
 
 async function fillLoginForm(user: ReturnType<typeof userEvent.setup>) {
   await user.type(
-    screen.getByPlaceholderText('Connoisseur email address'),
+    screen.getByPlaceholderText('john@example.com'),
     'john@example.com',
   );
   await user.type(screen.getByPlaceholderText('Password'), 'secure-password-123');
@@ -67,7 +69,7 @@ describe('LoginPage', () => {
       screen.getByRole('heading', { name: 'Return to Your Table' }),
     ).toBeInTheDocument();
     expect(
-      screen.getByPlaceholderText('Connoisseur email address'),
+      screen.getByPlaceholderText('john@example.com'),
     ).toHaveAttribute('type', 'email');
     expect(screen.getByPlaceholderText('Password')).toHaveAttribute(
       'type',
@@ -102,12 +104,12 @@ describe('LoginPage', () => {
 
   it('asks for both credentials when either is missing', async () => {
     const user = userEvent.setup();
-    const alert = vi.spyOn(window, 'alert').mockImplementation(() => {});
+    const toastError = vi.spyOn(toast, 'error').mockImplementation(() => 1);
     renderLoginPage();
 
     await user.click(screen.getByRole('button', { name: /Sign In to TableMate/ }));
 
-    expect(alert).toHaveBeenCalledWith(
+    expect(toastError).toHaveBeenCalledWith(
       'Please enter both email and password.',
     );
     expect(mockLogin).not.toHaveBeenCalled();
@@ -115,17 +117,17 @@ describe('LoginPage', () => {
 
   it('rejects passwords shorter than 12 characters without logging in', async () => {
     const user = userEvent.setup();
-    const alert = vi.spyOn(window, 'alert').mockImplementation(() => {});
+    const toastError = vi.spyOn(toast, 'error').mockImplementation(() => 1);
     renderLoginPage();
 
     await user.type(
-      screen.getByPlaceholderText('Connoisseur email address'),
+      screen.getByPlaceholderText('john@example.com'),
       'john@example.com',
     );
     await user.type(screen.getByPlaceholderText('Password'), 'short');
     await user.click(screen.getByRole('button', { name: /Sign In to TableMate/ }));
 
-    expect(alert).toHaveBeenCalledWith(
+    expect(toastError).toHaveBeenCalledWith(
       'Password must be at least 12 characters long.',
     );
     expect(mockLogin).not.toHaveBeenCalled();
@@ -133,7 +135,7 @@ describe('LoginPage', () => {
 
   it('shows the server message when login fails', async () => {
     const user = userEvent.setup();
-    const alert = vi.spyOn(window, 'alert').mockImplementation(() => {});
+    const toastError = vi.spyOn(toast, 'error').mockImplementation(() => 1);
     mockLogin.mockRejectedValueOnce({
       data: { message: 'Invalid credentials' },
     });
@@ -143,7 +145,7 @@ describe('LoginPage', () => {
     await user.click(screen.getByRole('button', { name: /Sign In to TableMate/ }));
 
     await waitFor(() => {
-      expect(alert).toHaveBeenCalledWith('Invalid credentials');
+      expect(toastError).toHaveBeenCalledWith('Invalid credentials');
     });
   });
 

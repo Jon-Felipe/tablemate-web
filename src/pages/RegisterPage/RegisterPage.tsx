@@ -1,19 +1,24 @@
-import { useState } from 'react';
 import { Link, useNavigate } from 'react-router';
-import { FaApple, FaArrowRight, FaCheck } from 'react-icons/fa';
+import { toast } from 'react-toastify';
+import {
+  FaApple,
+  FaUser,
+  FaEnvelope,
+  FaLock,
+  FaArrowRight,
+  FaHistory,
+  FaUtensils,
+  FaCheckCircle,
+} from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
 
 // extrs
 import styles from './RegisterPage.module.css';
 import { useAuth } from '../../features/auth/useAuth';
 
-type cities = 'Johannesburg' | 'Cape Town' | 'Durban' | 'Pretoria';
-
 function RegisterPage() {
   const { register, isRegistering } = useAuth();
   const navigate = useNavigate();
-
-  const [location, setLocation] = useState<cities>('Johannesburg');
 
   async function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -21,14 +26,20 @@ function RegisterPage() {
     const fullname = formData.get('fullname')?.toString().trim();
     const email = formData.get('email')?.toString().trim();
     const password = formData.get('password')?.toString();
+    const confirmPassword = formData.get('confirmPassword')?.toString();
 
-    if (!fullname || !email || !password) {
-      alert('Please fill in all required fields.');
+    if (!fullname || !email || !password || !confirmPassword) {
+      toast.error('Please fill in all required fields.');
       return;
     }
 
     if (password.length < 12) {
-      alert('Password must be at least 12 characters long.');
+      toast.error('Password must be at least 12 characters long.');
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      toast.error('Passwords do not match.');
       return;
     }
 
@@ -36,148 +47,167 @@ function RegisterPage() {
       await register({ name: fullname, email, password });
       navigate('/login');
     } catch (error: any) {
-      alert(error?.data?.message || 'An error occurred during registration.');
+      toast.error(
+        error?.data?.message || 'An error occurred during registration.',
+      );
     }
   }
 
   return (
-    <div className={styles.signupPage}>
-      <div className={styles.signupContainer}>
-        <header className={styles.signupHeader}>
-          <h1>Create Your Account</h1>
-          <p>
-            Join our private guest network for seamless booking and bespoke
-            dining.
-          </p>
-        </header>
+    <div className={styles.page}>
+      <div className={styles.registerContainer}>
+        {/* LEFT SIDE */}
+        <section className={styles.formSection}>
+          <div className={styles.formContent}>
+            <header className={styles.brandHeader}>
+              <div className={styles.brand}>
+                <div className={styles.brandIcon}>
+                  <FaUtensils />
+                </div>
 
-        {/* Social Sign Up */}
-        <div className={styles.socialButtons}>
-          <button type='button' className={styles.socialBtn}>
-            <FcGoogle className={styles.googleIcon} aria-hidden='true' />
-            <span>Google</span>
-          </button>
+                <div>
+                  <h2>TableMate</h2>
+                  <span>DINING GAZETTE & BOOKINGS</span>
+                </div>
+              </div>
+            </header>
 
-          <button type='button' className={styles.socialBtn}>
-            <FaApple className={styles.appleIcon} aria-hidden='true' />
-            <span>Apple</span>
-          </button>
-        </div>
-
-        {/* Divider */}
-        <div className={styles.divider}>
-          <span />
-          <p>OR WITH EMAIL</p>
-          <span />
-        </div>
-
-        {/* Registration Form */}
-        <form onSubmit={handleSubmit} className={styles.signupForm}>
-          <div className={styles.formGroup}>
-            <label htmlFor='fullname'>FULL NAME</label>
-            <input
-              type='text'
-              id='fullname'
-              name='fullname'
-              placeholder='John Doe'
-              required
-            />
-          </div>
-
-          <div className={styles.formGroup}>
-            <label htmlFor='email'>EMAIL ADDRESS</label>
-            <input
-              type='email'
-              id='email'
-              name='email'
-              placeholder='example@example.com'
-              required
-            />
-          </div>
-
-          <div className={styles.formGroup}>
-            <label htmlFor='password'>PASSWORD</label>
-
-            <div className={styles.passwordField}>
-              <input
-                type='password'
-                id='password'
-                name='password'
-                placeholder='Create a password'
-                required
-              />
+            <div className={styles.heading}>
+              <h1>Create your account.</h1>
+              <p>
+                Join a global community of food lovers, unlock private
+                reservations, and save personal dining collections.
+              </p>
             </div>
-          </div>
 
-          {/* Primary Metropolis */}
-          <div className={`${styles.formGroup} ${styles.cityGroup}`}>
-            <label>PRIMARY METROPOLIS</label>
-
-            <div className={styles.cityOptions}>
-              <button
-                type='button'
-                className={`${styles.cityOption} ${location === 'Johannesburg' ? styles.active : ''}`}
-                onClick={() => setLocation('Johannesburg')}
-              >
-                Johannesburg
+            <div className={styles.socialButtons}>
+              <button type='button'>
+                <FcGoogle className={styles.googleIcon} />
+                Continue with Google
               </button>
 
-              <button
-                type='button'
-                className={`${styles.cityOption} ${location === 'Cape Town' ? styles.active : ''}`}
-                onClick={() => setLocation('Cape Town')}
-              >
-                Cape Town
-              </button>
-
-              <button
-                type='button'
-                className={`${styles.cityOption} ${location === 'Durban' ? styles.active : ''}`}
-                onClick={() => setLocation('Durban')}
-              >
-                Durban
-              </button>
-
-              <button
-                type='button'
-                className={`${styles.cityOption} ${location === 'Pretoria' ? styles.active : ''}`}
-                onClick={() => setLocation('Pretoria')}
-              >
-                Pretoria
+              <button type='button'>
+                <FaApple className={styles.appleIcon} />
+                Continue with Apple
               </button>
             </div>
+
+            <div className={styles.divider}>
+              <span />
+              <p>OR REGISTER WITH EMAIL</p>
+              <span />
+            </div>
+
+            <form className={styles.form} onSubmit={handleSubmit}>
+              <div className={styles.inputGroup}>
+                <label>Full Name</label>
+                <div className={styles.inputWrapper}>
+                  <FaUser />
+                  <input
+                    type='text'
+                    name='fullname'
+                    placeholder='e.g., John Doe'
+                    required
+                  />
+                </div>
+              </div>
+
+              <div className={styles.inputGroup}>
+                <label>Email Address</label>
+                <div className={styles.inputWrapper}>
+                  <FaEnvelope />
+                  <input
+                    type='email'
+                    name='email'
+                    placeholder='john@example.com'
+                    required
+                  />
+                </div>
+              </div>
+
+              <div className={styles.inputGroup}>
+                <div className={styles.labelRow}>
+                  <label>Password</label>
+                  <span>Minimum 12 characters</span>
+                </div>
+
+                <div className={styles.inputWrapper}>
+                  <FaLock />
+                  <input
+                    type='password'
+                    name='password'
+                    placeholder='Minimum 12 characters'
+                    required
+                  />
+                </div>
+              </div>
+
+              <div className={styles.inputGroup}>
+                <label>Confirm Password</label>
+                <div className={styles.inputWrapper}>
+                  <FaHistory />
+                  <input
+                    type='password'
+                    name='confirmPassword'
+                    placeholder='Re-enter your password'
+                    required
+                  />
+                </div>
+              </div>
+
+              <div className={styles.terms}>
+                <input type='checkbox' />
+                <p>
+                  I agree to TableMate's <a href='#terms'>Terms of Service</a>{' '}
+                  and <a href='#privacy'>Privacy Policy</a>.
+                </p>
+              </div>
+
+              <button
+                type='submit'
+                className={styles.submitButton}
+                disabled={isRegistering}
+              >
+                {isRegistering ? 'Creating account...' : 'Create account'}{' '}
+                <FaArrowRight />
+              </button>
+            </form>
           </div>
 
-          {/* Terms */}
-          <div className={styles.terms}>
-            <span className={styles.checkIcon} aria-hidden='true'>
-              <FaCheck />
-            </span>
+          <footer className={styles.formFooter}>
+            <span>Already a member?</span>
+            <Link to='/login'>
+              Sign in instead <FaArrowRight />
+            </Link>
+          </footer>
+        </section>
 
-            <p>
-              By registering, you accept the{' '}
-              <a href='#'>Terms of Hospitality</a> and{' '}
-              <a href='#'>Privacy Policy</a>.
-            </p>
+        {/* RIGHT SIDE */}
+        <section className={styles.editorialSection}>
+          <div className={styles.editorialOverlay} />
+
+          <div className={styles.testimonialCard}>
+            <div className={styles.stars}>★★★★★</div>
+
+            <blockquote>
+              “TableMate reshaped how we discover neighborhood trattorias and
+              reserve chef counters without the frantic booking rush.”
+            </blockquote>
+
+            <div className={styles.testimonialDivider} />
+
+            <div className={styles.testimonialAuthor}>
+              <div>
+                <h4>Julien & Elena Vance</h4>
+                <p>Food Writers • Copenhagen</p>
+              </div>
+
+              <div className={styles.verifiedIcon}>
+                <FaCheckCircle />
+              </div>
+            </div>
           </div>
-
-          {/* Submit */}
-          <button
-            type='submit'
-            className={styles.submitBtn}
-            disabled={isRegistering}
-          >
-            {isRegistering ? 'Creating Account...' : 'Create Account'}
-            <FaArrowRight aria-hidden='true' />
-          </button>
-        </form>
-
-        {/* Login Footer */}
-        <div className={styles.loginFooter}>
-          <p>
-            Already a member? <Link to='/login'>Sign in</Link>
-          </p>
-        </div>
+        </section>
       </div>
     </div>
   );

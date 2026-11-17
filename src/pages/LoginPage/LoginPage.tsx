@@ -1,15 +1,13 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router';
+import { toast } from 'react-toastify';
 import {
   FaApple,
   FaArrowRight,
-  FaChessRook,
+  FaCheckCircle,
   FaEnvelope,
-  FaExternalLinkAlt,
-  FaFlag,
-  FaLeaf,
   FaLock,
-  FaStar,
+  FaUtensils,
 } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
 
@@ -24,130 +22,160 @@ function LoginPage() {
   async function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
-    const email = formData.get('email') as string;
-    const password = formData.get('password') as string;
+    const email = formData.get('email')?.toString().trim();
+    const password = formData.get('password')?.toString();
 
     if (!email || !password) {
-      alert('Please enter both email and password.');
+      toast.error('Please enter both email and password.');
+      return;
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      toast.error('Please enter a valid email address.');
       return;
     }
 
     if (password.length < 12) {
-      alert('Password must be at least 12 characters long.');
+      toast.error('Password must be at least 12 characters long.');
       return;
     }
 
     try {
       await login({ email, password });
+      toast.success('Welcome back!');
       navigate('/');
     } catch (error: any) {
-      alert(error?.data?.message || 'An error occurred during login.');
+      toast.error(error?.data?.message || 'An error occurred during login.');
     }
   }
 
   return (
-    <div className={styles.loginPage}>
-      <div className={styles.loginContainer}>
-        <section className={styles.loginCard}>
-          <div className={styles.brand}>
-            <div className={styles.brandIcon}>
-              <FaFlag aria-hidden='true' />
+    <div className={styles.page}>
+      <div className={styles.registerContainer}>
+        {/* LEFT SIDE */}
+        <section className={styles.formSection}>
+          <div className={styles.formContent}>
+            <header className={styles.brandHeader}>
+              <div className={styles.brand}>
+                <div className={styles.brandIcon}>
+                  <FaUtensils />
+                </div>
+
+                <div>
+                  <h2>TableMate</h2>
+                  <span>DINING GAZETTE & BOOKINGS</span>
+                </div>
+              </div>
+            </header>
+
+            <div className={styles.heading}>
+              <h1>Return to Your Table</h1>
+              <p>
+                Access your taste passport, reserved tasting allocations, and
+                concierge sommelier notes.
+              </p>
             </div>
-            <span className={styles.reserveTag}>RESERVE</span>
+
+            <form className={styles.form} onSubmit={handleSubmit}>
+              <div className={styles.inputGroup}>
+                <label>Email Address</label>
+                <div className={styles.inputWrapper}>
+                  <FaEnvelope />
+                  <input
+                    type='email'
+                    name='email'
+                    placeholder='john@example.com'
+                    required
+                  />
+                </div>
+              </div>
+
+              <div className={styles.inputGroup}>
+                <label>Password</label>
+                <div className={styles.inputWrapper}>
+                  <FaLock />
+                  <input
+                    type='password'
+                    name='password'
+                    placeholder='Password'
+                    required
+                  />
+                </div>
+              </div>
+
+              <div className={styles.formOptions}>
+                <label className={styles.remember}>
+                  <input type='checkbox' defaultChecked />
+                  <span>Remember for 30 days</span>
+                </label>
+
+                <Link to='/forgot-password' className={styles.forgotPassword}>
+                  Forgot password?
+                </Link>
+              </div>
+
+              <button
+                type='submit'
+                className={styles.submitButton}
+                disabled={isLoggingIn}
+              >
+                {isLoggingIn ? 'Signing In...' : 'Sign In to TableMate'}
+                <FaArrowRight />
+              </button>
+            </form>
+
+            <div className={styles.divider}>
+              <span />
+              <p>OR CONTINUE WITH</p>
+              <span />
+            </div>
+
+            <div className={styles.socialButtons}>
+              <button type='button'>
+                <FcGoogle className={styles.googleIcon} />
+                Google Access
+              </button>
+
+              <button type='button'>
+                <FaApple className={styles.appleIcon} />
+                Apple ID
+              </button>
+            </div>
           </div>
 
-          <h1>Return to Your Table</h1>
-
-          <p className={styles.subtitle}>
-            Access your taste passport, reserved tasting allocations, and
-            concierge sommelier notes.
-          </p>
-
-          <div className={styles.socialLogin}>
-            <button type='button' className={styles.socialBtn}>
-              <FcGoogle className={styles.googleIcon} aria-hidden='true' />
-              Google Access
-            </button>
-
-            <button type='button' className={styles.socialBtn}>
-              <FaApple className={styles.appleIcon} aria-hidden='true' />
-              Apple ID
-            </button>
-          </div>
-
-          <div className={styles.divider}>
-            <span></span>
-            <p>OR CONTINUE WITH EMAIL</p>
-            <span></span>
-          </div>
-
-          <form className={styles.loginForm} onSubmit={handleSubmit}>
-            <div className={styles.inputGroup}>
-              <FaEnvelope className={styles.inputIcon} aria-hidden='true' />
-              <input
-                type='email'
-                name='email'
-                placeholder='Connoisseur email address'
-              />
-            </div>
-
-            <div className={styles.inputGroup}>
-              <FaLock className={styles.inputIcon} aria-hidden='true' />
-              <input type='password' name='password' placeholder='Password' />
-            </div>
-
-            <div className={styles.formOptions}>
-              <label className={styles.remember}>
-                <input type='checkbox' defaultChecked />
-                <span>Remember for 30 days</span>
-              </label>
-
-              <a href='#' className={styles.forgotPassword}>
-                Forgot password?
-              </a>
-            </div>
-
-            <button
-              type='submit'
-              className={styles.signinBtn}
-              disabled={isLoggingIn}
-            >
-              {isLoggingIn ? 'Signing In...' : 'Sign In to TableMate'}
-              <FaArrowRight aria-hidden='true' />
-            </button>
-          </form>
-
-          <div className={styles.signup}>
-            Don't have a TableMate account yet?
+          <footer className={styles.formFooter}>
+            <span>Don't have a TableMate account yet?</span>
             <Link to='/register'>
-              Create an account <FaExternalLinkAlt aria-hidden='true' />
+              Create an account <FaArrowRight />
             </Link>
-          </div>
+          </footer>
         </section>
 
-        <footer className={styles.loginFooter}>
-          <div className={styles.membershipRow}>
-            <FaStar aria-hidden='true' />
-            MEMBER OF THE GLOBAL DINING ALLIANCE
-            <span className={styles.bullet}>•</span>
-          </div>
+        {/* RIGHT SIDE */}
+        <section className={styles.editorialSection}>
+          <div className={styles.editorialOverlay} />
 
-          <div className={styles.membershipDetails}>
-            <span>
-              <FaChessRook aria-hidden='true' /> &nbsp;2,400+ MICHELIN &
-              CURATED TABLES
-            </span>
-            <span className={styles.bullet}>•</span>
-            <span>
-              <FaLeaf aria-hidden='true' /> &nbsp;DIRECT MAÎTRE D' SYNC
-            </span>
-          </div>
-        </footer>
+          <div className={styles.testimonialCard}>
+            <div className={styles.stars}>★★★★★</div>
 
-        <p className={styles.testimonial}>
-          “An exquisite passport for those who treat dining as an art form.”
-          <span> — The Epikur Hospitality Review</span>
-        </p>
+            <blockquote>
+              “An exquisite passport for those who treat dining as an art form.”
+            </blockquote>
+
+            <div className={styles.testimonialDivider} />
+
+            <div className={styles.testimonialAuthor}>
+              <div>
+                <h4>The Epikur Hospitality Review</h4>
+                <p>Member of the Global Dining Alliance</p>
+              </div>
+
+              <div className={styles.verifiedIcon}>
+                <FaCheckCircle />
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
     </div>
   );
