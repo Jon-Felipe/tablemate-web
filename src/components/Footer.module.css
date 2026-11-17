@@ -3,9 +3,10 @@
 ========================================= */
 
 .siteFooter {
-  background: #f5f2f1;
+  background: #fdfaf8;
   padding: 32px 5% 24px;
-  color: #173b40;
+  color: #42332d;
+  border-top: 1px solid #f0ece9;
 }
 
 .footerMain {
@@ -28,11 +29,11 @@
   align-items: center;
   gap: 9px;
   text-decoration: none;
-  color: #004d49;
+  color: #211d1b;
   margin-bottom: 10px;
   font-family: Georgia, 'Times New Roman', serif;
   font-weight: 700;
-  font-size: 15px;
+  font-size: 18px;
 }
 
 .footerLogo img {
@@ -45,13 +46,13 @@
   max-width: 230px;
   font-size: 11.5px;
   line-height: 1.65;
-  color: #344452;
+  color: #65544d;
   margin: 0;
 }
 
 .footerColumn h3 {
   font-family: Georgia, 'Times New Roman', serif;
-  color: #004d49;
+  color: #211d1b;
   font-size: 14px;
   font-weight: 700;
   margin: 2px 0 12px;
@@ -59,20 +60,20 @@
 
 .footerColumn a {
   font-size: 11.5px;
-  color: #344452;
+  color: #65544d;
   text-decoration: none;
   margin-bottom: 7px;
   transition: color 0.2s ease;
 }
 
 .footerColumn a:hover {
-  color: #008477;
+  color: #a3482b;
 }
 
 .footerBottom {
   margin: 0 auto;
   padding-top: 18px;
-  border-top: 1px solid #e6e1df;
+  border-top: 1px solid #eee5df;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -81,7 +82,7 @@
 
 .footerBottom > p {
   font-size: 11.5px;
-  color: #344452;
+  color: #65544d;
   margin: 0;
 }
 
@@ -94,7 +95,7 @@
 .footerSocials a {
   display: inline-flex;
   align-items: center;
-  color: #344452;
+  color: #65544d;
   font-size: 17px;
   font-weight: 600;
   text-decoration: none;
@@ -102,7 +103,7 @@
 }
 
 .footerSocials a:hover {
-  color: #008477;
+  color: #a3482b;
 }
 
 /* =========================================

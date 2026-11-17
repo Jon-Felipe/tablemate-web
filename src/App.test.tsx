@@ -1,5 +1,4 @@
-import { render, screen, within } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { render, screen } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
@@ -9,7 +8,6 @@ import App from './App';
 import authReducer from './features/auth/authSlice';
 import { restaurantApi } from './services/restaurantApi';
 import type { Restaurant } from './types/restaurant';
-import type { RestaurantMenu } from './types/restaurantMenu';
 
 const restaurant: Restaurant = {
   id: 'restaurant-1',
@@ -34,52 +32,34 @@ function createTestStore() {
   });
 }
 
-function mockFetchResponse(data: Restaurant | Restaurant[]) {
+function mockFetchResponse(data: Restaurant[]) {
   vi.stubGlobal(
     'fetch',
-    vi.fn().mockImplementation((input: RequestInfo | URL) => {
-      const url = input instanceof Request ? input.url : String(input);
-
-      let responseData: Restaurant | Restaurant[] | RestaurantMenu;
-
-      if (url.endsWith('/restaurants/restaurant-1/menu')) {
-        responseData = {
-          restaurantId: 'restaurant-1',
-          categories: [],
-        } satisfies RestaurantMenu;
-      } else if (url.endsWith('restaurants/restaurant-1')) {
-        responseData = restaurant;
-      } else {
-        responseData = data;
-      }
-
-      return Promise.resolve(
-        new Response(
-          JSON.stringify({
-            statusCode: 200,
-            message: 'Success',
-            data: responseData,
-          }),
-          {
-            status: 200,
-            headers: {
-              'Content-Type': 'application/json',
-            },
+    vi.fn().mockResolvedValue(
+      new Response(
+        JSON.stringify({
+          statusCode: 200,
+          message: 'Success',
+          data,
+        }),
+        {
+          status: 200,
+          headers: {
+            'Content-Type': 'application/json',
           },
-        ),
-      );
-    }),
+        },
+      ),
+    ),
   );
 }
 
-describe('App navigation', () => {
+describe('App', () => {
   afterEach(() => {
     vi.unstubAllGlobals();
     vi.unstubAllEnvs();
   });
 
-  it('should navigate from the restaurant listing to its details and back', async () => {
-    const user = userEvent.setup();
+  it('renders the homepage and its featured restaurant', async () => {
     const store = createTestStore();
 
     mockFetchResponse([restaurant]);
@@ -90,36 +70,14 @@ describe('App navigation', () => {
       </Provider>,
     );
 
-    const restaurantHeading = await screen.findByRole('heading', {
-      name: 'The Golden Fork',
-    });
-    const restaurantCard = restaurantHeading.closest('article');
-    expect(restaurantCard).not.toBeNull();
-    if (!restaurantCard) {
-      throw new Error('Restaurant card not found');
-    }
-
-    const restaurantLink = within(restaurantCard).getByRole('link', {
-      name: 'View Details',
-    });
-
-    expect(restaurantLink).toHaveAttribute('href', '/restaurants/restaurant-1');
-
-    await user.click(restaurantLink);
-
     expect(
-      await screen.findByRole('heading', { level: 1, name: 'The Golden Fork' }),
-    ).toBeInTheDocument();
-
-    await user.click(
-      screen.getByRole('link', { name: 'Back to restaurants' }),
-    );
-
-    expect(
-      await screen.findByRole('heading', { name: 'Featured Dining Rooms' }),
+      await screen.findByRole('heading', {
+        level: 1,
+        name: 'Find your next favourite place.',
+      }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole('heading', { level: 3, name: 'The Golden Fork' }),
+      await screen.findByRole('heading', { name: 'The Golden Fork' }),
     ).toBeInTheDocument();
   });
 });

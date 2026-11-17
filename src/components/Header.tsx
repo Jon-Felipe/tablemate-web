@@ -1,41 +1,72 @@
-import { Link } from 'react-router';
+import { Link, NavLink } from 'react-router';
+import { LuConciergeBell, LuCircleUserRound } from 'react-icons/lu';
 
 // extras
 import { useAuth } from '../features/auth/useAuth';
 import styles from './Header.module.css';
 
+const navLinks = [
+  { to: '/discover', label: 'Discover' },
+  { to: '/restaurants', label: 'Restaurants' },
+  { to: '/saved', label: 'Saved' },
+  { to: '/about', label: 'About' },
+];
+
 function Header() {
   const { isAuthenticated } = useAuth();
 
   return (
-    <header className={styles.siteHeader}>
-      <Link to='/' className={styles.brand}>
-        TableMate
-      </Link>
+    <header className={styles.header}>
+      <div className={styles.navbar}>
+        {/* Logo */}
+        <Link to='/' className={styles.logo}>
+          <span className={styles.logoIcon}>
+            <LuConciergeBell size={18} strokeWidth={1.5} />
+          </span>
 
-      <nav className={styles.mainNav} aria-label='Main navigation'>
-        <Link to='/discover'>Discover</Link>
-        <Link to='/restaurants'>Restaurants</Link>
-        <Link to='/occasions'>Occasions</Link>
-        <Link to='/about'>About</Link>
-      </nav>
+          <span className={styles.logoText}>TableMate</span>
+        </Link>
 
-      <div className={styles.headerActions}>
-        {isAuthenticated ? (
-          <Link to='/profile' className={styles.loginButton}>
-            Profile
-          </Link>
-        ) : (
-          <>
-            <Link to='/login' className={styles.loginButton}>
-              Log in
-            </Link>
+        {/* Navigation */}
+        <nav className={styles.navLinks}>
+          {navLinks.map((link) => (
+            <NavLink
+              key={link.label}
+              to={link.to}
+              className={({ isActive }) =>
+                `${styles.navLink} ${isActive ? styles.active : ''}`
+              }
+            >
+              {link.label}
+            </NavLink>
+          ))}
+        </nav>
 
-            <Link to='/register' className={styles.signupButton}>
-              Sign Up
-            </Link>
-          </>
-        )}
+        {/* Right Actions */}
+        <div className={styles.actions}>
+          {/* Profile */}
+          {isAuthenticated ? (
+            <div className={styles.profile}>
+              <button
+                type='button'
+                className={styles.profileButton}
+                aria-label='Open profile menu'
+              >
+                <LuCircleUserRound size={24} strokeWidth={1.5} />
+              </button>
+            </div>
+          ) : (
+            <>
+              <Link to='/login' className={styles.loginButton}>
+                Log in
+              </Link>
+
+              <Link to='/signup' className={styles.signupButton}>
+                Sign up
+              </Link>
+            </>
+          )}
+        </div>
       </div>
     </header>
   );
