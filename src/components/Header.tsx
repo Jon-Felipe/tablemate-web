@@ -61,8 +61,8 @@ function Header() {
                 Log in
               </Link>
 
-              <Link to='/signup' className={styles.signupButton}>
-                Sign up
+              <Link to='/register' className={styles.registerButton}>
+                Register
               </Link>
             </>
           )}

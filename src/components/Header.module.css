@@ -110,7 +110,7 @@
   white-space: nowrap;
 }
 
-.signupButton {
+.registerButton {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -126,7 +126,7 @@
   transition: background 0.2s ease;
 }
 
-.signupButton:hover {
+.registerButton:hover {
   background: #7e381f;
 }
 
@@ -207,7 +207,7 @@
 }
 
 @media (max-width: 360px) {
-  .signupButton {
+  .registerButton {
     min-width: 75px;
     padding: 0 13px;
   }
