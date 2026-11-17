@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { render, screen, within } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router';
 import { afterEach, describe, expect, it, vi } from 'vitest';
@@ -86,13 +87,17 @@ describe('HomePage', () => {
     ).toBeInTheDocument();
     expect(screen.getByText('Cuisine or Spot')).toBeInTheDocument();
     expect(
-      screen.getByText('Search restaurant, district...'),
-    ).toBeInTheDocument();
+      screen.getByRole('textbox', { name: 'Cuisine or Spot' }),
+    ).toHaveAttribute('placeholder', 'Search restaurant, district...');
     expect(screen.getByText('Location')).toBeInTheDocument();
-    expect(screen.getByText('New York City')).toBeInTheDocument();
-    expect(screen.getByText('Reservation')).toBeInTheDocument();
-    expect(screen.getByText('Tonight, 2 guests')).toBeInTheDocument();
-    expect(screen.getByText('Discover')).toBeInTheDocument();
+    expect(
+      screen.getByRole('combobox', { name: 'Location' }),
+    ).toHaveValue('');
+    expect(
+      screen.getByRole('option', { name: 'Cape Town' }),
+    ).toBeInTheDocument();
+    expect(screen.getByRole('combobox', { name: 'Guests' })).toHaveValue('2');
+    expect(screen.getByRole('button', { name: 'Discover' })).toBeInTheDocument();
     expect(
       screen.getByRole('heading', { name: 'Explore restaurants' }),
     ).toBeInTheDocument();
@@ -104,6 +109,60 @@ describe('HomePage', () => {
     expect(
       screen.getByRole('heading', { name: 'Why Discerning Diners Trust Us' }),
     ).toBeInTheDocument();
+  });
+
+  it('allows typing a restaurant or district into the search field', async () => {
+    mockRestaurantsResponse([]);
+
+    renderHomePage();
+
+    const searchInput = screen.getByRole('textbox', {
+      name: 'Cuisine or Spot',
+    });
+    await userEvent.type(searchInput, 'Italian restaurant');
+
+    expect(searchInput).toHaveValue('Italian restaurant');
+  });
+
+  it('allows selecting a South African city in the location field', async () => {
+    mockRestaurantsResponse([]);
+
+    renderHomePage();
+
+    const locationSelect = screen.getByRole('combobox', { name: 'Location' });
+    await userEvent.selectOptions(locationSelect, 'Johannesburg');
+
+    expect(locationSelect).toHaveValue('Johannesburg');
+  });
+
+  it('allows selecting between one and ten guests', async () => {
+    mockRestaurantsResponse([]);
+
+    renderHomePage();
+
+    const guestSelect = screen.getByRole('combobox', { name: 'Guests' });
+    expect(within(guestSelect).getAllByRole('option')).toHaveLength(10);
+    await userEvent.selectOptions(guestSelect, '1');
+    expect(guestSelect).toHaveValue('1');
+    expect(
+      within(guestSelect).getByRole('option', { name: '1 guest' }),
+    ).toHaveProperty('selected', true);
+    await userEvent.selectOptions(guestSelect, '10');
+    expect(guestSelect).toHaveValue('10');
+    expect(
+      within(guestSelect).getByRole('option', { name: '10 guests' }),
+    ).toHaveProperty('selected', true);
+  });
+
+  it('allows keyboard focus on the Discover button', async () => {
+    mockRestaurantsResponse([]);
+
+    renderHomePage();
+
+    screen.getByRole('combobox', { name: 'Guests' }).focus();
+    await userEvent.tab();
+
+    expect(screen.getByRole('button', { name: 'Discover' })).toHaveFocus();
   });
 
   it('renders featured restaurant details', async () => {

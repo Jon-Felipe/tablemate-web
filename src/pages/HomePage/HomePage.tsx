@@ -1,8 +1,9 @@
+import { useState } from 'react';
 import { FaAward, FaClock, FaGlobe, FaUtensils } from 'react-icons/fa';
 import {
   LuSearch,
   LuMapPin,
-  LuCalendarDays,
+  LuUsers,
   LuChevronDown,
   LuCompass,
   LuBookmark,
@@ -14,9 +15,26 @@ import {
 import { useGetRestaurantsQuery } from '../../services/restaurantApi';
 import styles from './HomePage.module.css';
 
+const southAfricanCities = [
+  'Johannesburg',
+  'Cape Town',
+  'Durban',
+  'Pretoria',
+  'Gqeberha',
+  'Bloemfontein',
+  'East London',
+  'Polokwane',
+  'Kimberley',
+  'Mbombela',
+];
+const filters = ['All', 'Top Rated', 'New', 'Nearby'];
+
 function HomePage() {
   const { data: restaurants = [] } = useGetRestaurantsQuery();
-  const filters = ['All', 'Top Rated', 'New', 'Nearby'];
+
+  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [location, setLocation] = useState<string>('');
+  const [guests, setGuests] = useState<string>('2');
 
   return (
     <div>
@@ -42,10 +60,15 @@ function HomePage() {
             <LuSearch className={styles.fieldIcon} size={21} />
 
             <div className={styles.fieldContent}>
-              <label>Cuisine or Spot</label>
-              <span className={styles.placeholder}>
-                Search restaurant, district...
-              </span>
+              <label htmlFor='restaurant-search'>Cuisine or Spot</label>
+              <input
+                id='restaurant-search'
+                className={styles.searchInput}
+                type='text'
+                placeholder='Search restaurant, district...'
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
             </div>
           </div>
 
@@ -54,30 +77,59 @@ function HomePage() {
             <LuMapPin className={styles.fieldIcon} size={21} />
 
             <div className={styles.fieldContent}>
-              <label>Location</label>
-              <span className={styles.fieldValue}>New York City</span>
+              <label htmlFor='location-search'>Location</label>
+              <select
+                id='location-search'
+                className={`${styles.searchInput} ${styles.fieldSelect}`}
+                value={location}
+                onChange={(e) => setLocation(e.target.value)}
+                defaultValue=''
+              >
+                <option value='' disabled>
+                  Choose a city...
+                </option>
+                {southAfricanCities.map((city) => (
+                  <option key={city} value={city}>
+                    {city}
+                  </option>
+                ))}
+              </select>
             </div>
 
             <LuChevronDown className={styles.fieldChevron} size={15} />
           </div>
 
-          {/* Reservation */}
+          {/* Guests */}
           <div className={`${styles.searchField} ${styles.reservationField}`}>
-            <LuCalendarDays className={styles.fieldIcon} size={21} />
+            <LuUsers className={styles.fieldIcon} size={21} />
 
             <div className={styles.fieldContent}>
-              <label>Reservation</label>
-              <span className={styles.fieldValue}>Tonight, 2 guests</span>
+              <label htmlFor='guest-count'>Guests</label>
+              <select
+                id='guest-count'
+                className={`${styles.searchInput} ${styles.fieldSelect}`}
+                value={guests}
+                onChange={(e) => setGuests(e.target.value)}
+                defaultValue='2'
+              >
+                {Array.from({ length: 10 }, (_, index) => index + 1).map(
+                  (count) => (
+                    <option key={count} value={count}>
+                      {count} {count === 1 ? 'guest' : 'guests'}
+                    </option>
+                  ),
+                )}
+              </select>
             </div>
 
             <LuChevronDown className={styles.fieldChevron} size={15} />
           </div>
 
           {/* Discover Button */}
-          <div className={styles.discoverButton}>
+          <button type='button' className={styles.discoverButton}>
             <LuCompass size={21} strokeWidth={2} />
             <span>Discover</span>
-          </div>
+          </button>
         </div>
       </section>
 
