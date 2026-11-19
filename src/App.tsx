@@ -6,7 +6,7 @@ import LoginPage from './pages/LoginPage/LoginPage';
 import RegisterPage from './pages/RegisterPage/RegisterPage';
 import HomePage from './pages/HomePage/HomePage';
 import NotFoundPage from './pages/NotFoundPage';
-import RestaurantDetailPage from './pages/RestaurantDetailPage';
+import RestaurantDetailPage from './pages/RestaurantDetailPage/RestaurantDetailPage';
 import ProfilePage from './pages/ProfilePage';
 
 // components

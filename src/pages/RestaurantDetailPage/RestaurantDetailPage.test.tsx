@@ -1,63 +1,160 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { MemoryRouter, Routes, Route } from 'react-router';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
+import { toast } from 'react-toastify';
 
-import type { Restaurant } from '../types/restaurant';
+import type { RestaurantDetails } from '../../types/restaurant';
 import RestaurantDetailPage from './RestaurantDetailPage';
-import { restaurantApi } from '../services/restaurantApi';
-import type { RestaurantMenu } from '../types/restaurantMenu';
+import { restaurantApi } from '../../services/restaurantApi';
+import type { RestaurantMenu } from '../../types/restaurantMenu';
+import authReducer, { setCredentials } from '../../features/auth/authSlice';
 
-const restaurant: Restaurant = {
+const restaurant: RestaurantDetails = {
   id: 'restaurant-1',
+  ownerId: 'owner-1',
   name: 'The Golden Fork',
-  imageUrl:
-    'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80',
+  slug: 'the-golden-fork',
   description: 'Modern European cuisine in a relaxed atmosphere.',
   cuisine: 'European',
+  priceLevel: 3,
   address: '12 Main Street',
   city: 'Johannesburg',
-  rating: 4.7,
+  postalCode: '2001',
+  country: 'South Africa',
+  latitude: -26.2041,
+  longitude: 28.0473,
+  phoneNumber: '+27115550123',
+  email: 'hello@example.com',
+  websiteUrl: 'https://example.com',
+  createdAt: '2026-01-01T00:00:00.000Z',
+  updatedAt: '2026-01-01T00:00:00.000Z',
+  images: [
+    {
+      id: 'main-1',
+      restaurantId: 'restaurant-1',
+      imageUrl: 'https://example.com/main.jpg',
+      altText: 'Main dining room',
+      type: 'MAIN',
+      isPrimary: true,
+      displayOrder: 0,
+    },
+    {
+      id: 'interior-1',
+      restaurantId: 'restaurant-1',
+      imageUrl: 'https://example.com/interior.jpg',
+      altText: 'Restaurant interior',
+      type: 'INTERIOR',
+      isPrimary: false,
+      displayOrder: 1,
+    },
+  ],
+  information: [
+    {
+      id: 'info-1',
+      restaurantId: 'restaurant-1',
+      type: 'DRESS_CODE',
+      title: 'Dress Code',
+      description: 'Smart casual.',
+      icon: 'shirt',
+      displayOrder: 1,
+    },
+  ],
+  features: [
+    {
+      id: 'feature-1',
+      restaurantId: 'restaurant-1',
+      title: 'Outdoor Seating',
+      description: 'Enjoy the garden patio.',
+      icon: 'leaf',
+      displayOrder: 1,
+    },
+  ],
+  awards: [
+    {
+      id: 'restaurant-award-1',
+      restaurantId: 'restaurant-1',
+      awardId: 'award-1',
+      year: 2025,
+      award: {
+        id: 'award-1',
+        name: 'Local Dining Award',
+        icon: 'trophy',
+      },
+    },
+  ],
 };
 
 const menu: RestaurantMenu = {
+  id: 'menu-1',
   restaurantId: 'restaurant-1',
+  name: 'Dinner Menu',
+  type: 'DINNER',
+  isActive: true,
   categories: [
     {
       id: 'starters',
+      menuId: 'menu-1',
       name: 'Starters',
+      displayOrder: 1,
       items: [
         {
           id: 'starter-1',
+          categoryId: 'starters',
           name: 'Roasted Tomato Soup',
           description: 'Tomatoes and fresh herbs.',
           price: 65,
+          currency: 'ZAR',
           imageUrl: 'https://example.com/soup.jpg',
+          isAvailable: true,
+          displayOrder: 1,
         },
       ],
     },
   ],
 };
 
-function createTestStore() {
-  return configureStore({
+function createTestStore(isAuthenticated = false) {
+  const store = configureStore({
     reducer: {
+      auth: authReducer,
       [restaurantApi.reducerPath]: restaurantApi.reducer,
     },
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware().concat(restaurantApi.middleware),
   });
+
+  if (isAuthenticated) {
+    store.dispatch(
+      setCredentials({
+        user: {
+          id: 'user-1',
+          name: 'Test User',
+          email: 'test@example.com',
+          role: 'CUSTOMER',
+        },
+        accessToken: 'token',
+      }),
+    );
+  }
+
+  return store;
 }
 
-function renderRestaurantDetailPage(id = 'restaurant-1') {
-  const store = createTestStore();
+function renderRestaurantDetailPage(
+  id = 'restaurant-1',
+  isAuthenticated = false,
+) {
+  const store = createTestStore(isAuthenticated);
 
   return render(
     <Provider store={store}>
       <MemoryRouter initialEntries={[`/restaurants/${id}`]}>
         <Routes>
           <Route path='/restaurants/:id' element={<RestaurantDetailPage />} />
+          <Route path='/login' element={<h1>Login</h1>} />
         </Routes>
       </MemoryRouter>
     </Provider>,
@@ -66,7 +163,7 @@ function renderRestaurantDetailPage(id = 'restaurant-1') {
 
 function mockFetchResponse(
   options: {
-    restaurantData?: Restaurant;
+    restaurantData?: RestaurantDetails;
     menuData?: RestaurantMenu;
     restaurantStatus?: number;
     menuStatus?: number;
@@ -119,6 +216,7 @@ describe('RestaurantDetailPage', () => {
   afterEach(() => {
     vi.unstubAllGlobals();
     vi.unstubAllEnvs();
+    vi.restoreAllMocks();
   });
 
   it('should show loading state while the restaurant is being fetched', () => {
@@ -141,9 +239,17 @@ describe('RestaurantDetailPage', () => {
     ).toBeInTheDocument();
     expect(screen.getByText('European')).toBeInTheDocument();
     expect(
-      screen.getByText('12 Main Street, Johannesburg'),
+      screen.getByText('12 Main Street, Johannesburg, South Africa'),
     ).toBeInTheDocument();
-    expect(screen.getByText('4.7')).toBeInTheDocument();
+    expect(screen.getByText('Local Dining Award 2025')).toBeInTheDocument();
+    expect(screen.getByRole('img', { name: 'Main dining room' })).toHaveAttribute(
+      'src',
+      'https://example.com/main.jpg',
+    );
+    expect(screen.getByText('Outdoor Seating')).toBeInTheDocument();
+    expect(screen.getByText('Smart casual.')).toBeInTheDocument();
+    expect(screen.getByText('Modern European cuisine in a relaxed atmosphere.'))
+      .toBeInTheDocument();
   });
 
   it('should render the restaurant menu and its items', async () => {
@@ -161,7 +267,7 @@ describe('RestaurantDetailPage', () => {
     ).toBeInTheDocument();
 
     expect(screen.getByText('Tomatoes and fresh herbs.')).toBeInTheDocument();
-    expect(screen.getByText(/R\s?65,00/)).toBeInTheDocument();
+    expect(screen.getByText(/R\s?65[.,]00/)).toBeInTheDocument();
   });
 
   it('should show the menu loading state', () => {
@@ -233,5 +339,60 @@ describe('RestaurantDetailPage', () => {
     expect(
       screen.getByRole('link', { name: /Back to restaurants/ }),
     ).toHaveAttribute('href', '/');
+  });
+
+  it('redirects to login when an unauthenticated user submits a reservation', async () => {
+    mockFetchResponse();
+    const toastError = vi.spyOn(toast, 'error').mockImplementation(() => 1);
+
+    renderRestaurantDetailPage();
+    await screen.findByRole('heading', { name: 'The Golden Fork' });
+    await userEvent.click(
+      screen.getByRole('button', { name: /Confirm Booking/ }),
+    );
+
+    expect(toastError).toHaveBeenCalledWith(
+      'Please log in to reserve a table.',
+    );
+    expect(
+      await screen.findByRole('heading', { name: 'Login' }),
+    ).toBeInTheDocument();
+  });
+
+  it('requires all reservation fields for an authenticated user', async () => {
+    mockFetchResponse();
+    const toastError = vi.spyOn(toast, 'error').mockImplementation(() => 1);
+
+    renderRestaurantDetailPage('restaurant-1', true);
+    await screen.findByRole('heading', { name: 'The Golden Fork' });
+    fireEvent.change(screen.getByLabelText('Reservation date'), {
+      target: { value: '' },
+    });
+    await userEvent.click(
+      screen.getByRole('button', { name: /Confirm Booking/ }),
+    );
+
+    expect(toastError).toHaveBeenCalledWith(
+      'Please fill in all reservation fields.',
+    );
+  });
+
+  it('rejects reservation dates in the past', async () => {
+    mockFetchResponse();
+    const toastError = vi.spyOn(toast, 'error').mockImplementation(() => 1);
+
+    renderRestaurantDetailPage('restaurant-1', true);
+    await screen.findByRole('heading', { name: 'The Golden Fork' });
+    fireEvent.change(screen.getByLabelText('Reservation date'), {
+      target: { value: '2020-01-01' },
+    });
+    await userEvent.click(screen.getByRole('button', { name: '7:15 PM' }));
+    await userEvent.click(
+      screen.getByRole('button', { name: /Confirm Booking/ }),
+    );
+
+    expect(toastError).toHaveBeenCalledWith(
+      'Please select today or a future date.',
+    );
   });
 });
