@@ -180,7 +180,7 @@ function HomePage() {
               {/* Restaurant Image */}
               <div className={styles.imageContainer}>
                 <img
-                  src={restaurant.imageUrl}
+                  src={restaurant.coverImage.imageUrl}
                   alt={restaurant.name}
                   className={styles.restaurantImage}
                 />
@@ -196,10 +196,10 @@ function HomePage() {
                   )}
                 </div> */}
 
-                {/* Price and Location */}
-                {/* <span className={styles.locationBadge}>
-                  {restaurant.price} · {restaurant.location}
-                </span> */}
+                <span className={styles.locationBadge}>
+                  <span>{'$'.repeat(restaurant.priceLevel)}</span> ·{' '}
+                  {restaurant.city}
+                </span>
 
                 {/* Bookmark */}
                 <div className={styles.bookmark}>
@@ -215,10 +215,8 @@ function HomePage() {
 
                   <div className={styles.rating}>
                     <LuStar size={13} fill='currentColor' strokeWidth={0} />
-                    <span>{restaurant.rating}</span>
-                    {/* <span className={styles.reviews}>
-                      ({restaurant.reviews})
-                    </span> */}
+                    <span>4.8</span>
+                    <span className={styles.reviews}>(420)</span>
                   </div>
                 </div>
 
@@ -227,15 +225,6 @@ function HomePage() {
 
                 {/* Description */}
                 <p className={styles.description}>{restaurant.description}</p>
-
-                {/* Tags */}
-                {/* <div className={styles.tags}>
-                  {restaurant.tags.map((tag) => (
-                    <span className={styles.tag} key={tag}>
-                      {tag}
-                    </span>
-                  ))}
-                </div> */}
 
                 {/* Footer */}
                 <div className={styles.cardFooter}>

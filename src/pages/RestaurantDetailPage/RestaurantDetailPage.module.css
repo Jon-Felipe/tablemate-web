@@ -1,0 +1,786 @@
+/* ========================================
+   1. PAGE
+======================================== */
+
+.page {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 16px 20px 45px;
+  background: #fcfaf9;
+  color: #211d1a;
+  font-family: Arial, sans-serif;
+}
+
+/* ========================================
+   2. GALLERY
+======================================== */
+
+.gallery {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 11px;
+  height: 500px;
+}
+
+.mainImage,
+.sideImage {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.mainImage img,
+.sideImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.sideGallery {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  gap: 11px;
+  min-height: 0;
+}
+
+.imageLabel {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  background: rgba(35, 32, 29, 0.78);
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.photoCount {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px;
+  border-radius: 8px;
+  background: rgba(35, 32, 29, 0.85);
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* ========================================
+   3. RESTAURANT BADGES
+======================================== */
+
+.badges {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 9px;
+  min-height: 34px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.editor {
+  background: #e3efdc;
+  color: #365c35;
+}
+
+.michelin {
+  border: 1px solid #ead5d0;
+  color: #a33b28;
+}
+
+.sustainable {
+  border: 1px solid #e1d9ce;
+  color: #4e7155;
+}
+
+.updated {
+  margin-left: auto;
+  font-size: 13px;
+  color: #9a786a;
+}
+
+/* ========================================
+   4. RESTAURANT HEADER
+======================================== */
+
+.restaurantHeader {
+  padding: 8px 0 17px;
+}
+
+.restaurantHeader h1 {
+  margin: 0 0 9px;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(34px, 4vw, 46px);
+  font-weight: 500;
+  letter-spacing: -1.8px;
+}
+
+.restaurantInfo {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 11px;
+  font-size: 14px;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #df8b13;
+}
+
+.rating strong {
+  color: #171717;
+}
+
+.rating a,
+.reviews {
+  color: #987c6d;
+}
+
+.reviews {
+  font-weight: 400;
+}
+
+.dot {
+  color: #d5b8a9;
+}
+
+.price {
+  letter-spacing: 2px;
+}
+
+.address,
+.hours {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.address svg {
+  color: #987b6c;
+}
+
+.hours {
+  color: #514d47;
+}
+
+.statusDot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: #62785b;
+}
+
+.divider {
+  height: 1px;
+  background: #eee5e0;
+  margin-bottom: 36px;
+}
+
+/* ========================================
+   5. MAIN CONTENT LAYOUT
+======================================== */
+
+.contentGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(310px, 0.95fr);
+  gap: 37px;
+  align-items: start;
+}
+
+.leftColumn {
+  min-width: 0;
+}
+
+.rightColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  min-width: 0;
+}
+
+/* ========================================
+   6. RESTAURANT STORY
+======================================== */
+
+.story h2 {
+  margin: 0 0 12px;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -0.6px;
+}
+
+.story p {
+  font-size: 15px;
+  line-height: 1.72;
+  color: #493e39;
+  margin: 0 0 14px;
+}
+
+.story .intro::first-letter {
+  float: left;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 43px;
+  line-height: 0.8;
+  padding-right: 10px;
+  color: #9c4b2d;
+}
+
+/* ========================================
+   7. FEATURE CARDS
+======================================== */
+
+.featureGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  border-top: 1px solid #eee5e0;
+  padding-top: 22px;
+  margin-top: 22px;
+}
+
+.featureCard {
+  background: #f6f2ef;
+  border: 1px solid #eadfd9;
+  border-radius: 12px;
+  padding: 15px;
+  min-height: 112px;
+}
+
+.featureIcon {
+  color: #9b4c2d;
+  font-size: 20px;
+  margin-bottom: 9px;
+}
+
+.featureCard h3 {
+  font-size: 13px;
+  margin: 0 0 5px;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.featureCard p {
+  font-size: 13px;
+  line-height: 1.5;
+  color: #65534c;
+  margin: 0;
+}
+
+/* ========================================
+   8. SEASONAL MENU
+======================================== */
+
+.menuSection {
+  margin-top: 60px;
+  width: 100%;
+}
+
+.menuHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.menuHeader h2 {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 23px;
+  margin: 0 0 4px;
+}
+
+.menuHeader p {
+  font-size: 13px;
+  color: #806b61;
+  margin: 0;
+}
+
+.menuDivider {
+  height: 1px;
+  background: #eee5e0;
+  margin: 15px 0 32px;
+}
+
+.menuCategory {
+  margin-bottom: 37px;
+}
+
+.categoryHeading {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 26px;
+}
+
+.categoryHeading h3 {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 16px;
+  font-weight: 500;
+  white-space: nowrap;
+  margin: 0;
+}
+
+.categoryHeading span {
+  height: 1px;
+  background: #eee5e0;
+  flex: 1;
+}
+
+.menuItems {
+  display: flex;
+  flex-direction: column;
+  gap: 23px;
+}
+
+.menuItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 15px;
+}
+
+.menuItemContent {
+  min-width: 0;
+}
+
+.menuItemTitle {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-bottom: 5px;
+}
+
+.menuItemTitle h4 {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.menuItemContent p {
+  color: #65534c;
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.menuPrice {
+  font-size: 14px;
+  white-space: nowrap;
+  padding-top: 1px;
+}
+
+.menuTag {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.vegetarian {
+  background: #e1edda;
+  color: #53704c;
+}
+
+.signature {
+  background: #eee9e7;
+  color: #59483f;
+}
+
+/* ========================================
+   9. RESERVATION CARD
+======================================== */
+
+.bookingCard {
+  background: #fff;
+  border: 1px solid #e9d9d1;
+  border-radius: 17px;
+  padding: 23px;
+  box-shadow: 0 2px 5px rgba(60, 35, 20, 0.025);
+}
+
+.bookingHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.bookingHeader h2 {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 19px;
+  margin: 0;
+  font-weight: 600;
+}
+
+.confirmation {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 13px;
+  color: #403b37;
+}
+
+.bookingDivider {
+  height: 1px;
+  background: #eee5e0;
+  margin: 16px 0 20px;
+}
+
+.formGroup {
+  margin-bottom: 16px;
+}
+
+.formGroup label {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  margin-bottom: 8px;
+}
+
+.staticSelect,
+.staticInput {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 40px;
+  background: #f8f6f5;
+  border: 1px solid #e3cec4;
+  border-radius: 8px;
+  padding: 0 12px;
+  font-size: 13px;
+  color: #302723;
+}
+
+.staticSelect svg,
+.staticInput svg {
+  color: #777;
+  font-size: 14px;
+}
+
+.staticSelect select {
+  width: 100%;
+  height: 100%;
+  appearance: none;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+}
+
+.staticInput input {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+}
+
+/* RESERVATION TIMES */
+
+.timeHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.timeHeader span {
+  color: #987c70;
+  font-size: 12px;
+}
+
+.timeGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 7px;
+}
+
+.timeButton,
+.selectedTime {
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #e5cfc4;
+  border-radius: 8px;
+  background: white;
+  color: #302723;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.selectedTime {
+  background: #fff5f0;
+  border-color: #a94e2d;
+  color: #9b4627;
+  font-weight: 600;
+}
+
+/* RESERVATION DEPOSIT */
+
+.depositInfo {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  color: #806b61;
+  font-size: 12px;
+  line-height: 1.5;
+  margin: 19px 0 16px;
+}
+
+.depositInfo svg {
+  color: #a45c3e;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+/* CONFIRM BUTTON */
+
+.confirmButton {
+  width: 100%;
+  height: 42px;
+  border-radius: 10px;
+  background: #974b2d;
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  box-shadow: 0 3px 6px rgba(100, 50, 25, 0.16);
+  border: 0;
+  cursor: pointer;
+}
+
+/* ========================================
+   11. PRACTICAL INFORMATION
+======================================== */
+
+.practicalCard {
+  background: #fff;
+  border: 1px solid #e9d9d1;
+  border-radius: 16px;
+  padding: 22px;
+}
+
+.practicalCard h2 {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 17px;
+  margin: 0 0 19px;
+}
+
+.practicalList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.practicalItem {
+  display: grid;
+  grid-template-columns: 17px minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+}
+
+.practicalIcon {
+  color: #95644d;
+  font-size: 15px;
+  padding-top: 1px;
+}
+
+.practicalItem h3 {
+  font-size: 13px;
+  font-weight: 700;
+  margin: 0 0 3px;
+}
+
+.practicalItem p {
+  font-size: 13px;
+  line-height: 1.5;
+  color: #65534c;
+  margin: 0;
+}
+
+.muted {
+  color: #95867f;
+}
+
+/* ========================================
+   12. TABLET RESPONSIVE
+======================================== */
+
+@media (max-width: 900px) {
+  .gallery {
+    height: 380px;
+  }
+
+  .contentGrid {
+    grid-template-columns: minmax(0, 1.5fr) minmax(280px, 1fr);
+    gap: 22px;
+  }
+
+  .featureGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .featureCard {
+    min-height: auto;
+  }
+
+  .menuHeader {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+/* ========================================
+   13. MOBILE RESPONSIVE
+======================================== */
+
+@media (max-width: 650px) {
+  .page {
+    padding: 10px 12px 30px;
+  }
+
+  /* Gallery */
+
+  .gallery {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+  }
+
+  .mainImage {
+    height: 280px;
+  }
+
+  .sideGallery {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 140px;
+  }
+
+  /* Badges */
+
+  .badges {
+    gap: 6px;
+    padding: 8px 0;
+  }
+
+  .badge {
+    font-size: 12px;
+    padding: 4px 8px;
+  }
+
+  .updated {
+    display: none;
+  }
+
+  /* Restaurant header */
+
+  .restaurantHeader h1 {
+    font-size: 34px;
+  }
+
+  .restaurantInfo {
+    gap: 8px;
+    font-size: 14px;
+  }
+
+  .dot {
+    display: none;
+  }
+
+  .address,
+  .hours {
+    width: 100%;
+  }
+
+  .divider {
+    margin-bottom: 25px;
+  }
+
+  /* Content */
+
+  .contentGrid {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+
+  .story h2 {
+    font-size: 25px;
+  }
+
+  .story p {
+    font-size: 13px;
+  }
+
+  /* Feature cards */
+
+  .featureGrid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Seasonal menu */
+
+  .menuSection {
+    margin-top: 40px;
+  }
+
+  .menuHeader h2 {
+    font-size: 22px;
+  }
+
+  .menuItemTitle h4 {
+    font-size: 13px;
+  }
+
+  .menuItemContent p {
+    font-size: 13px;
+  }
+
+  /* Reservation */
+
+  .bookingCard {
+    padding: 19px;
+  }
+
+  /* Practical information */
+
+  .practicalCard {
+    padding: 19px;
+  }
+}
