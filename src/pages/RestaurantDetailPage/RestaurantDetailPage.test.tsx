@@ -146,13 +146,15 @@ function createTestStore(isAuthenticated = false) {
 function renderRestaurantDetailPage(
   id = 'restaurant-1',
   isAuthenticated = false,
+  initialEntries = [`/restaurants/${id}`],
 ) {
   const store = createTestStore(isAuthenticated);
 
   return render(
     <Provider store={store}>
-      <MemoryRouter initialEntries={[`/restaurants/${id}`]}>
+      <MemoryRouter initialEntries={initialEntries} initialIndex={initialEntries.length - 1}>
         <Routes>
+          <Route path='/restaurants' element={<h1>Restaurants</h1>} />
           <Route path='/restaurants/:id' element={<RestaurantDetailPage />} />
           <Route path='/login' element={<h1>Login</h1>} />
         </Routes>
@@ -339,6 +341,21 @@ describe('RestaurantDetailPage', () => {
     expect(
       screen.getByRole('link', { name: /Back to restaurants/ }),
     ).toHaveAttribute('href', '/');
+  });
+
+  it('returns to the previous page from the restaurant details page', async () => {
+    mockFetchResponse();
+
+    renderRestaurantDetailPage('restaurant-1', false, [
+      '/restaurants',
+      '/restaurants/restaurant-1',
+    ]);
+    await screen.findByRole('heading', { name: 'The Golden Fork' });
+    await userEvent.click(screen.getByRole('button', { name: 'Go back' }));
+
+    expect(
+      await screen.findByRole('heading', { name: 'Restaurants' }),
+    ).toBeInTheDocument();
   });
 
   it('redirects to login when an unauthenticated user submits a reservation', async () => {

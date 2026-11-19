@@ -33,6 +33,7 @@ function Header() {
             <NavLink
               key={link.label}
               to={link.to}
+              end
               className={({ isActive }) =>
                 `${styles.navLink} ${isActive ? styles.active : ''}`
               }
