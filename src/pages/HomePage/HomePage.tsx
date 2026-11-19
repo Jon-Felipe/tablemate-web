@@ -196,10 +196,10 @@ function HomePage() {
                   )}
                 </div> */}
 
-                {/* Price and Location */}
-                {/* <span className={styles.locationBadge}>
-                  {restaurant.price} · {restaurant.location}
-                </span> */}
+                <span className={styles.locationBadge}>
+                  <span>{'$'.repeat(restaurant.priceLevel)}</span> ·{' '}
+                  {restaurant.city}
+                </span>
 
                 {/* Bookmark */}
                 <div className={styles.bookmark}>
