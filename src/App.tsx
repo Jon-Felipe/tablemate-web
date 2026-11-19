@@ -6,6 +6,7 @@ import LoginPage from './pages/LoginPage/LoginPage';
 import RegisterPage from './pages/RegisterPage/RegisterPage';
 import HomePage from './pages/HomePage/HomePage';
 import NotFoundPage from './pages/NotFoundPage';
+import RestaurantsPage from './pages/RestaurantsPage/RestaurantsPage';
 import RestaurantDetailPage from './pages/RestaurantDetailPage/RestaurantDetailPage';
 import ProfilePage from './pages/ProfilePage';
 
@@ -21,6 +22,7 @@ function App() {
           <Route path='/login' element={<LoginPage />} />
           <Route path='/register' element={<RegisterPage />} />
           <Route index element={<HomePage />} />
+          <Route path='/restaurants' element={<RestaurantsPage />} />
           <Route path='restaurants/:id' element={<RestaurantDetailPage />} />
 
           <Route element={<RequireAuth />}>

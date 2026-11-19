@@ -4,6 +4,7 @@ import { Link, useNavigate, useParams } from 'react-router';
 import { toast } from 'react-toastify';
 import type { IconType } from 'react-icons';
 import {
+  FiArrowLeft,
   FiCamera,
   FiChevronDown,
   FiGrid,
@@ -164,6 +165,15 @@ function RestaurantDetailPage() {
 
   return (
     <div className={styles.page}>
+      <button
+        className={styles.backButton}
+        type='button'
+        onClick={() => navigate(-1)}
+      >
+        <FiArrowLeft aria-hidden='true' />
+        Go back
+      </button>
+
       <section
         className={styles.gallery}
         style={{ gridTemplateColumns: sideImages.length ? undefined : '1fr' }}
