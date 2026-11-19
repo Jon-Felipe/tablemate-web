@@ -8,18 +8,37 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 
 // extras
 import { restaurantApi } from '../../services/restaurantApi';
-import type { Restaurant } from '../../types/restaurant';
+import type { RestaurantListItem } from '../../types/restaurant';
 import HomePage from './HomePage';
 
-const restaurants: Restaurant[] = Array.from({ length: 9 }, (_, index) => ({
+const restaurants: RestaurantListItem[] = Array.from({ length: 9 }, (_, index) => ({
   id: `restaurant-${index + 1}`,
+  ownerId: 'owner-1',
   name: index === 0 ? 'The Golden Fork' : `Restaurant ${index + 1}`,
-  imageUrl: `https://example.com/restaurant-${index + 1}.jpg`,
+  slug: `restaurant-${index + 1}`,
   description: 'A neighborhood dining room.',
   cuisine: index === 0 ? 'European' : 'Italian',
+  priceLevel: index === 0 ? 3 : 2,
+  coverImage: {
+    id: `cover-${index + 1}`,
+    restaurantId: `restaurant-${index + 1}`,
+    imageUrl: `https://example.com/restaurant-${index + 1}-cover.jpg`,
+    altText: `Restaurant ${index + 1}`,
+    type: 'MAIN',
+    isPrimary: true,
+    displayOrder: 1,
+  },
   address: `${index + 1} Main Street`,
   city: 'Johannesburg',
-  rating: index === 0 ? 4.7 : 4.2,
+  postalCode: '2001',
+  country: 'South Africa',
+  latitude: -26.2041,
+  longitude: 28.0473,
+  phoneNumber: '+27115550123',
+  email: `restaurant-${index + 1}@example.com`,
+  websiteUrl: 'https://example.com',
+  createdAt: '2026-01-01T00:00:00.000Z',
+  updatedAt: '2026-01-01T00:00:00.000Z',
 }));
 
 function renderHomePage() {
@@ -41,7 +60,7 @@ function renderHomePage() {
   );
 }
 
-function mockRestaurantsResponse(data: Restaurant[]) {
+function mockRestaurantsResponse(data: RestaurantListItem[]) {
   vi.stubGlobal(
     'fetch',
     vi.fn().mockResolvedValue(
@@ -190,12 +209,12 @@ describe('HomePage', () => {
     expect(
       within(card).getByText('European'),
     ).toBeInTheDocument();
-    expect(within(card).getByText('4.7')).toBeInTheDocument();
+    expect(within(card).getByText('$$$')).toBeInTheDocument();
     expect(
       within(card).getByRole('img', {
         name: 'The Golden Fork',
       }),
-    ).toHaveAttribute('src', 'https://example.com/restaurant-1.jpg');
+    ).toHaveAttribute('src', 'https://example.com/restaurant-1-cover.jpg');
     expect(
       within(card).getByText('A neighborhood dining room.'),
     ).toBeInTheDocument();

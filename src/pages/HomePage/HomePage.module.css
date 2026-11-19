@@ -435,25 +435,6 @@
   min-height: 34px;
 }
 
-/* Feature Tags */
-
-.tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
-  margin-top: 15px;
-}
-
-.tag {
-  padding: 4px 7px;
-  border-radius: 4px;
-  background: #f3efed;
-  color: #715a4f;
-  font-size: 9px;
-  line-height: 1.1;
-  white-space: nowrap;
-}
-
 /* Footer */
 
 .cardFooter {

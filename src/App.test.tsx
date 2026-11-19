@@ -7,18 +7,36 @@ import { Provider } from 'react-redux';
 import App from './App';
 import authReducer from './features/auth/authSlice';
 import { restaurantApi } from './services/restaurantApi';
-import type { Restaurant } from './types/restaurant';
+import type { RestaurantListItem } from './types/restaurant';
 
-const restaurant: Restaurant = {
+const restaurant: RestaurantListItem = {
   id: 'restaurant-1',
+  ownerId: 'owner-1',
   name: 'The Golden Fork',
-  imageUrl:
-    'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80',
+  slug: 'the-golden-fork',
   description: 'Modern European cuisine in a relaxed atmosphere.',
   cuisine: 'European',
+  priceLevel: 3,
+  coverImage: {
+    id: 'cover-1',
+    restaurantId: 'restaurant-1',
+    imageUrl: 'https://example.com/cover.jpg',
+    altText: 'The Golden Fork',
+    type: 'MAIN',
+    isPrimary: true,
+    displayOrder: 1,
+  },
   address: '12 Main Street',
   city: 'Johannesburg',
-  rating: 4.7,
+  postalCode: '2001',
+  country: 'South Africa',
+  latitude: -26.2041,
+  longitude: 28.0473,
+  phoneNumber: '+27115550123',
+  email: 'hello@example.com',
+  websiteUrl: 'https://example.com',
+  createdAt: '2026-01-01T00:00:00.000Z',
+  updatedAt: '2026-01-01T00:00:00.000Z',
 };
 
 function createTestStore() {
@@ -32,7 +50,7 @@ function createTestStore() {
   });
 }
 
-function mockFetchResponse(data: Restaurant[]) {
+function mockFetchResponse(data: RestaurantListItem[]) {
   vi.stubGlobal(
     'fetch',
     vi.fn().mockResolvedValue(
