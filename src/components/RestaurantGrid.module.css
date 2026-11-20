@@ -155,3 +155,41 @@
     padding: 15px;
   }
 }
+
+.restaurantCardList {
+  flex-direction: row;
+}
+
+.restaurantCardList .imageContainer {
+  width: 220px;
+  height: auto;
+  min-height: 186px;
+  flex-shrink: 0;
+}
+
+.restaurantCardList .restaurantImage {
+  position: absolute;
+  inset: 0;
+}
+
+.restaurantCardList .cardContent {
+  min-width: 0;
+}
+
+@media (max-width: 600px) {
+  .restaurantCardList .imageContainer {
+    width: 120px;
+    min-height: 160px;
+  }
+}
+
+@media (max-width: 420px) {
+  .restaurantCardList {
+    flex-direction: column;
+  }
+
+  .restaurantCardList .imageContainer {
+    width: 100%;
+    height: 210px;
+  }
+}
