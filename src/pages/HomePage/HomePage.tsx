@@ -1,20 +1,12 @@
 import { type SubmitEvent, useState } from 'react';
-import { Link, useNavigate } from 'react-router';
+import { useNavigate } from 'react-router';
 import { FaAward, FaClock, FaGlobe, FaUtensils } from 'react-icons/fa';
 import { toast } from 'react-toastify';
-import {
-  LuSearch,
-  LuMapPin,
-  LuUsers,
-  LuChevronDown,
-  LuCompass,
-  LuBookmark,
-  LuStar,
-  LuArrowRight,
-} from 'react-icons/lu';
+import { LuSearch, LuMapPin, LuUsers, LuChevronDown, LuCompass } from 'react-icons/lu';
 
 // extras
 import { useGetRestaurantsQuery } from '../../services/restaurantApi';
+import FeaturedRestaurants from '../../components/FeaturedRestaurants';
 import styles from './HomePage.module.css';
 
 const southAfricanCities = [
@@ -155,7 +147,6 @@ function HomePage() {
       </section>
 
       <section className={styles.featuredSection}>
-        {/* Section Header */}
         <div className={styles.sectionHeader}>
           <h2 className={styles.sectionTitle}>Explore restaurants</h2>
 
@@ -173,73 +164,7 @@ function HomePage() {
           </div>
         </div>
 
-        {/* Restaurant Grid */}
-        <div className={styles.restaurantGrid}>
-          {restaurants.slice(0, 8).map((restaurant) => (
-            <article className={styles.restaurantCard} key={restaurant.id}>
-              {/* Restaurant Image */}
-              <div className={styles.imageContainer}>
-                <img
-                  src={restaurant.coverImage.imageUrl}
-                  alt={restaurant.name}
-                  className={styles.restaurantImage}
-                />
-
-                {/* Badges */}
-                {/* <div className={styles.imageBadges}>
-                  <span className={styles.badge}>{restaurant.badge}</span>
-
-                  {restaurant.badgeSecondary && (
-                    <span className={styles.criticBadge}>
-                      {restaurant.badgeSecondary}
-                    </span>
-                  )}
-                </div> */}
-
-                <span className={styles.locationBadge}>
-                  <span>{'$'.repeat(restaurant.priceLevel)}</span> ·{' '}
-                  {restaurant.city}
-                </span>
-
-                {/* Bookmark */}
-                <div className={styles.bookmark}>
-                  <LuBookmark size={17} />
-                </div>
-              </div>
-
-              {/* Restaurant Information */}
-              <div className={styles.cardContent}>
-                {/* Name and Rating */}
-                <div className={styles.cardHeader}>
-                  <h3 className={styles.restaurantName}>{restaurant.name}</h3>
-
-                  <div className={styles.rating}>
-                    <LuStar size={13} fill='currentColor' strokeWidth={0} />
-                    <span>4.8</span>
-                    <span className={styles.reviews}>(420)</span>
-                  </div>
-                </div>
-
-                {/* Cuisine */}
-                <p className={styles.cuisine}>{restaurant.cuisine}</p>
-
-                {/* Description */}
-                <p className={styles.description}>{restaurant.description}</p>
-
-                {/* Footer */}
-                <div className={styles.cardFooter}>
-                  <Link
-                    to={`/restaurants/${restaurant.id}`}
-                    className={styles.viewLink}
-                  >
-                    View restaurant
-                    <LuArrowRight size={14} />
-                  </Link>
-                </div>
-              </div>
-            </article>
-          ))}
-        </div>
+        <FeaturedRestaurants restaurants={restaurants.slice(0, 8)} />
       </section>
 
       {/* Why Diners Trust Us */}
