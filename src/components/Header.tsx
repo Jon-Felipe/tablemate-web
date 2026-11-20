@@ -6,7 +6,7 @@ import { useAuth } from '../features/auth/useAuth';
 import styles from './Header.module.css';
 
 const navLinks = [
-  { to: '/discover', label: 'Discover' },
+  { to: '/', label: 'Explore' },
   { to: '/restaurants', label: 'Restaurants' },
   { to: '/saved', label: 'Saved' },
   { to: '/about', label: 'About' },
