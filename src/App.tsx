@@ -9,6 +9,7 @@ import NotFoundPage from './pages/NotFoundPage';
 import RestaurantsPage from './pages/RestaurantsPage/RestaurantsPage';
 import RestaurantDetailPage from './pages/RestaurantDetailPage/RestaurantDetailPage';
 import ProfilePage from './pages/ProfilePage';
+import AboutPage from './pages/AboutPage/AboutPage';
 
 // components
 import SiteLayout from './components/SiteLayout';
@@ -24,6 +25,7 @@ function App() {
           <Route index element={<HomePage />} />
           <Route path='/restaurants' element={<RestaurantsPage />} />
           <Route path='restaurants/:id' element={<RestaurantDetailPage />} />
+          <Route path='/about' element={<AboutPage />} />
 
           <Route element={<RequireAuth />}>
             <Route path='/profile' element={<ProfilePage />} />
