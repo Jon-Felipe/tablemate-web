@@ -6,7 +6,7 @@ import { LuSearch, LuMapPin, LuUsers, LuChevronDown, LuCompass } from 'react-ico
 
 // extras
 import { useGetRestaurantsQuery } from '../../services/restaurantApi';
-import FeaturedRestaurants from '../../components/FeaturedRestaurants';
+import RestaurantGrid from '../../components/RestaurantGrid';
 import styles from './HomePage.module.css';
 
 const southAfricanCities = [
@@ -164,7 +164,7 @@ function HomePage() {
           </div>
         </div>
 
-        <FeaturedRestaurants restaurants={restaurants.slice(0, 8)} />
+        <RestaurantGrid restaurants={restaurants.slice(0, 8)} />
       </section>
 
       {/* Why Diners Trust Us */}

@@ -2,13 +2,13 @@ import { Link } from 'react-router';
 import { LuArrowRight, LuBookmark, LuStar } from 'react-icons/lu';
 
 import type { RestaurantListItem } from '../types/restaurant';
-import styles from './FeaturedRestaurants.module.css';
+import styles from './RestaurantGrid.module.css';
 
-interface FeaturedRestaurantsProps {
+interface RestaurantGridProps {
   restaurants: RestaurantListItem[];
 }
 
-function FeaturedRestaurants({ restaurants }: FeaturedRestaurantsProps) {
+function RestaurantGrid({ restaurants }: RestaurantGridProps) {
   return (
     <div className={styles.restaurantGrid}>
       {restaurants.map((restaurant) => (
@@ -65,4 +65,4 @@ function FeaturedRestaurants({ restaurants }: FeaturedRestaurantsProps) {
   );
 }
 
-export default FeaturedRestaurants;
+export default RestaurantGrid;
