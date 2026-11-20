@@ -1,3 +1,4 @@
+import { useMemo, useState } from 'react';
 import {
   LuSlidersHorizontal,
   LuSearch,
@@ -5,10 +6,10 @@ import {
   LuGrid2X2,
   LuList,
 } from 'react-icons/lu';
-import { useMemo } from 'react';
 
 // components
 import RestaurantGrid from '../../components/RestaurantGrid';
+import RestaurantList from '../../components/RestaurantList';
 
 // extras
 import styles from './RestaurantsPage.module.css';
@@ -25,6 +26,7 @@ function getFilterOptions<T extends string | number>(
 
 function RestaurantsPage() {
   const { data: restaurants = [] } = useGetRestaurantsQuery();
+  const [layout, setLayout] = useState<'grid' | 'list'>('grid');
 
   const cities = useMemo(
     () => getFilterOptions(restaurants, ({ city }) => city),
@@ -146,14 +148,22 @@ function RestaurantsPage() {
 
             <div className={styles.layoutOptions}>
               <button
-                className={styles.activeLayout}
+                className={layout === 'grid' ? styles.activeLayout : undefined}
                 type='button'
                 aria-label='Grid layout'
+                aria-pressed={layout === 'grid'}
+                onClick={() => setLayout('grid')}
               >
                 <LuGrid2X2 size={16} />
               </button>
 
-              <button type='button' aria-label='List layout'>
+              <button
+                className={layout === 'list' ? styles.activeLayout : undefined}
+                type='button'
+                aria-label='List layout'
+                aria-pressed={layout === 'list'}
+                onClick={() => setLayout('list')}
+              >
                 <LuList size={16} />
               </button>
             </div>
@@ -161,7 +171,11 @@ function RestaurantsPage() {
         </header>
 
         <div className={styles.results}>
-          <RestaurantGrid restaurants={restaurants.slice(0, 8)} />
+          {layout === 'grid' ? (
+            <RestaurantGrid restaurants={restaurants.slice(0, 8)} />
+          ) : (
+            <RestaurantList restaurants={restaurants.slice(0, 8)} />
+          )}
         </div>
 
         <nav className={styles.pagination} aria-label='Restaurant pages'>
