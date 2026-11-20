@@ -3,6 +3,7 @@ import { LuArrowRight, LuBookmark, LuStar } from 'react-icons/lu';
 
 import type { RestaurantListItem } from '../types/restaurant';
 import styles from './RestaurantGrid.module.css';
+import PlaceHolderImage from '../assets/hero.png';
 
 interface RestaurantGridProps {
   restaurants: RestaurantListItem[];
@@ -15,7 +16,7 @@ function RestaurantGrid({ restaurants }: RestaurantGridProps) {
         <article className={styles.restaurantCard} key={restaurant.id}>
           <div className={styles.imageContainer}>
             <img
-              src={restaurant.coverImage.imageUrl}
+              src={restaurant.coverImage?.imageUrl || PlaceHolderImage}
               alt={restaurant.name}
               className={styles.restaurantImage}
             />

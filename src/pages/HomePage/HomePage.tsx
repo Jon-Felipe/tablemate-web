@@ -2,11 +2,19 @@ import { type SubmitEvent, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { FaAward, FaClock, FaGlobe, FaUtensils } from 'react-icons/fa';
 import { toast } from 'react-toastify';
-import { LuSearch, LuMapPin, LuUsers, LuChevronDown, LuCompass } from 'react-icons/lu';
+import {
+  LuSearch,
+  LuMapPin,
+  LuUsers,
+  LuChevronDown,
+  LuCompass,
+} from 'react-icons/lu';
+
+// components
+import RestaurantGrid from '../../components/RestaurantGrid';
 
 // extras
 import { useGetRestaurantsQuery } from '../../services/restaurantApi';
-import RestaurantGrid from '../../components/RestaurantGrid';
 import styles from './HomePage.module.css';
 
 const southAfricanCities = [
